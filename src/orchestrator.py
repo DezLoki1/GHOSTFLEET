@@ -3,37 +3,9 @@
 Loop per window: for each side GET /state -> policy -> POST /orders -> POST /time?cmd=step -> wait until paused.
 Everything is appended to runs/run_<timestamp>.jsonl. Stdlib only. Run: python -I orchestrator.py --windows 6
 """
-import argparse, json, math, os, sys, time, urllib.error, urllib.request
+import argparse, json, os, sys, time
 
-BASE = "http://127.0.0.1:8765"
-CONTACT_KEYS = {"track_id", "class", "side", "identified", "live", "age_s", "lat", "lon", "sigma_major", "sigma_minor"}
-UNIT_KEYS = {"unit_id", "name", "type", "lat", "lon", "heading", "speed_kn", "controllable", "waypoint"}
-STATE_KEYS = {"side", "side_name", "game_time_s", "paused", "stepping", "own_units", "contacts"}
-
-
-def call(method, path, body=None, timeout=15):
-    data = None if body is None else json.dumps(body).encode()
-    req = urllib.request.Request(BASE + path, data=data, method=method, headers={"Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status, json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        return e.code, json.loads(e.read().decode() or "{}")
-
-
-def nm(lat1, lon1, lat2, lon2):
-    dlat = (lat2 - lat1) * 60.0
-    dlon = (lon2 - lon1) * 60.0 * math.cos(math.radians((lat1 + lat2) / 2))
-    return math.hypot(dlat, dlon)
-
-
-def check_state(st):
-    """Fail loudly if the side view carries anything beyond the whitelist (oracle-leak guard)."""
-    assert set(st) <= STATE_KEYS, f"unexpected state keys {set(st) - STATE_KEYS}"
-    for c in st["contacts"]:
-        assert set(c) <= CONTACT_KEYS, f"unexpected contact keys {set(c) - CONTACT_KEYS}"
-    for u in st["own_units"]:
-        assert set(u) <= UNIT_KEYS, f"unexpected unit keys {set(u) - UNIT_KEYS}"
+from bridge_client import call, nm, check_state
 
 
 # ---- deterministic scripted policies ----

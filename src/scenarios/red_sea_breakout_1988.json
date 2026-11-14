@@ -1,0 +1,24 @@
+{
+  "name": "Red Sea Breakout 1988 (Intro 01)",
+  "menu_path": "Main menu > Scenarios > Intro Scenarios > Red Sea Breakout > Play > briefing Play",
+  "windows": 12,
+  "step_s": 60,
+  "sides": {
+    "0": {
+      "role": "Blue (USS Yorktown CG-48 + E-2C)",
+      "objective": "Force the Bab al-Mandab Strait with USS Yorktown. USS Yorktown MUST survive. You win by getting USS Yorktown inside the marked circle centred at lat 12.476, lon 43.635 (radius 10 nm), which lies beyond the strait to the south-east, OR by destroying all hostile (Taskforce2) ships and land units. Hostile forces: Osa missile boats, P6 torpedo boats, a Petya and a Krivak frigate, MiG-21s with bombs from the north-east, and coastal SS-N-2 missile sites and gun batteries on the northern shore. Three merchant ships (Neutral) are in the area. PRE-MISSION BRIEFING MAP (approximate, about 5 nm accuracy, forces will have moved): 2 P-6 torpedo boats near 12.9N 43.2E; 2 Osa missile boats near 12.7N 43.2E; Krivak frigate near 12.5N 43.6E, just north of the marked circle; two SS-N-2 batteries on the Yemeni coast near 12.7N 43.5E; 2 MiG-21s approaching from the north-east over Yemen. The briefing map does not show where the Petya is. STANDING INSTRUCTIONS: (1) Actively manage speed and navigation to accomplish the transit. (2) Use available surveillance assets to identify and prioritize threats. (3) Reassess the tactical situation every decision window rather than merely repeating previous orders.",
+      "roe": "You are cleared to destroy all hostile (red) forces. Never fire on Neutral merchant ships. EMCON: no restrictions; keep radars active during the transit."
+    },
+    "1": {
+      "role": "Red / Yemeni forces (Taskforce2)",
+      "objective": "A US cruiser group is expected to try to force the Bab al-Mandab Strait. Stop it: destroy the US warship(s) (USS Yorktown in particular) or keep them from passing. You win if USS Yorktown is destroyed. Your land installations (SS-N-2 missile sites, radar site, batteries, observation post) cannot move; your boats and MiG-21s can. Three merchant ships (Neutral) are in the area. PRE-MISSION INTELLIGENCE: the group is one Aegis cruiser with an E-2C Hawkeye AWACS aircraft, expected to approach from the north-west across the Red Sea and head south-east through the strait; neither its exact position nor its timing is known.",
+      "roe": "Free to engage the US task force. Do not fire on Neutral merchant ships."
+    }
+  },
+  "victory": {
+    "reach_area": {"side": 0, "unit_name_contains": "Yorktown", "lat": 12.476, "lon": 43.635, "radius_nm": 10},
+    "must_survive": {"side": 0, "unit_name_contains": "Yorktown"},
+    "annihilate": {"side": 1, "types": ["Vessel", "LandUnit"]}
+  },
+  "notes": "Area converted from mission ini: PositionNM 28.366,0,-41.614 relative to MapCenter 13.17N 43.15E (x=east, z=north). Verify against the in-game circle."
+}

@@ -25,7 +25,7 @@ namespace GhostFleet
 
         class Job { public Func<string> Fn; public string Result; public int Status = 200; public readonly ManualResetEventSlim Done = new ManualResetEventSlim(); }
 #pragma warning disable 0649 // fields are filled by JsonUtility
-        class OrderDto { public string action; public int unit_id; public double lat; public double lon; public double knots; public int on; }
+        class OrderDto { public string action; public int unit_id; public double lat; public double lon; public double knots; public int on; public string status; public int track_id; public int salvo; public string weapon; }
 #pragma warning restore 0649
 
         HttpListener _http;
@@ -80,6 +80,10 @@ namespace GhostFleet
                 {
                     int side = int.Parse(q["side"] ?? "x");
                     fn = () => BuildState(side);
+                }
+                else if (path == "/truth" && method == "GET")
+                {
+                    fn = BuildTruth;   // OMNISCIENT: scoring/spectator only. Never include in a commander prompt.
                 }
                 else if (path == "/orders" && method == "POST")
                 {
@@ -169,7 +173,12 @@ namespace GhostFleet
                   .Append(",\"type\":").Append(Q(u._type.ToString()))
                   .Append(",\"lat\":").Append(F(u._geoPosition.Latitude)).Append(",\"lon\":").Append(F(u._geoPosition.Longitude))
                   .Append(",\"heading\":").Append(F(u.Heading.Value)).Append(",\"speed_kn\":").Append(F(u._velocityInKnots))
+                  .Append(",\"weapons\":").Append(Q(u._weaponStatus.ToString().ToLowerInvariant()))
+                  .Append(",\"emcon\":").Append(u.Emcon.Value ? "true" : "false")   // true = emitters silenced
+                  .Append(",\"radar_on\":").Append(u.IsAirSearchRadarsOn.Value || u.IsSurfaceSearchRadarsOn.Value ? "true" : "false")
+                  .Append(",\"sonar_on\":").Append(u.IsActiveSonarsOn.Value ? "true" : "false")
                   .Append(",\"controllable\":").Append(u.IsControllable && u.HasControl ? "true" : "false")
+                  .Append(",\"ammo\":").Append(AmmoJson(u))
                   .Append(",\"waypoint\":").Append(wp.HasValue ? "{\"lat\":" + F(wp.Value.Latitude) + ",\"lon\":" + F(wp.Value.Longitude) + "}" : "null")
                   .Append('}');
             }
@@ -201,7 +210,53 @@ namespace GhostFleet
             return sb.ToString();
         }
 
-        static readonly HashSet<string> OrderKeys = new HashSet<string> { "action", "unit_id", "lat", "lon", "knots", "on" };
+        // Own unit's remaining weapons: id (usable as the engage order's "weapon"), count, kind, max range in nm. Own data only.
+        static string AmmoJson(ObjectBase u)
+        {
+            var sb = new StringBuilder("[");
+            bool first = true;
+            foreach (var kv in u.AmmunitionAmountDictionary)
+            {
+                if (kv.Value <= 0) continue;
+                Ammunition a; u.AmmunitionNameToAmmunitionDictionary.TryGetValue(kv.Key, out a);
+                if (a == null || a._ap == null) continue;
+                if (!first) sb.Append(','); first = false;
+                sb.Append("{\"id\":").Append(Q(kv.Key)).Append(",\"count\":").Append(kv.Value)
+                  .Append(",\"kind\":").Append(Q(a._ap._type.ToString())).Append(",\"max_range_nm\":").Append(F(a._ap._maxLaunchRangeInMiles)).Append('}');
+            }
+            return sb.Append(']').ToString();
+        }
+
+        static int AmmoTotal(ObjectBase u) { int n = 0; foreach (var kv in u.AmmunitionAmountDictionary) n += Math.Max(0, kv.Value); return n; }
+
+        string BuildTruth()
+        {
+            if (!Singleton<TaskforceManager>.InstanceExists()) throw new ArgumentException("no mission loaded");
+            // the game's own end-of-mission signal (victory/defeat trigger fired, or the debrief is showing); the runner treats it as authoritative
+            bool ended = Singleton<MissionManager>.InstanceExists() && (Singleton<MissionManager>.Instance.MissionEnded || Singleton<MissionManager>.Instance._endMissionTime > 0.0);
+            var sb = new StringBuilder("{\"game_time_s\":" + F(GameTime.missionElapsedTime) + ",\"mission_ended\":" + (ended ? "true" : "false") + ",\"sides\":[");
+            bool firstSide = true;
+            foreach (var tf in Singleton<TaskforceManager>.Instance._taskForces)
+            {
+                if (tf == null) continue;
+                if (!firstSide) sb.Append(','); firstSide = false;
+                sb.Append("{\"side\":").Append(tf.Index).Append(",\"name\":").Append(Q(tf.DisplayName))
+                  .Append(",\"kill_score\":").Append(F(tf._killScore)).Append(",\"loss_score\":").Append(F(tf._lossScore)).Append(",\"units\":[");
+                bool first = true;
+                foreach (var u in tf._taskforceUnits)
+                {
+                    if (u == null) continue;
+                    if (!first) sb.Append(','); first = false;
+                    sb.Append("{\"unit_id\":").Append(u.UniqueID).Append(",\"name\":").Append(Q(u.getName())).Append(",\"type\":").Append(Q(u._type.ToString()))
+                      .Append(",\"alive\":").Append(u.IsDestroyed ? "false" : "true").Append(",\"ammo_total\":").Append(AmmoTotal(u))
+                      .Append(",\"lat\":").Append(F(u._geoPosition.Latitude)).Append(",\"lon\":").Append(F(u._geoPosition.Longitude)).Append('}');
+                }
+                sb.Append("]}");
+            }
+            return sb.Append("]}").ToString();
+        }
+
+        static readonly HashSet<string> OrderKeys = new HashSet<string> { "action", "unit_id", "lat", "lon", "knots", "on", "status", "track_id", "salvo", "weapon" };
 
         // Strict: body must be {"orders":[{...}]}; unknown keys or wrong types reject the whole batch (nothing applied).
         static List<OrderDto> ParseOrders(string body)
@@ -221,12 +276,16 @@ namespace GhostFleet
                 if (o.action == null) throw new ArgumentException("order needs a string 'action'");
                 if (!d.ContainsKey("unit_id") || !(d["unit_id"] is double)) throw new ArgumentException("order needs a numeric 'unit_id'");
                 o.unit_id = (int)(double)d["unit_id"];
-                foreach (var f in new[] { "lat", "lon", "knots", "on" })
+                foreach (var f in new[] { "lat", "lon", "knots", "on", "track_id", "salvo" })
                     if (d.ContainsKey(f) && !(d[f] is double)) throw new ArgumentException("'" + f + "' must be a number");
+                if (d.ContainsKey("track_id")) o.track_id = (int)(double)d["track_id"];
+                if (d.ContainsKey("salvo")) o.salvo = (int)(double)d["salvo"];
+                if (d.ContainsKey("weapon")) { o.weapon = d["weapon"] as string; if (o.weapon == null) throw new ArgumentException("'weapon' must be a string"); }
                 if (d.ContainsKey("lat")) o.lat = (double)d["lat"];
                 if (d.ContainsKey("lon")) o.lon = (double)d["lon"];
                 if (d.ContainsKey("knots")) o.knots = (double)d["knots"];
                 if (d.ContainsKey("on")) o.on = (int)(double)d["on"];
+                if (d.ContainsKey("status")) { o.status = d["status"] as string; if (o.status == null) throw new ArgumentException("'status' must be a string"); }
                 list.Add(o);
             }
             return list;
@@ -268,11 +327,66 @@ namespace GhostFleet
                     if (o.knots < 0 || o.knots > 60) { msg = "speed out of range 0-60"; return false; }
                     u.SetSpeedCommand(new ConstantSpeed((float)o.knots, u));
                     msg = "speed set"; return true;
-                case "emcon":
+                case "emcon":   // legacy (file commands only): setEMCON(false) merely clears the flag; CheckEMCON() re-derives it from real sensor state
                     u.setEMCON(o.on == 1);
                     msg = "emcon " + (o.on == 1 ? "on" : "off"); return true;
+                case "emitters":
+                {
+                    string m = (o.status ?? "").ToLowerInvariant();
+                    if (m == "silent") { u.setEMCON(true); msg = "emitters silent (search radars, active sonar, jammers off)"; return true; }
+                    if (m != "active") { msg = "status must be silent|active"; return false; }
+                    u.setEMCON(false);
+                    if (!(u is Submarine)) { u.EnableAirSearchRadars(); u.EnableSurfaceSearchRadars(); }
+                    msg = "emitters active requested (takes effect when time advances; has no effect on units without a search radar)"; return true;
+                }
+                case "weapons":
+                {
+                    // posture only: the unit's own AI decides targets/shots within it (no detection/ROE bypass).
+                    ObjectBase.WeaponStatus ws;
+                    switch ((o.status ?? "").ToLowerInvariant())
+                    {
+                        case "hold": ws = ObjectBase.WeaponStatus.Hold; break;
+                        case "tight": ws = ObjectBase.WeaponStatus.Tight; break;
+                        case "free": ws = ObjectBase.WeaponStatus.Free; break;
+                        default: msg = "status must be hold|tight|free"; return false;
+                    }
+                    u.SetWeaponStatus(ws);
+                    msg = "weapons " + ws.ToString().ToLowerInvariant(); return true;
+                }
+                case "engage":
+                {
+                    // Same call the player's click-to-attack uses: the unit's own AI picks the weapon, checks range/ammo/arcs and queues the task.
+                    // Target must be a track in THIS side's plotting table that the game itself shows as hostile (never a neutral/unknown/own track).
+                    if (o.track_id <= 0) { msg = "engage needs a track_id"; return false; }
+                    int salvo = o.salvo <= 0 ? 1 : o.salvo;
+                    if (salvo > 4) { msg = "salvo must be 1-4"; return false; }
+                    ObjectBase tgt = null; Vehicle tv = null;
+                    if (tf.PlottingTable != null)
+                        foreach (var kv in tf.PlottingTable.LocalVehicles)
+                            if (kv.Key != null && kv.Value != null && kv.Value.Id == o.track_id && kv.Key._taskforce != tf) { tgt = kv.Key; tv = kv.Value; break; }
+                    if (tgt == null) { msg = "no such track in your picture"; return false; }
+                    if (tgt.IsDestroyed) { msg = "track lost or target destroyed"; return false; }
+                    if (!tv.Identified.Value || tv.CurrentRelationship() != RelationsState.Hostile) { msg = "track is not identified as hostile - engage refused"; return false; }
+                    if (u._ai == null) { msg = "unit has no weapons AI"; return false; }
+                    try
+                    {
+                        if (u._ai.AmmunitionForTarget(tgt).Count == 0) { msg = "this unit has no weapon that can engage that target (no ammo or wrong target type)"; return false; }
+                        if (u is Aircraft) { u._ai.AutoAttackByClick(tgt, Ammunition.Type.None, false, salvo, false, false); msg = "attack designated (aircraft AI chooses weapon and timing)"; return true; }
+                        int before = u._currentEngageTasks.Count;
+                        if (!string.IsNullOrEmpty(o.weapon))
+                        {
+                            if (!u._ai.AmmunitionForTarget(tgt).Any(a => a._ap != null && a._ap._ammunitionFileName == o.weapon)) { msg = "weapon not usable on that target (no ammo or wrong target type)"; return false; }
+                            u.AddEngageTask(new EngageTask(o.weapon, tgt, u, salvo));
+                        }
+                        else u._ai.AutoAttackByClick(tgt, Ammunition.Type.None, false, salvo, false, false);
+                        int queued = u._currentEngageTasks.Count - before;
+                        if (queued <= 0) { msg = "no weapon on this unit can engage that target now (out of range, no ammo or wrong target type)"; return false; }
+                        msg = "engage queued: " + queued + " task(s), salvo " + salvo; return true;
+                    }
+                    catch (Exception e) { msg = "engage failed: " + e.GetType().Name; Logger.LogError("engage: " + e); return false; }
+                }
                 default:
-                    msg = "unknown action (move|speed|emcon)"; return false;
+                    msg = "unknown action (move|speed|emitters|weapons|engage)"; return false;
             }
         }
     }

@@ -136,12 +136,19 @@ namespace GhostFleet
             _watch[u] = Time.realtimeSinceStartup + 90f;
         }
 
+        float _bridgeRetryAt;
+
         void Update()
         {
             try { if (Singleton<TaskforceManager>.InstanceExists()) PollCommands(); }
             catch (Exception e) { Logger.LogError("PollCommands failed: " + e); }
             try { PumpBridge(); }
             catch (Exception e) { Logger.LogError("PumpBridge failed: " + e); }
+            if ((_http == null || !_http.IsListening) && Time.realtimeSinceStartup > _bridgeRetryAt)
+            {   // port can be busy briefly after a previous game instance exits
+                _bridgeRetryAt = Time.realtimeSinceStartup + 5f;
+                try { StartBridge(); Logger.LogInfo("Bridge started on retry"); } catch (Exception) { _http = null; }
+            }
             bool force = false;
             if (!_keyBroken)
             {
