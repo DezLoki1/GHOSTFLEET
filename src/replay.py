@@ -13,7 +13,7 @@ def main(path, show_prompts=False, show_raw=False):
             print(f"MATCH {e['scenario']}  windows={e['windows']} step={e['step']}s scale={e['scale']}  side0={e['specs']['0']}  side1={e['specs']['1']}")
         elif k == "window":
             t = e["truth"]
-            print(f"\n--- window {e['w'] + 1}  t={t['t']:.0f}s  " + "  ".join(f"{s['name']}: {s['alive']}/{s['total']} alive (kills {s['kill']:.0f}, losses {s['loss']:.0f})" for s in t["sides"]))
+            print(f"\n--- window {e['w'] + 1}  t={t['t']:.0f}s  " + "  ".join(f"{s['name']}: {s['alive']}/{s['total']} alive (kills {s['kill']:g}, losses {s['loss']:g})" for s in t["sides"]))
         elif k == "decision":
             u = e["usage"]
             print(f"  side{e['side']}: {len(e['orders'])} order(s), {len(e['rejected'])} invalid, {sum(1 for r in e['results'] if not r['ok'])} refused"

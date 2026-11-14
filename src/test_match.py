@@ -71,13 +71,75 @@ class Feedback(unittest.TestCase):
         d = c.decide(_state(90, 500), 1, 3)
         p = prov.prompts[1]
         self.assertIn("REMOVED TRACKS", p); self.assertNotIn("7001 | p6", p)          # dead track no longer offered as a target
-        self.assertIn("8:gun x10", p); self.assertEqual(d.spent, "8:gun x10")            # rounds actually expended are reported back
+        self.assertIn("fired automatically by the units' own AI: 8:gun x10", p)          # nothing ordered a gun shot, so it is reported as automatic
+        self.assertIn("you ordered: none", d.spent)
         self.assertIn('rejected: {"action": "engage", "unit_id": 8, "track_id": 7001}', p)   # refusal names the exact order
+
+    def test_relation_shown_and_next_check_clamped(self):
+        st = _state(100, 10); st["contacts"][0]["relation"] = "hostile"
+        prov = FakeProvider(['{"assessment":"a","notes":"n","orders":[],"next_check_s":5000}', '{"assessment":"a","notes":"n","orders":[],"next_check_s":5}',
+                             '{"assessment":"a","notes":"n","orders":[],"next_check_s":"soon"}'])
+        c = LLMCommander("s", prov, "obj", "roe", 60, Budget())
+        d1, d2, d3 = c.decide(st, 0, 3), c.decide(st, 1, 3), c.decide(st, 2, 3)
+        self.assertIn("| HOSTILE |", prov.prompts[0])
+        self.assertEqual((d1.next_check_s, d2.next_check_s, d3.next_check_s), (900.0, 30.0, 0.0))   # clamped; garbage ignored (0 = default step)
+
+    def test_status_events_and_commanded_split(self):
+        s1 = _state(100, 10)
+        u = s1["own_units"][0]; u.update(damage_pct=0.0, altitude_ft=None, range_left_nm=None, tasks={"engage": [], "designated_track": None})
+        u["waypoint"] = {"lat": 1.0, "lon": 2.0}; u["speed_kn"] = 20
+        air = dict(u, unit_id=9, name="Jet", type="Aircraft", altitude_ft=20000.0, range_left_nm=310.0, waypoint=None,
+                   tasks={"engage": [{"weapon": "agm", "track_id": 7001, "shots": 1}], "designated_track": None}, ammo=[{"id": "agm", "count": 1, "kind": "Missile", "max_range_nm": 65.0}])
+        s1["own_units"].append(air)
+        reply = '{"assessment":"a","notes":"n","orders":[{"action":"engage","unit_id":8,"track_id":7001,"weapon":"gun"}]}'
+        prov = FakeProvider([reply, reply])
+        c = LLMCommander("s", prov, "obj", "roe", 60, Budget())
+        c.decide(s1, 0, 3); c.feedback([{"unit_id": 8, "action": "engage", "ok": True, "message": "ok"}])
+        s2 = _state(80, 10)                                   # 20 rounds gone, the jet is gone, the ship is damaged
+        s2["own_units"][0].update(damage_pct=12.0, tasks={"engage": [], "designated_track": None}, ammo=[{"id": "gun", "count": 80, "kind": "Projectile", "max_range_nm": 12.0}])
+        c.decide(s2, 1, 3)
+        p0, p1 = prov.prompts
+        self.assertIn("eta", p0); self.assertIn("alt 20000 ft", p0); self.assertIn("fuel range 310 nm", p0); self.assertIn("PENDING SHOT agm->track 7001", p0)
+        self.assertIn("you ordered: 8:gun x20", p1)           # an accepted engage naming that weapon makes it a commanded expenditure
+        self.assertIn("LOST Jet (9)", p1); self.assertIn("DAMAGED Y (8): 0% -> 12%", p1)
+
+    def test_launch_order_validation_and_air_wing(self):
+        good, bad = validate_orders([
+            {"action": "launch", "unit_id": 8, "aircraft": "usn_a-7e", "loadout": "SEAD", "mission": "SEAD", "count": 2},
+            {"action": "launch", "unit_id": 8, "aircraft": "usn_a-7e", "loadout": "SEAD", "mission": "Dance"},          # bad mission
+            {"action": "launch", "unit_id": 8, "aircraft": "usn_a-7e", "loadout": "SEAD", "mission": "CAP", "count": 9},  # count range
+            {"action": "launch", "unit_id": 8, "aircraft": "usn_a-7e"},                                                # missing fields
+            {"action": "rtb", "unit_id": 8}], {8})
+        self.assertEqual([o["action"] for o in good], ["launch", "rtb"]); self.assertEqual(len(bad), 3)
+        st = _state(100, 10)
+        st["own_units"][0]["deck"] = {"launching": False, "aircraft": [{"aircraft": "usn_a-7e", "name": "A-7E", "loadouts": [{"loadout": "HARM", "available": 4}]}]}
+        prov = FakeProvider([GOOD])
+        LLMCommander("s", prov, "obj", "roe", 60, Budget()).decide(st, 0, 3)
+        self.assertIn("YOUR AIR WING", prov.prompts[0]); self.assertIn("usn_a-7e (A-7E): HARM x4", prov.prompts[0])
 
     def test_old_live_track_labelled_stale(self):
         prov = FakeProvider([GOOD])
         LLMCommander("s", prov, "obj", "roe", 60, Budget()).decide(_state(100, 500), 0, 3)
         self.assertIn("STALE", prov.prompts[0]); self.assertNotIn("| live |", prov.prompts[0])
+
+
+class Universal(unittest.TestCase):
+    def test_evaluate_uses_game_verdict(self):
+        t = {"game_time_s": 1, "mission_status": "Defeat", "player_side": 0,
+             "sides": [{"side": 0, "name": "Taskforce1", "units": []}, {"side": 1, "name": "Taskforce2", "units": []}, {"side": 2, "name": "Neutral", "units": []}]}
+        self.assertEqual(match.evaluate(t, {}), (True, 1, "game declared Defeat for the player side"))
+        t["mission_status"] = "Victory"; self.assertEqual(match.evaluate(t, {})[1], 0)
+        t["player_side"] = 1; t["mission_status"] = "Defeat"; self.assertEqual(match.evaluate(t, {})[1], 0)     # works when the player is not Taskforce1
+        t["mission_status"] = "InProgress"; self.assertEqual(match.evaluate(t, {})[0], False)
+
+    def test_generator_from_ini_text(self):
+        import gen_scenario
+        ini = ("[Language_en]\nName=Test Mission\nDescription=Hold the strait.\nTaskforce1StartMessage=T|Sink the raider.\\nGood luck.|OK\n"
+               "Objective_SinkIt=Sink the raider\n[Mission]\nPlayerTaskforce=Taskforce1\nEnemyTaskforce=Taskforce2\n[Taskforce1_Objectives]\nSinkIt=5,-5,Complete,Main\n")
+        sc = gen_scenario.build(ini, "x.ini")
+        self.assertEqual(sc["name"], "Test Mission"); self.assertEqual(set(sc["sides"]), {"0", "1"})
+        self.assertIn("Sink the raider", sc["sides"]["0"]["objective"]); self.assertIn("- Sink the raider", sc["sides"]["0"]["objective"])
+        self.assertNotIn("raider", sc["sides"]["1"]["objective"])     # the opposing side does not get the player's plan
 
 
 class Budgets(unittest.TestCase):
@@ -152,6 +214,16 @@ class FullMatch(unittest.TestCase):
             self.world.end_on_step = False; self.world.gone = False
         end = [e for e in ev if e["kind"] == "match_end"][0]
         self.assertEqual(end["winner_side"], 1); self.assertIn("key unit destroyed", end["reason"])
+
+    def test_game_time_limit_not_window_count(self):
+        self.world.__init__()
+        match.make_commander = lambda spec, side, sc, step, a: C.ScriptedCommander(f"s{side}", "patrol")
+        before = set(glob.glob(os.path.join(match.HERE, "runs", "match_*")))
+        sys.argv = ["match.py", "--base", self.base, "--windows", "50", "--max-game-s", "150", "--step", "60", "--side0", "scripted:p", "--side1", "scripted:p"]
+        match.main()
+        new = sorted(set(glob.glob(os.path.join(match.HERE, "runs", "match_*"))) - before)[0]; self.created.append(new)
+        with open(os.path.join(new, "summary.json"), encoding="utf-8") as f: s = json.load(f)
+        self.assertEqual(s["reason"], "game-time limit reached"); self.assertLess(s["windows_played"], 6)   # 150 s of game time = 3 windows of 60 s, not 50
 
     def test_spend_refused_without_confirm(self):
         sys.argv = ["match.py", "--base", self.base, "--side0", "anthropic:some-model"]

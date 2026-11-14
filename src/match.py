@@ -37,10 +37,18 @@ def make_commander(spec, side, sc, step, args):
 
 def evaluate(truth, sc):
     """(done, winner_side|None, reason) from omniscient truth. Scoring only."""
-    v, sides = sc["victory"], {s["side"]: s for s in truth["sides"]}
+    status = truth.get("mission_status")
+    if status in ("Victory", "Defeat"):   # the game's own verdict (set by whichever victory trigger fired) is authoritative and mission-independent
+        p = truth["player_side"]
+        opp = [s["side"] for s in truth["sides"] if s["name"] != "Neutral" and s["side"] != p]
+        return True, (p if status == "Victory" else (opp[0] if opp else None)), f"game declared {status} for the player side"
+    v = sc.get("victory")   # optional per-scenario backup rules (older plugin or a mission without a victory trigger)
+    if not v:
+        return (True, None, "game ended the mission without a victory trigger") if truth.get("mission_ended") else (False, None, "")
+    sides = {s["side"]: s for s in truth["sides"]}
     ms, ra, an = v["must_survive"], v["reach_area"], v["annihilate"]
     key = [u for u in sides[ms["side"]]["units"] if ms["unit_name_contains"].lower() in u["name"].lower()]
-    if truth.get("mission_ended"):   # the game's own verdict wins over my reading of the mission file
+    if truth.get("mission_ended"):
         lost = bool(key) and not any(u["alive"] for u in key)
         return True, (1 if lost else 0), "game declared mission end (key unit destroyed)" if lost else "game declared mission end (objective met)"
     if key and not any(u["alive"] for u in key):
@@ -93,6 +101,7 @@ def main():
     ap.add_argument("--scenario", default=os.path.join(HERE, "scenarios", "red_sea_breakout_1988.json"))
     ap.add_argument("--windows", type=int)
     ap.add_argument("--step", type=float)
+    ap.add_argument("--max-game-s", type=float, help="stop after this many game seconds (default: the scenario's max_game_s); --windows then only caps the number of windows")
     ap.add_argument("--scale", type=float, default=4.0)
     ap.add_argument("--label", default="")
     ap.add_argument("--base", default=None, help="bridge base URL override (tests)")
@@ -111,11 +120,15 @@ def main():
         import bridge_client; bridge_client.BASE = a.base
     with open(a.scenario, encoding="utf-8") as f:
         sc = json.load(f)
-    windows, step = a.windows or sc["windows"], a.step or sc["step_s"]
+    step = a.step or sc["step_s"]
+    max_game = a.max_game_s or sc.get("max_game_s")      # the mission budget is GAME time: commanders may ask for short windows, which must not eat the budget
+    windows = a.windows or (sc.get("max_windows", 200) if max_game else sc["windows"])
     specs = {0: a.side0, 1: a.side1}
     if any(not s.startswith("scripted") for s in specs.values()) and not (a.confirm_spend or a.dry_prompt):
         sys.exit("refusing to start: model commanders can spend money. Re-run with --confirm-spend (and consider --max-usd/--price-in/--price-out).")
     cmdrs = {s: make_commander(specs[s], s, sc, step, a) for s in (0, 1)}
+    for c in cmdrs.values():
+        c.limit_s = max_game      # lets an LLM commander see "X of Y minutes used"
 
     if a.dry_prompt:
         for s in (0, 1):
@@ -142,6 +155,7 @@ def main():
     emit("match_start", scenario=sc["name"], specs=specs, windows=windows, step=step, scale=a.scale, label=a.label,
          budgets={s: vars(cmdrs[s].budget) for s in (0, 1)})
     winner, reason, done_w = None, "window limit reached", windows
+    t_start = None
 
     for w in range(windows):
         states = {}
@@ -160,6 +174,10 @@ def main():
             if done:
                 winner, reason, done_w = win, why, w
                 break
+            t_start = truth["game_time_s"] if t_start is None else t_start
+            if max_game and truth["game_time_s"] - t_start >= max_game:
+                winner, reason, done_w = None, "game-time limit reached", w
+                break
             with ThreadPoolExecutor(2) as ex:   # both decide on the same frozen state
                 futs = {s: ex.submit(cmdrs[s].decide, states[s], w, windows) for s in (0, 1)}
                 decs = {s: f.result() for s, f in futs.items()}
@@ -174,7 +192,10 @@ def main():
                      results=results, receipts=[{"order_id": f"w{w + 1}-s{s}-o{i + 1}", "order": o, "ok": r["ok"], "message": r["message"]} for i, (o, r) in enumerate(zip(d.orders, results))],
                      spent_since_last_window=getattr(d, "spent", ""), usage=d.usage, error=d.error, budget=cmdrs[s].budget.snapshot(), prompt=d.raw, reply=d.reply)
                 print(f"w{w + 1}/{windows} side{s}: {len(d.orders)} order(s), {len(d.rejected)} invalid, {sum(1 for r in results if not r['ok'])} refused" + (f"  ERROR {d.error}" if d.error else ""))
-            assert call("POST", f"/time?cmd=step&seconds={step}")[0] == 200
+            # each side may ask for a shorter or longer run before its next decision; the shortest wish wins (default = the nominal step)
+            run_s = min([decs[s].next_check_s or step for s in (0, 1)])
+            emit("step", w=w, seconds=run_s, requested={s: decs[s].next_check_s for s in (0, 1)})
+            assert call("POST", f"/time?cmd=step&seconds={run_s}")[0] == 200
             if not wait_paused():
                 winner, reason, done_w = None, "game ended during step", w + 1
                 break
@@ -198,7 +219,12 @@ def main():
     with open(os.path.join(rundir, "summary.json"), "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
     log.close()
-    print("RESULT:", json.dumps(summary), "\nlog dir:", rundir)
+    import report
+    try:
+        rep = report.write_report(rundir)
+    except Exception as e:   # a report problem must never lose the match result
+        rep = f"(report failed: {e})"
+    print("RESULT:", json.dumps(summary), "\nlog dir:", rundir, "\nreport:", rep)
     return 0
 
 

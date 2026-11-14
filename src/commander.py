@@ -15,8 +15,11 @@ ACTIONS = {
     "emitters": {"unit_id", "status"},
     "weapons": {"unit_id", "status"},
     "engage": {"unit_id", "track_id"},
+    "launch": {"unit_id", "aircraft", "loadout", "mission"},
+    "rtb": {"unit_id"},
 }
-OPTIONAL = {"engage": {"salvo", "weapon"}}
+OPTIONAL = {"engage": {"salvo", "weapon"}, "launch": {"count"}}
+MISSIONS = {"CAP", "Intercept", "BombStrike", "MissileAttack", "SEAD", "Jamming", "AEW", "Recon", "MPA", "SearchAndDestroyASW", "SAR"}
 
 SYSTEM_PROMPT = """You are the fleet commander for ONE side in a real-time naval simulation (Sea Power, 1980s missile age).
 
@@ -34,12 +37,21 @@ Order types (JSON objects, unit_id must be one of YOUR units):
   {{"action":"emitters","unit_id":N,"status":"silent|active"}}   silent = search radars, active sonar and jammers OFF (harder to detect, but that unit sees less); active = search radars ON. Only units with a search radar are affected: if a unit's radar_on stays false after "active" it has none (e.g. missile launchers, guns, observation posts) - do not repeat the order
   {{"action":"weapons","unit_id":N,"status":"hold|tight|free"}}   hold = no fire, tight = fire only at positively hostile targets, free = fire at anything not known friendly/neutral
   {{"action":"engage","unit_id":N,"track_id":T,"salvo":1-4,"weapon":"<id from YOUR WEAPONS>"}}   order this unit to fire at one of your tracks NOW (salvo and weapon optional; without weapon the unit picks the best one itself). The track must be identified as hostile and your own plotting table must hold it; the result tells you whether a shot was actually queued (it is refused if the target is out of range, you have no suitable ammo, or the track is not an identified hostile). Missiles take time to arrive, so judge range using YOUR WEAPONS and the track positions.
+  {{"action":"launch","unit_id":CARRIER,"aircraft":"<id>","loadout":"<name>","mission":"CAP|Intercept|BombStrike|MissileAttack|SEAD|Jamming|AEW|Recon|MPA|SearchAndDestroyASW|SAR","count":1-4}}   queue aircraft to launch from a carrier or ship with a flight deck. Use only the aircraft and loadouts listed under YOUR AIR WING. Launching takes minutes; the aircraft then appear in YOUR UNITS and you give them move/engage orders. SEAD aircraft carry anti-radiation missiles for suppressing SAM and radar sites; check each loadout before you commit it.
+  {{"action":"rtb","unit_id":N}}   an aircraft returns to base and lands (use when fuel is low or its weapons are spent)
 Weapon economy: your stocks are finite and cannot be replenished. Use the cheapest weapon that does the job: guns against small boats inside gun range, anti-ship missiles only against larger ships you cannot reach with guns, SAMs for aircraft and incoming missiles. Check YOUR WEAPONS (range and count) before ordering, and the "ROUNDS YOU EXPENDED" line to see what you actually fired.
+Standing postures: your units start with weapon and emitter postures chosen by the scenario designers. Keep them unless you have a specific reason; blanket-setting every unit to tight or hold can silence your own defenses.
+Aircraft are fast but fragile and carry few weapons. Keep them outside the range of known SAM sites and fighters except to launch, and withdraw afterwards. engage with no weapon only designates the target and the aircraft AI may fly a close-in attack run. engage WITH a named weapon fires it once the target is inside that weapon's range, so position the aircraft just inside that range (see YOUR WEAPONS) and then move it away. Watch each aircraft's fuel range.
+A carrier's air wing is not in YOUR UNITS until you launch it: check YOUR AIR WING for fighters, strike, SEAD (anti-radar) and electronic-warfare aircraft, and launch what the mission needs instead of fighting only with the aircraft already airborne. An anti-radiation missile may be refused against a radar that is not currently emitting; the refusal message lists what is usable. Ships can also queue gun and missile shots on land targets within range.
+Distances are large and ships are slow (10-30 kn). Each unit's status shows an ETA to its waypoint: plan with it, use speed orders when time matters, and use next_check_s to skip quiet periods.
 Note: "weapons free" only lets a unit's own AI shoot when it decides to; it does not guarantee shots. Use engage to make sure the shots you want are fired, and to choose the target and weapon.
 At most {max_orders} orders per window. Only order what you want to change; units keep their current orders otherwise.
 
+Track "relation" is the game's own assessment for your side: HOSTILE tracks are enemies, FRIENDLY are yours, NEUTRAL are civilians/third parties, UNKNOWN is not yet classified.
+
 Reply with ONE JSON object and nothing else:
-{{"assessment":"<=300 chars: your read of the situation","notes":"<=600 chars: memory for yourself next window","orders":[ ... ]}}
+{{"assessment":"<=300 chars: your read of the situation","notes":"<=600 chars: memory for yourself next window","orders":[ ... ],"next_check_s":<optional, 30-900>}}
+next_check_s = how many game seconds to run before you decide again (default {step}). Ask for longer during a quiet transit and shorter when contact is close; the shorter of both sides' requests is used.
 """
 
 
@@ -162,25 +174,53 @@ def ammo_map(st):
     return {(u["unit_id"], a["id"]): a["count"] for u in st["own_units"] for a in u.get("ammo", [])}
 
 
-def render_state(st, prev_tracks, last_orders, last_results, notes, window, windows, dead=frozenset(), spent=""):
-    L = [f"WINDOW {window + 1}/{windows}  game_time={st['game_time_s']:.0f}s  you={st['side_name']}"]
-    L.append("YOUR UNITS (id | name | type | lat,lon | hdg | kn | weapons | emcon | waypoint):")
+def unit_status(u):
+    """Compact extras for a unit row: ETA to waypoint, damage, aircraft altitude/fuel range, pending shots."""
+    bits = []
+    wp = u.get("waypoint")
+    if wp and u.get("speed_kn", 0) > 1 and u.get("lat") is not None:
+        bits.append(f"eta {nm(u['lat'], u['lon'], wp['lat'], wp['lon']) / u['speed_kn'] * 60:.0f} min")
+    if u.get("damage_pct", 0) >= 1:
+        bits.append(f"DAMAGED {u['damage_pct']:.0f}%")
+    if u.get("altitude_ft") is not None:
+        bits.append(f"alt {u['altitude_ft']:.0f} ft")
+    if u.get("range_left_nm") is not None:
+        bits.append(f"fuel range {u['range_left_nm']:.0f} nm")
+    t = u.get("tasks") or {}
+    for e in t.get("engage", []):
+        bits.append(f"PENDING SHOT {e['weapon']}->track {e['track_id'] if e['track_id'] else '?'}")
+    if t.get("designated_track"):
+        bits.append(f"attack designated on track {t['designated_track']}")
+    return "; ".join(bits)
+
+
+def render_state(st, prev_tracks, last_orders, last_results, notes, window, windows, dead=frozenset(), spent="", events="", clock=""):
+    L = [f"WINDOW {window + 1}  game_time={st['game_time_s']:.0f}s  you={st['side_name']}" + (f"  {clock}" if clock else f"  (of at most {windows} windows)")]
+    L.append("YOUR UNITS (id | name | type | lat,lon | hdg | kn | weapons | emcon | waypoint | status):")
     for u in st["own_units"]:
         wp = f"{u['waypoint']['lat']:.3f},{u['waypoint']['lon']:.3f}" if u.get("waypoint") else "none"
-        L.append(f"  {u['unit_id']} | {u['name']} | {u['type']} | {_fmt_ll(u)} | {u['heading']:.0f} | {u['speed_kn']:.0f} | {u['weapons']} | {'SILENT' if u['emcon'] else 'emitting'} | {wp}")
-    shootable = lambda u: [a for a in u.get("ammo", []) if a["kind"] not in ("Chaff", "Noisemaker", "Decoy", "Flare")]   # decoys are not engage weapons
+        L.append(f"  {u['unit_id']} | {u['name']} | {u['type']} | {_fmt_ll(u)} | {u['heading']:.0f} | {u['speed_kn']:.0f} | {u['weapons']} | {'SILENT' if u['emcon'] else 'emitting'} | {wp} | {unit_status(u) or 'ok'}")
+    if events:
+        L.append("EVENTS SINCE LAST WINDOW: " + events)
+    shootable = lambda u: [a for a in u.get("ammo", []) if a["kind"] not in ("Chaff", "Noisemaker", "Decoy", "Flare") and "_tank_" not in a["id"]]   # decoys and drop tanks are not engage weapons
     armed = [u for u in st["own_units"] if shootable(u)]
     if armed:
-        L.append("YOUR WEAPONS (unit: weapon id x count (kind, max range nm)):")
+        L.append("YOUR WEAPONS (unit: weapon id x count (kind, max range nm, what it can hit: air/surface/sub/land)):")
         for u in armed:
-            L.append(f"  {u['unit_id']}: " + "; ".join(f"{a['id']} x{a['count']} ({a['kind']}, {a['max_range_nm']:.0f} nm)" for a in shootable(u)))
-    L.append("YOUR TRACKS (track | class | side | identified | live/stale | age_s | est. lat,lon | position quality):")
+            L.append(f"  {u['unit_id']}: " + "; ".join(f"{a['id']} x{a['count']} ({a['kind']}, {a['max_range_nm']:.0f} nm, hits {a.get('targets', '?')})" for a in shootable(u)))
+    for u in st["own_units"]:
+        deck = u.get("deck")
+        if deck and deck.get("aircraft"):
+            L.append(f"YOUR AIR WING on {u['name']} (unit {u['unit_id']}){' - launch in progress' if deck.get('launching') else ''}: aircraft id / loadout xavailable")
+            for ac in deck["aircraft"]:
+                L.append(f"  {ac['aircraft']} ({ac['name']}): " + "; ".join(f"{l['loadout']} x{l['available']}" for l in ac["loadouts"]))
+    L.append("YOUR TRACKS (track | class | side | relation to you | identified | live/stale | age_s | est. lat,lon | position quality):")
     shown = [c for c in st["contacts"] if c["track_id"] not in dead]
     if not shown:
         L.append("  (none)")
     for c in shown:
         fresh = c["live"] and c["age_s"] <= STALE_AFTER_S   # the game keeps a destroyed object's track flagged live while its age keeps growing
-        L.append(f"  {c['track_id']} | {c['class'] or '?'} | {c['side'] or '?'} | {'ID' if c['identified'] else 'unid'} | {'live' if fresh else 'STALE'} | {c['age_s']:.0f} | {_fmt_ll(c)} | {_quality(c)}")
+        L.append(f"  {c['track_id']} | {c['class'] or '?'} | {c['side'] or '?'} | {str(c.get('relation', 'unknown')).upper()} | {'ID' if c['identified'] else 'unid'} | {'live' if fresh else 'STALE'} | {c['age_s']:.0f} | {_fmt_ll(c)} | {_quality(c)}")
     if dead:
         L.append(f"REMOVED TRACKS (the game refused your engage because they are destroyed or lost; do not target them or plan around them): {sorted(dead)}")
     now = {c["track_id"] for c in st["contacts"]}
@@ -193,7 +233,7 @@ def render_state(st, prev_tracks, last_orders, last_results, notes, window, wind
         L.append(f"YOUR LAST ORDERS: {len(last_orders)} sent, {len(bad)} rejected"
                  + "".join(f"\n  rejected: {json.dumps(o)} -> {r['message']}" for o, r in bad))
     if spent:
-        L.append("ROUNDS YOU EXPENDED SINCE LAST WINDOW (unit:weapon x count): " + spent)
+        L.append("ROUNDS EXPENDED SINCE LAST WINDOW (unit:weapon x count): " + spent)
     if notes:
         L.append("YOUR NOTES FROM LAST WINDOW: " + notes)
     L.append("Decide now. Reply with the single JSON object only.")
@@ -256,6 +296,13 @@ def validate_orders(orders, own_ids):
                 raise ValueError("status must be silent|active")
             if a == "weapons" and o["status"] not in ("hold", "tight", "free"):
                 raise ValueError("status must be hold|tight|free")
+            if a == "launch":
+                if not all(isinstance(o[k], str) and 0 < len(o[k]) <= 80 for k in ("aircraft", "loadout", "mission")):
+                    raise ValueError("aircraft, loadout and mission must be strings")
+                if o["mission"] not in MISSIONS:
+                    raise ValueError("mission must be one of " + ", ".join(sorted(MISSIONS)))
+                if "count" in o and (isinstance(o["count"], bool) or not isinstance(o["count"], int) or not 1 <= o["count"] <= 4):
+                    raise ValueError("count must be an integer 1-4")
             if a == "engage":
                 if isinstance(o["track_id"], bool) or not isinstance(o["track_id"], int) or o["track_id"] <= 0:
                     raise ValueError("track_id must be a positive integer")
@@ -279,6 +326,7 @@ class Decision:
     raw: str = ""      # the prompt sent (user turn)
     reply: str = ""    # the model's full reply text, as received
     spent: str = ""    # rounds this side's units expended since the previous window (from its own state)
+    next_check_s: float = 0.0   # how long this side wants to run before deciding again (0 = the default step)
     error: str = ""
 
 
@@ -288,16 +336,49 @@ class LLMCommander:
         self.name, self.provider, self.budget = name, provider, budget or Budget()
         self.system = SYSTEM_PROMPT.format(step=int(step), objective=objective, roe=roe, max_orders=MAX_ORDERS)
         self.prev_tracks, self.last_orders, self.last_results, self.notes = None, [], [], ""
-        self.dead, self.prev_ammo = set(), None   # dead: tracks the game refused as destroyed/lost (learned from this side's own refusals only)
+        self.dead, self.prev_ammo, self.prev_units = set(), None, None
+        self.t0, self.limit_s = None, None   # mission clock (set by the runner when the scenario has a game-time limit)   # dead: tracks the game refused as destroyed/lost (learned from this side's own refusals only)
 
-    def user_prompt(self, st, window, windows, spent=""):
-        return render_state(st, self.prev_tracks, self.last_orders, self.last_results, self.notes, window, windows, frozenset(self.dead), spent)
+    def user_prompt(self, st, window, windows, spent="", events=""):
+        if self.t0 is None:
+            self.t0 = st["game_time_s"]
+        clock = f"MISSION CLOCK: {(st['game_time_s'] - self.t0) / 60:.0f} of {self.limit_s / 60:.0f} minutes used" if self.limit_s else ""
+        return render_state(st, self.prev_tracks, self.last_orders, self.last_results, self.notes, window, windows, frozenset(self.dead), spent, events, clock)
+
+    def _commanded(self):
+        """(unit, weapon) pairs this commander's accepted engage orders covered last window; weapon None = any weapon of that unit."""
+        c = set()
+        for o, r in zip(self.last_orders, self.last_results):
+            if o.get("action") == "engage" and r.get("ok"):
+                c.add((o["unit_id"], o.get("weapon")))
+        return c
+
+    def _events(self, st):
+        """Own losses and new damage since the previous window, from this side's own state only."""
+        cur = {u["unit_id"]: (u["name"], u.get("damage_pct", 0)) for u in st["own_units"]}
+        ev = []
+        for uid, (name, dmg) in (self.prev_units or {}).items():
+            if uid not in cur:
+                ev.append(f"LOST {name} ({uid}) - no longer in your force (destroyed)")
+            elif cur[uid][1] - dmg >= 3:
+                ev.append(f"DAMAGED {name} ({uid}): {dmg:.0f}% -> {cur[uid][1]:.0f}%")
+        self.prev_units = cur
+        return "; ".join(ev)
 
     def decide(self, st, window, windows):
         cur = ammo_map(st)
-        spent = ", ".join(f"{u}:{w} x{p - cur.get((u, w), p)}" for (u, w), p in (self.prev_ammo or {}).items() if cur.get((u, w), p) < p)
+        ordered, auto = [], []
+        cmd = self._commanded()
+        for (u, w), p in (self.prev_ammo or {}).items():
+            n = p - cur.get((u, w), p)
+            if n > 0:
+                (ordered if (u, w) in cmd or (u, None) in cmd else auto).append(f"{u}:{w} x{n}")
+        spent = ""
+        if ordered or auto:
+            spent = f"you ordered: {', '.join(ordered) or 'none'}; fired automatically by the units' own AI: {', '.join(auto) or 'none'}"
         self.prev_ammo = cur
-        user = self.user_prompt(st, window, windows, spent)
+        events = self._events(st)
+        user = self.user_prompt(st, window, windows, spent, events)
         own_ids = {u["unit_id"] for u in st["own_units"]}
         self.prev_tracks = {c["track_id"] for c in st["contacts"]}
         if self.budget.exhausted():
@@ -315,6 +396,9 @@ class LLMCommander:
             d.notes = str(obj.get("notes", ""))[:600]
             d.orders, d.rejected = validate_orders(obj.get("orders", []), own_ids)
             self.notes = d.notes
+            nc = obj.get("next_check_s")
+            if isinstance(nc, (int, float)) and not isinstance(nc, bool):
+                d.next_check_s = min(900.0, max(30.0, float(nc)))
         except Exception as e:   # bad reply, timeout, provider error: hold this window, keep the match going
             d.error = f"{type(e).__name__}: {e}"
         self.last_orders = d.orders

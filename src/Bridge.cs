@@ -25,7 +25,7 @@ namespace GhostFleet
 
         class Job { public Func<string> Fn; public string Result; public int Status = 200; public readonly ManualResetEventSlim Done = new ManualResetEventSlim(); }
 #pragma warning disable 0649 // fields are filled by JsonUtility
-        class OrderDto { public string action; public int unit_id; public double lat; public double lon; public double knots; public int on; public string status; public int track_id; public int salvo; public string weapon; }
+        class OrderDto { public string action; public int unit_id; public double lat; public double lon; public double knots; public int on; public string status; public int track_id; public int salvo; public string weapon; public string aircraft; public string loadout; public int count; public string mission; }
 #pragma warning restore 0649
 
         HttpListener _http;
@@ -179,6 +179,11 @@ namespace GhostFleet
                   .Append(",\"sonar_on\":").Append(u.IsActiveSonarsOn.Value ? "true" : "false")
                   .Append(",\"controllable\":").Append(u.IsControllable && u.HasControl ? "true" : "false")
                   .Append(",\"ammo\":").Append(AmmoJson(u))
+                  .Append(",\"damage_pct\":").Append(F(DamagePct(u)))
+                  .Append(",\"altitude_ft\":").Append(u.IsAirUnit ? F(u.Altitude.Value) : "null")
+                  .Append(",\"range_left_nm\":").Append(u.IsAirUnit ? F(u.RangeInKm.Value * 0.5399568) : "null")   // aircraft fuel range
+                  .Append(",\"tasks\":").Append(TasksJson(tf, u))
+                  .Append(",\"deck\":").Append(DeckJson(u))
                   .Append(",\"waypoint\":").Append(wp.HasValue ? "{\"lat\":" + F(wp.Value.Latitude) + ",\"lon\":" + F(wp.Value.Longitude) + "}" : "null")
                   .Append('}');
             }
@@ -197,6 +202,7 @@ namespace GhostFleet
                     sb.Append("{\"track_id\":").Append(v.Id)
                       .Append(",\"class\":").Append(cls == null ? "null" : Q(cls))
                       .Append(",\"side\":").Append(sd == null ? "null" : Q(sd))
+                      .Append(",\"relation\":").Append(Q(v.CurrentRelationship().ToString().ToLowerInvariant()))   // the game's own read of this track for THIS side (what its map colours show)
                       .Append(",\"identified\":").Append(v.Identified.Value ? "true" : "false")
                       .Append(",\"live\":").Append(v.HasLiveTrack ? "true" : "false")
                       .Append(",\"age_s\":").Append(F(GameTime.missionElapsedTime - v.UpdateEpoch));
@@ -222,9 +228,77 @@ namespace GhostFleet
                 if (a == null || a._ap == null) continue;
                 if (!first) sb.Append(','); first = false;
                 sb.Append("{\"id\":").Append(Q(kv.Key)).Append(",\"count\":").Append(kv.Value)
-                  .Append(",\"kind\":").Append(Q(a._ap._type.ToString())).Append(",\"max_range_nm\":").Append(F(a._ap._maxLaunchRangeInMiles)).Append('}');
+                  .Append(",\"kind\":").Append(Q(a._ap._type.ToString())).Append(",\"max_range_nm\":").Append(F(a._ap._maxLaunchRangeInMiles))
+                  .Append(",\"targets\":").Append(Q(TargetClasses(a._ap))).Append('}');
             }
             return sb.Append(']').ToString();
+        }
+
+        // carrier air wing: aircraft types with their ready loadouts (null if this unit has no flight deck)
+        static string DeckJson(ObjectBase u)
+        {
+            var fd = u._obp != null ? u._obp._flightDeck : null;
+            if (fd == null) return "null";
+            var sb = new StringBuilder("{\"launching\":").Append(fd.LaunchInProgress ? "true" : "false").Append(",\"aircraft\":[");
+            bool first = true;
+            foreach (var v in fd._vehiclesOnBoard)
+            {
+                var los = v.Loadouts.Where(l => l.Available.Value > 0).ToList();
+                if (los.Count == 0) continue;
+                if (!first) sb.Append(','); first = false;
+                sb.Append("{\"aircraft\":").Append(Q(v._fileName)).Append(",\"name\":").Append(Q(v.DisplayName)).Append(",\"loadouts\":[");
+                for (int i = 0; i < los.Count; i++)
+                {
+                    if (i > 0) sb.Append(',');
+                    sb.Append("{\"loadout\":").Append(Q(los[i].Name)).Append(",\"available\":").Append(los[i].Available.Value).Append('}');
+                }
+                sb.Append("]}");
+            }
+            return sb.Append("]}").ToString();
+        }
+
+        // same formula the game's own debrief uses (0 = undamaged, 100 = destroyed)
+        static double DamagePct(ObjectBase u)
+        {
+            try
+            {
+                float d;
+                if (u.Compartments != null) d = 1f - u.Compartments.IntegrityPercentage / 100f;
+                else if (u._totalDamagePoints < 0.1f || u.IsAirUnit) d = 0f;
+                else d = (u is LandUnit lu ? lu._landUnitOverallDamage : u._overallDamage) / u._totalDamagePoints;
+                return Math.Max(0, Math.Min(100, d * 100.0));
+            }
+            catch (Exception) { return 0; }
+        }
+
+        // this unit's pending shots (weapon + which of the side's OWN tracks it is aimed at) and any attack designation. Targets outside the side's table show track_id null.
+        string TasksJson(Taskforce tf, ObjectBase u)
+        {
+            var ids = new Dictionary<ObjectBase, int>();
+            if (tf.PlottingTable != null) foreach (var kv in tf.PlottingTable.LocalVehicles) if (kv.Key != null && kv.Value != null) ids[kv.Key] = kv.Value.Id;
+            Func<ObjectBase, string> tid = t => t != null && ids.ContainsKey(t) ? ids[t].ToString() : "null";
+            var sb = new StringBuilder("{\"engage\":[");
+            bool first = true;
+            foreach (var t in u._currentEngageTasks)
+            {
+                if (t == null) continue;
+                if (!first) sb.Append(','); first = false;
+                sb.Append("{\"weapon\":").Append(Q(t._ammoId)).Append(",\"track_id\":").Append(tid(t._targetObject)).Append(",\"shots\":").Append(t._shotsToFire).Append('}');
+            }
+            return sb.Append("],\"designated_track\":").Append(u._ai != null ? tid(u._ai._objectToDestroy) : "null").Append('}').ToString();
+        }
+
+        // what the game says this weapon can be used against (an AGM-84 Harpoon is anti-ship only; it cannot hit a SAM site)
+        static string TargetClasses(AmmunitionParameters ap)
+        {
+            var l = new List<string>();
+            foreach (var t in new[] { ap._targetType, ap._secondaryTargetType })
+            {
+                string n = t == Ammunition.Target.AAW ? "air" : t == Ammunition.Target.ASuW ? "surface" : t == Ammunition.Target.ASW ? "sub" : null;
+                if (n != null && !l.Contains(n)) l.Add(n);
+            }
+            if (ap._landAttack != null && ap._landAttack.Any(x => x != Ammunition.LandAttack.None)) l.Add("land");
+            return l.Count == 0 ? "?" : string.Join("/", l);
         }
 
         static int AmmoTotal(ObjectBase u) { int n = 0; foreach (var kv in u.AmmunitionAmountDictionary) n += Math.Max(0, kv.Value); return n; }
@@ -234,7 +308,11 @@ namespace GhostFleet
             if (!Singleton<TaskforceManager>.InstanceExists()) throw new ArgumentException("no mission loaded");
             // the game's own end-of-mission signal (victory/defeat trigger fired, or the debrief is showing); the runner treats it as authoritative
             bool ended = Singleton<MissionManager>.InstanceExists() && (Singleton<MissionManager>.Instance.MissionEnded || Singleton<MissionManager>.Instance._endMissionTime > 0.0);
-            var sb = new StringBuilder("{\"game_time_s\":" + F(GameTime.missionElapsedTime) + ",\"mission_ended\":" + (ended ? "true" : "false") + ",\"sides\":[");
+            // the game's verdict relative to the PLAYER taskforce, set by whichever victory trigger fired (InProgress|Victory|Defeat)
+            string status = Singleton<MissionManager>.InstanceExists() ? Singleton<MissionManager>.Instance._missionStatus.ToString() : "InProgress";
+            int playerSide = Globals._playerTaskforce != null ? Globals._playerTaskforce.Index : -1;
+            var sb = new StringBuilder("{\"game_time_s\":" + F(GameTime.missionElapsedTime) + ",\"mission_ended\":" + (ended ? "true" : "false")
+                + ",\"mission_status\":" + Q(status) + ",\"player_side\":" + playerSide + ",\"sides\":[");
             bool firstSide = true;
             foreach (var tf in Singleton<TaskforceManager>.Instance._taskForces)
             {
@@ -256,7 +334,7 @@ namespace GhostFleet
             return sb.Append("]}").ToString();
         }
 
-        static readonly HashSet<string> OrderKeys = new HashSet<string> { "action", "unit_id", "lat", "lon", "knots", "on", "status", "track_id", "salvo", "weapon" };
+        static readonly HashSet<string> OrderKeys = new HashSet<string> { "action", "unit_id", "lat", "lon", "knots", "on", "status", "track_id", "salvo", "weapon", "aircraft", "loadout", "count", "mission" };
 
         // Strict: body must be {"orders":[{...}]}; unknown keys or wrong types reject the whole batch (nothing applied).
         static List<OrderDto> ParseOrders(string body)
@@ -276,10 +354,16 @@ namespace GhostFleet
                 if (o.action == null) throw new ArgumentException("order needs a string 'action'");
                 if (!d.ContainsKey("unit_id") || !(d["unit_id"] is double)) throw new ArgumentException("order needs a numeric 'unit_id'");
                 o.unit_id = (int)(double)d["unit_id"];
-                foreach (var f in new[] { "lat", "lon", "knots", "on", "track_id", "salvo" })
+                foreach (var f in new[] { "aircraft", "loadout", "mission" })
+                    if (d.ContainsKey(f) && !(d[f] is string)) throw new ArgumentException("'" + f + "' must be a string");
+                if (d.ContainsKey("aircraft")) o.aircraft = (string)d["aircraft"];
+                if (d.ContainsKey("loadout")) o.loadout = (string)d["loadout"];
+                if (d.ContainsKey("mission")) o.mission = (string)d["mission"];
+                foreach (var f in new[] { "lat", "lon", "knots", "on", "track_id", "salvo", "count" })
                     if (d.ContainsKey(f) && !(d[f] is double)) throw new ArgumentException("'" + f + "' must be a number");
                 if (d.ContainsKey("track_id")) o.track_id = (int)(double)d["track_id"];
                 if (d.ContainsKey("salvo")) o.salvo = (int)(double)d["salvo"];
+                if (d.ContainsKey("count")) o.count = (int)(double)d["count"];
                 if (d.ContainsKey("weapon")) { o.weapon = d["weapon"] as string; if (o.weapon == null) throw new ArgumentException("'weapon' must be a string"); }
                 if (d.ContainsKey("lat")) o.lat = (double)d["lat"];
                 if (d.ContainsKey("lon")) o.lon = (double)d["lon"];
@@ -353,6 +437,38 @@ namespace GhostFleet
                     u.SetWeaponStatus(ws);
                     msg = "weapons " + ws.ToString().ToLowerInvariant(); return true;
                 }
+                case "launch":
+                {
+                    // same call the Flight Ops window uses: queue a launch task on the carrier's deck; the aircraft spawn through the deck's own pipeline (readying, catapult)
+                    var fd = u._obp != null ? u._obp._flightDeck : null;
+                    if (fd == null) { msg = "this unit has no flight deck"; return false; }
+                    var types = fd._vehiclesOnBoard;
+                    var veh = types.FirstOrDefault(v => v._fileName == o.aircraft || v.DisplayName == o.aircraft);
+                    if (veh == null) { msg = "no such aircraft on this deck. Available: " + string.Join(", ", types.Where(v => v.Numbers > 0).Select(v => v._fileName)); return false; }
+                    var lo = veh.Loadouts.FirstOrDefault(l => l.Name == o.loadout);
+                    if (lo == null) { msg = "no such loadout for that aircraft. Available: " + string.Join(", ", veh.Loadouts.Where(l => l.Available.Value > 0).Select(l => l.Name)); return false; }
+                    int n = o.count <= 0 ? 1 : o.count;
+                    if (n > 4) { msg = "count must be 1-4 per order"; return false; }
+                    if (lo.Available.Value < n) { msg = "only " + lo.Available.Value + " of that loadout available"; return false; }
+                    FlightDeckTask.MissionType mt;
+                    if (!Enum.TryParse(o.mission ?? "", true, out mt) || mt == FlightDeckTask.MissionType.None) { msg = "mission must be one of CAP, Intercept, BombStrike, MissileAttack, SEAD, Jamming, AEW, Recon, MPA, SearchAndDestroyASW, SAR"; return false; }
+                    if (!fd.CanLaunchVehicle(lo, n)) { msg = "cannot launch that now (deck disabled, or not enough ordnance in the magazine)"; return false; }
+                    var sq = veh.Squadrons.FirstOrDefault();
+                    if (sq == null) { msg = "no squadron for that aircraft"; return false; }
+                    string cs = sq.Callsigns.Count > 0 ? sq.Callsigns[0] : "";
+                    try
+                    {
+                        var task = fd.createLaunchTask(veh, lo, sq, cs, new LaunchTaskParameters { _launchCount = n, _missionType = mt }, true);
+                        if (task == null) { msg = "the deck refused the launch (mission type not permitted for that aircraft, or deck busy)"; return false; }
+                    }
+                    catch (Exception e) { msg = "launch failed: " + e.GetType().Name; Logger.LogError("launch: " + e); return false; }
+                    msg = "launch queued: " + n + " x " + o.aircraft + " / " + o.loadout + " as " + mt + "; they appear among your units once airborne (minutes)"; return true;
+                }
+                case "rtb":
+                    if (!(u is Aircraft) && !(u is Helicopter)) { msg = "only aircraft can return to base"; return false; }
+                    try { u.setOrder(Order.Type.ReturnToBase, null, true); }
+                    catch (Exception e) { msg = "rtb failed: " + e.GetType().Name; return false; }
+                    msg = "returning to base"; return true;
                 case "engage":
                 {
                     // Same call the player's click-to-attack uses: the unit's own AI picks the weapon, checks range/ammo/arcs and queues the task.
@@ -366,22 +482,31 @@ namespace GhostFleet
                             if (kv.Key != null && kv.Value != null && kv.Value.Id == o.track_id && kv.Key._taskforce != tf) { tgt = kv.Key; tv = kv.Value; break; }
                     if (tgt == null) { msg = "no such track in your picture"; return false; }
                     if (tgt.IsDestroyed) { msg = "track lost or target destroyed"; return false; }
-                    if (!tv.Identified.Value || tv.CurrentRelationship() != RelationsState.Hostile) { msg = "track is not identified as hostile - engage refused"; return false; }
+                    // the game's own relation for this side must be Hostile (it is Hostile once the track's side is known, even if its class is not); neutral/unknown/own are refused
+                    if (tv.CurrentRelationship() != RelationsState.Hostile) { msg = "track is not assessed hostile (neutral, friendly or unknown) - engage refused"; return false; }
                     if (u._ai == null) { msg = "unit has no weapons AI"; return false; }
                     try
                     {
                         if (u._ai.AmmunitionForTarget(tgt).Count == 0) { msg = "this unit has no weapon that can engage that target (no ammo or wrong target type)"; return false; }
-                        if (u is Aircraft) { u._ai.AutoAttackByClick(tgt, Ammunition.Type.None, false, salvo, false, false); msg = "attack designated (aircraft AI chooses weapon and timing)"; return true; }
+                        if (u is Aircraft && string.IsNullOrEmpty(o.weapon))
+                        {   // no weapon named: designate only. The aircraft AI then picks weapon and attack profile itself (often a close-in run), which is NOT a launch.
+                            u._ai.AutoAttackByClick(tgt, Ammunition.Type.None, false, salvo, false, false);
+                            msg = "target designated; the aircraft AI picks weapon and attack profile and may fly a close-in run. Name a weapon to fire a specific one from its range"; return true;
+                        }
                         int before = u._currentEngageTasks.Count;
                         if (!string.IsNullOrEmpty(o.weapon))
                         {
-                            if (!u._ai.AmmunitionForTarget(tgt).Any(a => a._ap != null && a._ap._ammunitionFileName == o.weapon)) { msg = "weapon not usable on that target (no ammo or wrong target type)"; return false; }
+                            var usable = u._ai.AmmunitionForTarget(tgt).Where(a => a._ap != null).Select(a => a._ap._ammunitionFileName).Distinct().ToList();
+                            if (!usable.Contains(o.weapon)) { msg = "weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: " + (usable.Count == 0 ? "none" : string.Join(", ", usable)); return false; }
                             u.AddEngageTask(new EngageTask(o.weapon, tgt, u, salvo));
                         }
                         else u._ai.AutoAttackByClick(tgt, Ammunition.Type.None, false, salvo, false, false);
                         int queued = u._currentEngageTasks.Count - before;
                         if (queued <= 0) { msg = "no weapon on this unit can engage that target now (out of range, no ammo or wrong target type)"; return false; }
-                        msg = "engage queued: " + queued + " task(s), salvo " + salvo; return true;
+                        msg = u is Aircraft
+                            ? "engage task queued: the aircraft fires when the target is within that weapon's range (it does not fly there by itself; move it into range, outside enemy SAM reach)"
+                            : "engage queued: " + queued + " task(s), salvo " + salvo;
+                        return true;
                     }
                     catch (Exception e) { msg = "engage failed: " + e.GetType().Name; Logger.LogError("engage: " + e); return false; }
                 }
