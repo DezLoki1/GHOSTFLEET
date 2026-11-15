@@ -1,0 +1,1131 @@
+FULL REPLAY (assessments, notes, orders, refusals, raw model replies)
+======================================================================
+MATCH Sub Duel - Denmark Strait (1985)  windows=120 step=300.0s scale=4.0  side0=claudecli:sonnet@low  side1=claudecli:haiku@low
+
+--- window 1  t=1981s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 3911/450
+     assessment: No contacts yet. Baltimore transiting toward Denmark Strait choke point near marked area to intercept Alfa. Staying silent/passive to avoid detection while listening for the sub's transit noise.
+     notes (memory for next window): No tracks yet. Baltimore heading toward strait approach north of marked zone to ambush Alfa transiting south. Keep silent, passive sonar, slow speed for best listening. Watch for contact near 67.7,-24.2 (marked area is the loss condition zone - intercept before Alfa enters it).
+     order: {"action": "move", "unit_id": 5, "lat": 67.85, "lon": -23.9}
+     order: {"action": "speed", "unit_id": 5, "knots": 8}
+     order: {"action": "sonar", "unit_id": 5, "status": "passive"}
+     order: {"action": "depth", "unit_id": 5, "status": "above_layer"}
+     --- raw model reply ---
+     > {"assessment":"No contacts yet. Baltimore transiting toward Denmark Strait choke point near marked area to intercept Alfa. Staying silent/passive to avoid detection while listening for the sub's transit noise.","notes":"No tracks yet. Baltimore heading toward strait approach north of marked zone to ambush Alfa transiting south. Keep silent, passive sonar, slow speed for best listening. Watch for contact near 67.7,-24.2 (marked area is the loss condition zone - intercept before Alfa enters it).","orders":[{"action":"move","unit_id":5,"lat":67.85,"lon":-23.9},{"action":"speed","unit_id":5,"knots":8},{"action":"sonar","unit_id":5,"status":"passive"},{"action":"depth","unit_id":5,"status":"above_layer"}],"next_check_s":300}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2572/6325
+     assessment: No contacts detected. K-316 submarine maintaining patrol at 16 knots, depth 100 feet, SILENT emcon with passive sonar search. Heading toward waypoint 68.021°N, 22.696°W (ETA 73 minutes). No immediate threats.
+     notes (memory for next window): First decision window. Scenario indicates hostile forces operating in area. Maintaining stealth + passive search posture. No changes to course, speed, or emitters. Will respond immediately if hostile contacts are detected.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "No contacts detected. K-316 submarine maintaining patrol at 16 knots, depth 100 feet, SILENT emcon with passive sonar search. Heading toward waypoint 68.021°N, 22.696°W (ETA 73 minutes). No immediate threats.",
+     >   "notes": "First decision window. Scenario indicates hostile forces operating in area. Maintaining stealth + passive search posture. No changes to course, speed, or emitters. Will respond immediately if hostile contacts are detected.",
+     >   "orders": [],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 2  t=2281s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4288/514
+     assessment: Four unknown contacts appeared near strait; none yet classified. Track 7002 is closest to marked zone and likely surface traffic or submarine. Continue quiet transit to intercept point, monitor classification before acting.
+     notes (memory for next window): Tracks 7001-7004 appeared this window, all unid. 7002 (67.700,-22.808) closest to marked zone perimeter - watch this one closely as possible Alfa. Baltimore still en route to 67.850,-23.900. Stay silent/passive, slow speed for sonar quality. Reassess classification next window before engaging.
+     --- raw model reply ---
+     > {"assessment":"Four unknown contacts appeared near strait; none yet classified. Track 7002 is closest to marked zone and likely surface traffic or submarine. Continue quiet transit to intercept point, monitor classification before acting.","notes":"Tracks 7001-7004 appeared this window, all unid. 7002 (67.700,-22.808) closest to marked zone perimeter - watch this one closely as possible Alfa. Baltimore still en route to 67.850,-23.900. Stay silent/passive, slow speed for sonar quality. Reassess classification next window before engaging.","orders":[],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2639/2764
+     assessment: No hostile contacts detected yet. Submarine K-316 transiting toward waypoint in search mode. Optimizing passive sonar posture by adjusting to above-layer depth for improved detection range and geometry against both surface and subsurface threats. Maintaining stealth, free-fire weapons posture ready.
+     notes (memory for next window): Adjusted K-316 to above_layer (350 ft) depth to optimize passive sonar performance for threat detection. Currently 20 kn transit, waypoint ETA 55 min. Weapons free and sonar passive. Will engage immediately on hostile classification. Monitor for contact development.
+     order: {"action": "depth", "unit_id": 8, "status": "above_layer"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "No hostile contacts detected yet. Submarine K-316 transiting toward waypoint in search mode. Optimizing passive sonar posture by adjusting to above-layer depth for improved detection range and geometry against both surface and subsurface threats. Maintaining stealth, free-fire weapons posture ready.",
+     >   "notes": "Adjusted K-316 to above_layer (350 ft) depth to optimize passive sonar performance for threat detection. Currently 20 kn transit, waypoint ETA 55 min. Weapons free and sonar passive. Will engage immediately on hostile classification. Monitor for contact development.",
+     >   "orders": [
+     >     {"action":"depth","unit_id":8,"status":"above_layer"}
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 3  t=2401s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4257/884
+     assessment: Four unid tracks appeared NE of zone; 7002 (67.702,-22.800, good fix) is closest to Baltimore and on a plausible transit line toward the marked zone. No classification yet - need closer sensor contact before engaging.
+     notes (memory for next window): Redirecting Baltimore toward 7002 for classification. Tracks 7001/7003/7004 further out (50-85nm from zone), lower priority. Stay silent/passive, weapons tight until hostile ID confirmed. Watch for any track closing on zone center 67.738,-24.206 faster than Baltimore can intercept.
+     order: {"action": "move", "unit_id": 5, "lat": 67.8, "lon": -23.05}
+     --- raw model reply ---
+     > {"assessment":"Four unid tracks appeared NE of zone; 7002 (67.702,-22.800, good fix) is closest to Baltimore and on a plausible transit line toward the marked zone. No classification yet - need closer sensor contact before engaging.","notes":"Redirecting Baltimore toward 7002 for classification. Tracks 7001/7003/7004 further out (50-85nm from zone), lower priority. Stay silent/passive, weapons tight until hostile ID confirmed. Watch for any track closing on zone center 67.738,-24.206 faster than Baltimore can intercept.","orders":[{"action":"move","unit_id":5,"lat":67.80,"lon":-23.05}],"next_check_s":180}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2671/1727
+     assessment: K-316 transiting toward waypoint with no contacts. Submarine currently at below_layer depth (420 ft); adjusting to above_layer for optimal passive sonar detection. Weapons free, silent posture maintained. No immediate threats detected; ready to engage on hostile classification.
+     notes (memory for next window): K-316 proceeding to 68.021,-22.696, ETA ~55 min. Reissued depth order to above_layer (350 ft) to match last window intent and optimize sonar sensitivity. No tracks yet; passive listening continues. Weapons loaded and ready: 8× SET-65 (vs sub), 14× 53-65K (vs surface), 4× MG-74 (vs sub). Will request immediate re-check if sonar develops contact.
+     order: {"action": "depth", "unit_id": 8, "status": "above_layer"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 transiting toward waypoint with no contacts. Submarine currently at below_layer depth (420 ft); adjusting to above_layer for optimal passive sonar detection. Weapons free, silent posture maintained. No immediate threats detected; ready to engage on hostile classification.",
+     >   "notes": "K-316 proceeding to 68.021,-22.696, ETA ~55 min. Reissued depth order to above_layer (350 ft) to match last window intent and optimize sonar sensitivity. No tracks yet; passive listening continues. Weapons loaded and ready: 8× SET-65 (vs sub), 14× 53-65K (vs surface), 4× MG-74 (vs sub). Will request immediate re-check if sonar develops contact.",
+     >   "orders": [
+     >     {"action": "depth", "unit_id": 8, "status": "above_layer"}
+     >   ],
+     >   "next_check_s": 150
+     > }
+     > ```
+
+--- window 4  t=2551s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 4350/839
+     assessment: Alfa (track 7005) confirmed hostile ~52nm NE of marked zone, position uncertain (25km). Baltimore currently heading south away from contact. Must cut off Alfa's transit path toward the strait zone while staying quiet.
+     notes (memory for next window): 7005=Alfa hostile near 68.218,-22.269, coarse fix. Redirecting Baltimore north to intercept between Alfa and zone center 67.738,-24.206. Staying passive/below_layer, slow speed for better sonar. Will re-evaluate position next window; engage with torpedo once range <27nm and contact refined.
+     order: {"action": "move", "unit_id": 5, "lat": 68.05, "lon": -22.9}
+     order: {"action": "speed", "unit_id": 5, "knots": 8}
+     order: {"action": "depth", "unit_id": 5, "status": "below_layer"}
+     order: {"action": "sonar", "unit_id": 5, "status": "passive"}
+     --- raw model reply ---
+     > {"assessment":"Alfa (track 7005) confirmed hostile ~52nm NE of marked zone, position uncertain (25km). Baltimore currently heading south away from contact. Must cut off Alfa's transit path toward the strait zone while staying quiet.","notes":"7005=Alfa hostile near 68.218,-22.269, coarse fix. Redirecting Baltimore north to intercept between Alfa and zone center 67.738,-24.206. Staying passive/below_layer, slow speed for better sonar. Will re-evaluate position next window; engage with torpedo once range <27nm and contact refined.","orders":[{"action":"move","unit_id":5,"lat":68.05,"lon":-22.9},{"action":"speed","unit_id":5,"knots":8},{"action":"depth","unit_id":5,"status":"below_layer"},{"action":"sonar","unit_id":5,"status":"passive"}],"next_check_s":180}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2722/3026
+     assessment: K-316 conducting passive sonar search en route to patrol waypoint (ETA 51 min). Currently at 1281 ft (deep); reissuing order to maintain above_layer (350 ft) for optimal passive sonar sensitivity. No contacts detected. Weapons loaded: 8× SET-65 (vs sub), 14× 53-65K (vs surface), 4× MG-74 (vs sub). S
+     notes (memory for next window): K-316 depth may still be transitioning from last window; reissuing above_layer order to ensure optimal sonar reception for contact detection. No hostiles detected in 15 min of patrol. Passive sonar active, silent emitters, weapons free. Continue methodical search toward 68.021,-22.696. Monitor for acoustic signatures from both surface and subsurface contacts.
+     order: {"action": "depth", "unit_id": 8, "status": "above_layer"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 conducting passive sonar search en route to patrol waypoint (ETA 51 min). Currently at 1281 ft (deep); reissuing order to maintain above_layer (350 ft) for optimal passive sonar sensitivity. No contacts detected. Weapons loaded: 8× SET-65 (vs sub), 14× 53-65K (vs surface), 4× MG-74 (vs sub). Silent posture maintained.",
+     >   "notes": "K-316 depth may still be transitioning from last window; reissuing above_layer order to ensure optimal sonar reception for contact detection. No hostiles detected in 15 min of patrol. Passive sonar active, silent emitters, weapons free. Continue methodical search toward 68.021,-22.696. Monitor for acoustic signatures from both surface and subsurface contacts.",
+     >   "orders": [
+     >     {
+     >       "action": "depth",
+     >       "unit_id": 8,
+     >       "status": "above_layer"
+     >     }
+     >   ],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 5  t=2671s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4354/460
+     assessment: Alfa (7005) confirmed hostile near 68.281,-22.034, ~29nm from Baltimore, heading toward strait/zone center. Need to close range below 27nm for torpedo shot while staying quiet.
+     notes (memory for next window): 7005 Alfa hostile ~68.281,-22.034 coarse fix. Baltimore closing to intercept point 68.1,-22.6, staying below_layer passive, slow speed. Shoot mk48 once range<27nm and track refines. Watch zone center 67.738,-24.206 - don't let Alfa slip past south.
+     order: {"action": "move", "unit_id": 5, "lat": 68.1, "lon": -22.6}
+     order: {"action": "speed", "unit_id": 5, "knots": 12}
+     --- raw model reply ---
+     > {"assessment":"Alfa (7005) confirmed hostile near 68.281,-22.034, ~29nm from Baltimore, heading toward strait/zone center. Need to close range below 27nm for torpedo shot while staying quiet.","notes":"7005 Alfa hostile ~68.281,-22.034 coarse fix. Baltimore closing to intercept point 68.1,-22.6, staying below_layer passive, slow speed. Shoot mk48 once range<27nm and track refines. Watch zone center 67.738,-24.206 - don't let Alfa slip past south.","orders":[{"action":"move","unit_id":5,"lat":68.1,"lon":-22.6},{"action":"speed","unit_id":5,"knots":12}],"next_check_s":180}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2691/2791
+     assessment: Submarine K-316 transiting silently to waypoint 68.021,-22.696. Passive sonar active, no contacts detected. Depth normalizing to above_layer. Methodical search proceeding.
+     notes (memory for next window): K-316 conducts passive sonar patrol of search area. No acoustic signatures detected in 15+ minutes. Transit ETA ~51 min at 19 knots. SILENT emitters and passive sonar maximizes initial detection range. Depth at 415 ft, transitioning toward above_layer (350 ft) preset for optimal listening. Weapons FREE, ready for contact. Monitor for surface and subsurface contacts. Current search pattern effective; continue.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Submarine K-316 transiting silently to waypoint 68.021,-22.696. Passive sonar active, no contacts detected. Depth normalizing to above_layer. Methodical search proceeding.",
+     >   "notes": "K-316 conducts passive sonar patrol of search area. No acoustic signatures detected in 15+ minutes. Transit ETA ~51 min at 19 knots. SILENT emitters and passive sonar maximizes initial detection range. Depth at 415 ft, transitioning toward above_layer (350 ft) preset for optimal listening. Weapons FREE, ready for contact. Monitor for surface and subsurface contacts. Current search pattern effective; continue.",
+     >   "orders": [],
+     >   "next_check_s": 600
+     > }
+     > ```
+
+--- window 6  t=2851s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4348/440
+     assessment: Alfa hostile track 7005 ~28nm NE, coarse fix. Baltimore closing below layer, passive, silent. Not yet in reliable torpedo range given fix uncertainty.
+     notes (memory for next window): 7005 Alfa hostile ~68.267,-22.073 coarse (9km unc). Baltimore moving to close range, stay below_layer, passive, silent, tight. Shoot mk48 once range<20nm and fix refines (good quality). Watch zone 67.738,-24.206 r10nm - block southward escape.
+     order: {"action": "move", "unit_id": 5, "lat": 68.15, "lon": -22.4}
+     --- raw model reply ---
+     > {"assessment":"Alfa hostile track 7005 ~28nm NE, coarse fix. Baltimore closing below layer, passive, silent. Not yet in reliable torpedo range given fix uncertainty.","notes":"7005 Alfa hostile ~68.267,-22.073 coarse (9km unc). Baltimore moving to close range, stay below_layer, passive, silent, tight. Shoot mk48 once range<20nm and fix refines (good quality). Watch zone 67.738,-24.206 r10nm - block southward escape.","orders":[{"action":"move","unit_id":5,"lat":68.15,"lon":-22.4}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2728/1660
+     assessment: New UNKNOWN contact (7001) detected ~26 nm away, coarse position. My submarine is currently at 756 ft (below thermal layer), significantly limiting passive sonar effectiveness. Moving to above_layer (350 ft) is critical to improve detection and classification capability. Continue patrol transit whil
+     notes (memory for next window): Contact 7001 appeared this window, UNKNOWN classification. Submarine depth correction required: ascend from 756 ft (below_layer) to 350 ft (above_layer) to optimize passive sonar listening for both surface and subsurface contacts. Weapons remain FREE. Do not engage until contact positively identified as hostile. Monitor track 7001 for bearing and range changes in next window to assess threat and intent.
+     order: {"action": "depth", "unit_id": 8, "status": "above_layer"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "New UNKNOWN contact (7001) detected ~26 nm away, coarse position. My submarine is currently at 756 ft (below thermal layer), significantly limiting passive sonar effectiveness. Moving to above_layer (350 ft) is critical to improve detection and classification capability. Continue patrol transit while monitoring contact development.",
+     >   "notes": "Contact 7001 appeared this window, UNKNOWN classification. Submarine depth correction required: ascend from 756 ft (below_layer) to 350 ft (above_layer) to optimize passive sonar listening for both surface and subsurface contacts. Weapons remain FREE. Do not engage until contact positively identified as hostile. Monitor track 7001 for bearing and range changes in next window to assess threat and intent.",
+     >   "orders": [
+     >     {"action": "depth", "unit_id": 8, "status": "above_layer"}
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 7  t=2971s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4347/587
+     assessment: Alfa (7005) confirmed hostile ~22nm NE, heading toward strait/marked zone. Baltimore closing below layer, silent. Not yet in reliable torpedo range given coarse fix.
+     notes (memory for next window): 7005 Alfa hostile ~68.214,-22.250 coarse unc 7km. Closing at speed 8, below_layer, passive, silent, tight. Engage with mk48 once range<18nm and track quality improves. Watch for southward movement toward marked zone 67.738,-24.206 r10nm.
+     order: {"action": "move", "unit_id": 5, "lat": 68.2, "lon": -22.3}
+     order: {"action": "speed", "unit_id": 5, "knots": 8}
+     --- raw model reply ---
+     > {"assessment":"Alfa (7005) confirmed hostile ~22nm NE, heading toward strait/marked zone. Baltimore closing below layer, silent. Not yet in reliable torpedo range given coarse fix.","notes":"7005 Alfa hostile ~68.214,-22.250 coarse unc 7km. Closing at speed 8, below_layer, passive, silent, tight. Engage with mk48 once range<18nm and track quality improves. Watch for southward movement toward marked zone 67.738,-24.206 r10nm.","orders":[{"action":"move","unit_id":5,"lat":68.20,"lon":-22.30},{"action":"speed","unit_id":5,"knots":8}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2822/2195
+     assessment: Three UNKNOWN contacts detected (7001, 7002, 7003) all live, range 40–70 nm, position quality coarse (~13–14 nm circles). Submarine K-316 optimally positioned at 350 ft depth with passive sonar. No positive hostile identification; cannot engage. Maintain listening posture and continue toward waypoin
+     notes (memory for next window): Three simultaneous contacts warrant continued passive analysis. Position uncertainties prevent accurate targeting. Torpedo armament ready (26 total). Depth 350 ft (above_layer) is optimal for listening to both surface and subsurface contacts. No emitter change needed. Next window will show track motion and bearing changes to aid classification.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN contacts detected (7001, 7002, 7003) all live, range 40–70 nm, position quality coarse (~13–14 nm circles). Submarine K-316 optimally positioned at 350 ft depth with passive sonar. No positive hostile identification; cannot engage. Maintain listening posture and continue toward waypoint.",
+     >   "notes": "Three simultaneous contacts warrant continued passive analysis. Position uncertainties prevent accurate targeting. Torpedo armament ready (26 total). Depth 350 ft (above_layer) is optimal for listening to both surface and subsurface contacts. No emitter change needed. Next window will show track motion and bearing changes to aid classification.",
+     >   "orders": [],
+     >   "next_check_s": 150
+     > }
+     > ```
+
+--- window 8  t=3091s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4316/659
+     assessment: Alfa hostile 7005 ~21nm from Baltimore, coarse position but closing toward strait. Within mk48 range; attempt engagement while closing further to improve solution.
+     notes (memory for next window): 7005 Alfa ~68.201,-22.294 coarse unc 6km, range ~21nm. Fired mk48 salvo. Continue closing, stay below_layer, passive, silent. Watch southward drift toward marked zone 67.738,-24.206 r10nm.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     order: {"action": "move", "unit_id": 5, "lat": 68.1, "lon": -22.6}
+     --- raw model reply ---
+     > {"assessment":"Alfa hostile 7005 ~21nm from Baltimore, coarse position but closing toward strait. Within mk48 range; attempt engagement while closing further to improve solution.","notes":"7005 Alfa ~68.201,-22.294 coarse unc 6km, range ~21nm. Fired mk48 salvo. Continue closing, stay below_layer, passive, silent. Watch southward drift toward marked zone 67.738,-24.206 r10nm.","orders":[{"action":"engage","unit_id":5,"track_id":7005,"salvo":2,"weapon":"usn_mk48_mod4"},{"action":"move","unit_id":5,"lat":68.1,"lon":-22.6}],"next_check_s":120}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 2776/6370
+     assessment: Three unknown live contacts at different bearings (7001, 7002, 7003). Position uncertainties 14–21 km, ranges ~30–46 nm. All unidentified; cannot engage. Improving passive listening posture for track classification and bearing rate analysis.
+     notes (memory for next window): Depth adjusted to above_layer (350 ft) for optimal surface/subsurface listening. Speed reduced to 10 kt for improved passive sonar quality while gathering bearing rate. All three contacts unidentified; holding fire until HOSTILE confirmation. 26 torpedoes ready. Continuing waypoint transit. Bearing rate changes next window should aid contact classification.
+     order: {"action": "depth", "unit_id": 8, "status": "above_layer"}
+     order: {"action": "speed", "unit_id": 8, "knots": 10}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three unknown live contacts at different bearings (7001, 7002, 7003). Position uncertainties 14–21 km, ranges ~30–46 nm. All unidentified; cannot engage. Improving passive listening posture for track classification and bearing rate analysis.",
+     >   "notes": "Depth adjusted to above_layer (350 ft) for optimal surface/subsurface listening. Speed reduced to 10 kt for improved passive sonar quality while gathering bearing rate. All three contacts unidentified; holding fire until HOSTILE confirmation. 26 torpedoes ready. Continuing waypoint transit. Bearing rate changes next window should aid contact classification.",
+     >   "orders": [
+     >     {"action": "depth", "unit_id": 8, "status": "above_layer"},
+     >     {"action": "speed", "unit_id": 8, "knots": 10}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 9  t=3211s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4376/485
+     assessment: Alfa (track 7005) at ~68.186,-22.367, range ~19nm, within mk48 range. Previous salvo may have missed or boat evaded. Continue engagement.
+     notes (memory for next window): Alfa holding near 68.186,-22.367 moving south toward marked zone. Baltimore at 67.984,-23.026, range ~19nm. Fired 2 mk48 last window - unclear result. Keep closing, stay below_layer, passive, re-engage.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     order: {"action": "move", "unit_id": 5, "lat": 68.15, "lon": -22.5}
+     rounds expended since last window: you ordered: 5:usn_mk48_mod4 x2; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"Alfa (track 7005) at ~68.186,-22.367, range ~19nm, within mk48 range. Previous salvo may have missed or boat evaded. Continue engagement.","notes":"Alfa holding near 68.186,-22.367 moving south toward marked zone. Baltimore at 67.984,-23.026, range ~19nm. Fired 2 mk48 last window - unclear result. Keep closing, stay below_layer, passive, re-engage.","orders":[{"action":"engage","unit_id":5,"track_id":7005,"salvo":2,"weapon":"usn_mk48_mod4"},{"action":"move","unit_id":5,"lat":68.15,"lon":-22.5}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2845/2176
+     assessment: Four UNKNOWN contacts detected via passive sonar at coarse resolution (12–29 km uncertainty). All unidentified; no hostile act confirmed. K-316 maintaining optimal posture: silent running, depth 350 ft (above_layer), 10 kts for passive sonar performance. Continuing waypoint transit. Will classify co
+     notes (memory for next window): Tracks 7001–7004 all UNKNOWN/unidentified, age 1s, live. New track 7004 this window. K-316 in SILENT mode, passive sonar, weapons free but cannot engage unidentified targets per ROE. 26 torpedoes (8×SET-65, 14×53-65K, 4×MG-74) ready. Monitor bearing changes next check for contact classification. Current depth and speed optimal for detection.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Four UNKNOWN contacts detected via passive sonar at coarse resolution (12–29 km uncertainty). All unidentified; no hostile act confirmed. K-316 maintaining optimal posture: silent running, depth 350 ft (above_layer), 10 kts for passive sonar performance. Continuing waypoint transit. Will classify contacts via bearing rate development before engaging.",
+     >   "notes": "Tracks 7001–7004 all UNKNOWN/unidentified, age 1s, live. New track 7004 this window. K-316 in SILENT mode, passive sonar, weapons free but cannot engage unidentified targets per ROE. 26 torpedoes (8×SET-65, 14×53-65K, 4×MG-74) ready. Monitor bearing changes next check for contact classification. Current depth and speed optimal for detection.",
+     >   "orders": [],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 10  t=3332s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4372/503
+     assessment: Alfa (7005) confirmed hostile at 68.190,-22.355, ~19nm from Baltimore, within torpedo range. Continue engagement before it nears marked zone.
+     notes (memory for next window): Alfa heading south toward marked zone, coarse position ~68.19,-22.36. Baltimore closing from 67.987,-23.027. Fired 2 mk48 last window, unclear hit. Keep firing as range closes, stay below_layer passive, adjust course to intercept path toward zone center 67.738,-24.206.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     order: {"action": "move", "unit_id": 5, "lat": 68.05, "lon": -22.7}
+     rounds expended since last window: you ordered: 5:usn_mk48_mod4 x2; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"Alfa (7005) confirmed hostile at 68.190,-22.355, ~19nm from Baltimore, within torpedo range. Continue engagement before it nears marked zone.","notes":"Alfa heading south toward marked zone, coarse position ~68.19,-22.36. Baltimore closing from 67.987,-23.027. Fired 2 mk48 last window, unclear hit. Keep firing as range closes, stay below_layer passive, adjust course to intercept path toward zone center 67.738,-24.206.","orders":[{"action":"engage","unit_id":5,"track_id":7005,"salvo":2,"weapon":"usn_mk48_mod4"},{"action":"move","unit_id":5,"lat":68.05,"lon":-22.7}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2856/4827
+     assessment: 4 unknown contacts detected via passive sonar at 50–65 km range, coarse positions (7–24 km uncertainty). K-316 optimally positioned for stealth and detection. Cannot engage unidentified targets per ROE. Monitoring for bearing changes, hostile indicators, or classification updates.
+     notes (memory for next window): Tracks 7001–7004 all UNKNOWN, live (1s old). Submarine at 350 ft (above thermal layer), 5 kn, SILENT mode, passive sonar, weapons-free per scenario posture—all tactically sound for this situation. Contacts may be friendlies, neutrals, or hostiles; wait for ID before firing. If any track emits active sonar, launches weapons, or is classified HOSTILE, respond with appropriate torpedo (anti-sub for submarines: SET-65/MG-74; anti-surface for ships: 53-65K). 26 torpedoes stockpiled.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "4 unknown contacts detected via passive sonar at 50–65 km range, coarse positions (7–24 km uncertainty). K-316 optimally positioned for stealth and detection. Cannot engage unidentified targets per ROE. Monitoring for bearing changes, hostile indicators, or classification updates.",
+     >   "notes": "Tracks 7001–7004 all UNKNOWN, live (1s old). Submarine at 350 ft (above thermal layer), 5 kn, SILENT mode, passive sonar, weapons-free per scenario posture—all tactically sound for this situation. Contacts may be friendlies, neutrals, or hostiles; wait for ID before firing. If any track emits active sonar, launches weapons, or is classified HOSTILE, respond with appropriate torpedo (anti-sub for submarines: SET-65/MG-74; anti-surface for ships: 53-65K). 26 torpedoes stockpiled.",
+     >   "orders": [],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 11  t=3452s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4344/556
+     assessment: Alfa coarse position 68.194,-22.350 heading south toward marked zone; Baltimore closing from 67.989,-23.031, ~20nm range, torpedo shot already pending. Keep closing and pressing attack.
+     notes (memory for next window): Alfa last at 68.194,-22.350 heading south. Baltimore pursuing below layer passive. Maintain engage orders on 7005 as it closes; adjust waypoint to intercept path to zone center 67.738,-24.206.
+     order: {"action": "move", "unit_id": 5, "lat": 68.1, "lon": -22.55}
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     --- raw model reply ---
+     > {"assessment":"Alfa coarse position 68.194,-22.350 heading south toward marked zone; Baltimore closing from 67.989,-23.031, ~20nm range, torpedo shot already pending. Keep closing and pressing attack.","notes":"Alfa last at 68.194,-22.350 heading south. Baltimore pursuing below layer passive. Maintain engage orders on 7005 as it closes; adjust waypoint to intercept path to zone center 67.738,-24.206.","orders":[{"action":"move","unit_id":5,"lat":68.10,"lon":-22.55},{"action":"engage","unit_id":5,"track_id":7005,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2816/2510
+     assessment: Two UNKNOWN contacts detected at 60–70 km distance via passive sonar (coarse position quality). Both live, zero age. No hostile action yet. Submarine is in optimal stealth posture: 350 ft (above thermal layer), 5 kn, SILENT mode, passive sonar, weapons-free. Contacts may be friendly, neutral, or hos
+     notes (memory for next window): Lost tracks 7001, 7003 (contacts departed or merged). Remaining tracks 7002 and 7004 are UNKNOWN; position uncertainty 7–22 km. K-316 in excellent defensive posture. Passive sonar should gradually classify contacts over time. Current waypoint leads southwest (away from contacts); acceptable for now. If either track emits active sonar, launches weapons, or is classified HOSTILE, respond with appropriate torpedo. Stocks: 26 torpedoes available. Monitor for track movement/classification changes within next 90 seconds.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Two UNKNOWN contacts detected at 60–70 km distance via passive sonar (coarse position quality). Both live, zero age. No hostile action yet. Submarine is in optimal stealth posture: 350 ft (above thermal layer), 5 kn, SILENT mode, passive sonar, weapons-free. Contacts may be friendly, neutral, or hostile. Maintain passive listening; do not fire or maneuver aggressively until classification improves or threat is confirmed.",
+     >   "notes": "Lost tracks 7001, 7003 (contacts departed or merged). Remaining tracks 7002 and 7004 are UNKNOWN; position uncertainty 7–22 km. K-316 in excellent defensive posture. Passive sonar should gradually classify contacts over time. Current waypoint leads southwest (away from contacts); acceptable for now. If either track emits active sonar, launches weapons, or is classified HOSTILE, respond with appropriate torpedo. Stocks: 26 torpedoes available. Monitor for track movement/classification changes within next 90 seconds.",
+     >   "orders": [],
+     >   "next_check_s": 90
+     > }
+     > ```
+
+--- window 12  t=3542s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 4275/705
+     assessment: Lost firm track on Alfa (7005 dropped). Unidentified contacts 7002-7004 near last known path south toward marked zone. Baltimore must reposition to block approach to zone, staying passive below layer.
+     notes (memory for next window): Alfa contact lost (7005). Candidate tracks: 7004 (68.560,-23.010) closest to last known path, 7002 (67.721,-22.725) near zone already. Repositioning Baltimore toward zone approach to intercept and re-acquire via passive sonar. Watch for reclassification of 7002/7003/7004 as hostile submarine.
+     order: {"action": "move", "unit_id": 5, "lat": 67.8, "lon": -23.6}
+     order: {"action": "speed", "unit_id": 5, "knots": 8}
+     order: {"action": "depth", "unit_id": 5, "status": "below_layer"}
+     order: {"action": "sonar", "unit_id": 5, "status": "passive"}
+     --- raw model reply ---
+     > {"assessment":"Lost firm track on Alfa (7005 dropped). Unidentified contacts 7002-7004 near last known path south toward marked zone. Baltimore must reposition to block approach to zone, staying passive below layer.","notes":"Alfa contact lost (7005). Candidate tracks: 7004 (68.560,-23.010) closest to last known path, 7002 (67.721,-22.725) near zone already. Repositioning Baltimore toward zone approach to intercept and re-acquire via passive sonar. Watch for reclassification of 7002/7003/7004 as hostile submarine.","orders":[{"action":"move","unit_id":5,"lat":67.80,"lon":-23.60},{"action":"speed","unit_id":5,"knots":8},{"action":"depth","unit_id":5,"status":"below_layer"},{"action":"sonar","unit_id":5,"status":"passive"}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2787/2241
+     assessment: Two UNKNOWN contacts remain at coarse accuracy (~7–20 km uncertainty). K-316 transiting southwest away from both tracks under SILENT posture. Neither has shown hostile behavior yet. Current FREE weapon status is unsafe with unidentified vessels; switching to TIGHT to prevent friendly fire pending cl
+     notes (memory for next window): Tracks 7002 (68.618,-23.139) and 7004 (68.975,-22.051) live and UNKNOWN. Passive sonar should gradually classify over 90–180 seconds. K-316 maintains SILENT emcon (stealth priority for submarine) and current waypoint (southwest departure). Weapon status changed to TIGHT: unit AI will not fire at unknowns; I will use engage command if either track is positively identified as hostile. 26 torpedoes in reserve. If either track emits, shoots, or is classified HOSTILE, respond immediately with appropriate torpedo. Next window in 90 seconds to check classification progress.
+     order: {"action": "weapons", "unit_id": 8, "status": "tight"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Two UNKNOWN contacts remain at coarse accuracy (~7–20 km uncertainty). K-316 transiting southwest away from both tracks under SILENT posture. Neither has shown hostile behavior yet. Current FREE weapon status is unsafe with unidentified vessels; switching to TIGHT to prevent friendly fire pending classification.",
+     >   "notes": "Tracks 7002 (68.618,-23.139) and 7004 (68.975,-22.051) live and UNKNOWN. Passive sonar should gradually classify over 90–180 seconds. K-316 maintains SILENT emcon (stealth priority for submarine) and current waypoint (southwest departure). Weapon status changed to TIGHT: unit AI will not fire at unknowns; I will use engage command if either track is positively identified as hostile. 26 torpedoes in reserve. If either track emits, shoots, or is classified HOSTILE, respond immediately with appropriate torpedo. Next window in 90 seconds to check classification progress.",
+     >   "orders": [
+     >     {"action":"weapons","unit_id":8,"status":"tight"}
+     >   ],
+     >   "next_check_s": 90
+     > }
+     > ```
+
+--- window 13  t=3632s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4381/366
+     assessment: Alfa (7006) positively ID'd hostile, ~15nm NE of Baltimore. Pending torpedo shots already queued from last window. Continue prosecution, hold current depth/speed to stay quiet and let shots run.
+     notes (memory for next window): 7006 confirmed Alfa hostile at 68.226,-22.261. Pending Mk48 shots in flight. Monitor for kill confirmation or evasion; reassign track if lost again. Watch 7002/7003/7004 for reclassification.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7006, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     --- raw model reply ---
+     > {"assessment":"Alfa (7006) positively ID'd hostile, ~15nm NE of Baltimore. Pending torpedo shots already queued from last window. Continue prosecution, hold current depth/speed to stay quiet and let shots run.","notes":"7006 confirmed Alfa hostile at 68.226,-22.261. Pending Mk48 shots in flight. Monitor for kill confirmation or evasion; reassign track if lost again. Watch 7002/7003/7004 for reclassification.","orders":[{"action":"engage","unit_id":5,"track_id":7006,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2874/2402
+     assessment: Three UNKNOWN contacts remain under passive sonar observation. K-316 maintains SILENT posture at depth 1070 ft below thermal layer, optimizing passive listening for classification. All tracks are live (age_s ≤ 1) with coarse position quality. No immediate threat confirmation. Weapons remain TIGHT pe
+     notes (memory for next window): Track 7005 new (67.613°N,-22.804°W, 27 km error). Tracks 7002 and 7004 continuing prior surveillance. Passive sonar classification in progress; previous window estimated 90–180 sec for contact type/threat resolution from detection. K-316 continuing transit to waypoint (ETA 44 min). Torpedo loadout: 8×SET-65, 14×53-65K, 4×MG-74 (26 total). Will immediately engage with appropriate torpedo on first HOSTILE classification. Maintain stealth and passive listening; no tactical maneuvering needed yet.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN contacts remain under passive sonar observation. K-316 maintains SILENT posture at depth 1070 ft below thermal layer, optimizing passive listening for classification. All tracks are live (age_s ≤ 1) with coarse position quality. No immediate threat confirmation. Weapons remain TIGHT pending hostile ID.",
+     >   "notes": "Track 7005 new (67.613°N,-22.804°W, 27 km error). Tracks 7002 and 7004 continuing prior surveillance. Passive sonar classification in progress; previous window estimated 90–180 sec for contact type/threat resolution from detection. K-316 continuing transit to waypoint (ETA 44 min). Torpedo loadout: 8×SET-65, 14×53-65K, 4×MG-74 (26 total). Will immediately engage with appropriate torpedo on first HOSTILE classification. Maintain stealth and passive listening; no tactical maneuvering needed yet.",
+     >   "orders": [],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 14  t=3692s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4369/191
+     assessment: Torpedoes in flight toward hostile Alfa (track 7006) at 68.265,-22.119. Baltimore remains silent and on course. Awaiting shot resolution; no new threats detected.
+     notes (memory for next window): Mk48 shots pending vs track 7006 (Alfa). Monitor for kill confirmation. If shots miss/evade, reassign and fire again. Keep Baltimore silent, depth below layer if possible for safety from counter-detection. Watch 7001-7004 for reclassification.
+     --- raw model reply ---
+     > {"assessment":"Torpedoes in flight toward hostile Alfa (track 7006) at 68.265,-22.119. Baltimore remains silent and on course. Awaiting shot resolution; no new threats detected.","notes":"Mk48 shots pending vs track 7006 (Alfa). Monitor for kill confirmation. If shots miss/evade, reassign and fire again. Keep Baltimore silent, depth below layer if possible for safety from counter-detection. Watch 7001-7004 for reclassification.","orders":[],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2853/2724
+     assessment: Three unknown contacts detected via passive sonar at ranges 30–50 nm. Sonar classification underway. Maintaining silent/passive posture, tight weapons status. K-316 continuing transit to waypoint.
+     notes (memory for next window): Tracks 7005 (SW ~35nm), 7002 (NW ~30nm), 7004 (NE ~50nm) all UNKNOWN, live, recent. Passive sonar classification in progress (est. 90–180 sec from prior detection). Torpedo loadout: 8×SET-65 (sub/9nm), 14×53-65K (surface/10nm), 4×MG-74 (sub/8nm). Will engage immediately upon HOSTILE classification with weapon matched to contact type. K-316: heading 217°, 20 kn, depth 1307 ft (deep). Waypoint ETA 43 min.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three unknown contacts detected via passive sonar at ranges 30–50 nm. Sonar classification underway. Maintaining silent/passive posture, tight weapons status. K-316 continuing transit to waypoint.",
+     >   "notes": "Tracks 7005 (SW ~35nm), 7002 (NW ~30nm), 7004 (NE ~50nm) all UNKNOWN, live, recent. Passive sonar classification in progress (est. 90–180 sec from prior detection). Torpedo loadout: 8×SET-65 (sub/9nm), 14×53-65K (surface/10nm), 4×MG-74 (sub/8nm). Will engage immediately upon HOSTILE classification with weapon matched to contact type. K-316: heading 217°, 20 kn, depth 1307 ft (deep). Waypoint ETA 43 min.",
+     >   "orders": [],
+     >   "next_check_s": 150
+     > }
+     > ```
+
+--- window 15  t=3812s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4356/177
+     assessment: Pending Mk48 shots in flight against Alfa (7006). Baltimore remains silent and deep. Other tracks (7001-7004) still unclassified, monitor for additional subs.
+     notes (memory for next window): Mk48 shots en route to track 7006. Await impact confirmation. If miss, re-engage with remaining torpedoes. Keep Baltimore below layer, silent, passive sonar. Watch 7001-7004 for reclassification as threats near marked area.
+     --- raw model reply ---
+     > {"assessment":"Pending Mk48 shots in flight against Alfa (7006). Baltimore remains silent and deep. Other tracks (7001-7004) still unclassified, monitor for additional subs.","notes":"Mk48 shots en route to track 7006. Await impact confirmation. If miss, re-engage with remaining torpedoes. Keep Baltimore below layer, silent, passive sonar. Watch 7001-7004 for reclassification as threats near marked area.","orders":[],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2862/4273
+     assessment: Three UNKNOWN live contacts detected at 30–50 nm (SW, NW, NE bearings). Passive sonar classification in progress. K-316 deep, silent, listening. Reducing speed to 8 knots to optimize passive sonar performance and accelerate threat classification. Ready to maneuver and engage once HOSTILE identificat
+     notes (memory for next window): Tracks: 7005 (SW ~35nm), 7002 (NW ~30nm), 7004 (NE ~50nm)—all UNKNOWN/live/recent. K-316 at 68.202°N,22.326°W, heading 217°. Reducing to 8 kn from 20 kn for passive sonar optimization. Weapons ready (TIGHT): 8×SET-65 (sub/9nm), 14×53-65K (surface/10nm), 4×MG-74 (sub/8nm). Classification should complete within next 60–120s. Expect imminent HOSTILE callout and engagement opportunity.
+     order: {"action": "speed", "unit_id": 8, "knots": 8}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN live contacts detected at 30–50 nm (SW, NW, NE bearings). Passive sonar classification in progress. K-316 deep, silent, listening. Reducing speed to 8 knots to optimize passive sonar performance and accelerate threat classification. Ready to maneuver and engage once HOSTILE identification confirmed.",
+     >   "notes": "Tracks: 7005 (SW ~35nm), 7002 (NW ~30nm), 7004 (NE ~50nm)—all UNKNOWN/live/recent. K-316 at 68.202°N,22.326°W, heading 217°. Reducing to 8 kn from 20 kn for passive sonar optimization. Weapons ready (TIGHT): 8×SET-65 (sub/9nm), 14×53-65K (surface/10nm), 4×MG-74 (sub/8nm). Classification should complete within next 60–120s. Expect imminent HOSTILE callout and engagement opportunity.",
+     >   "orders": [
+     >     {"action": "speed", "unit_id": 8, "knots": 8}
+     >   ],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 16  t=3932s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4359/165
+     assessment: Torpedoes still in transit to Alfa (track 7006). Baltimore remains silent below layer. Other tracks unclassified, not yet threats. Monitoring for hit confirmation.
+     notes (memory for next window): Mk48 shots still en route to 7006. Awaiting impact. If miss, re-engage with remaining torpedoes. Keep below layer, silent, passive. Watch 7001-7004 for reclass near marked area.
+     --- raw model reply ---
+     > {"assessment":"Torpedoes still in transit to Alfa (track 7006). Baltimore remains silent below layer. Other tracks unclassified, not yet threats. Monitoring for hit confirmation.","notes":"Mk48 shots still en route to 7006. Awaiting impact. If miss, re-engage with remaining torpedoes. Keep below layer, silent, passive. Watch 7001-7004 for reclass near marked area.","orders":[],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2887/6397
+     assessment: Three UNKNOWN contacts in detection range: 7005 ~30nm SW, 7002 ~25nm NW, 7006 new/closest ~10nm SE (±12nm uncertainty). Maintaining silent passive sonar at 8kn/1310ft (below thermocline) for optimal acoustic data accumulation. Weapons TIGHT. Classification imminent.
+     notes (memory for next window): K-316 steady on course 217° to WP 68.021,-22.696. Passive sonar converging on contact classification. Track 7006 is closest; once HOSTILE ID confirmed, will maneuver to optimal engagement range (8-10nm for SET-65/53-65K). Torpedoes loaded. No action until classification completes—silence and patience maximize detection and survivability.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN contacts in detection range: 7005 ~30nm SW, 7002 ~25nm NW, 7006 new/closest ~10nm SE (±12nm uncertainty). Maintaining silent passive sonar at 8kn/1310ft (below thermocline) for optimal acoustic data accumulation. Weapons TIGHT. Classification imminent.",
+     >   "notes": "K-316 steady on course 217° to WP 68.021,-22.696. Passive sonar converging on contact classification. Track 7006 is closest; once HOSTILE ID confirmed, will maneuver to optimal engagement range (8-10nm for SET-65/53-65K). Torpedoes loaded. No action until classification completes—silence and patience maximize detection and survivability.",
+     >   "orders": [],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 17  t=3992s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4345/164
+     assessment: Torpedoes still inbound to Alfa (track 7006). Baltimore remains below layer, silent, holding course. Other tracks unclassified, no immediate threat to Baltimore.
+     notes (memory for next window): Mk48 shots still en route to 7006. Awaiting impact. If miss, re-engage with remaining torpedoes. Keep below layer, silent, passive. Watch 7001-7004 for reclass near marked area.
+     --- raw model reply ---
+     > {"assessment":"Torpedoes still inbound to Alfa (track 7006). Baltimore remains below layer, silent, holding course. Other tracks unclassified, no immediate threat to Baltimore.","notes":"Mk48 shots still en route to 7006. Awaiting impact. If miss, re-engage with remaining torpedoes. Keep below layer, silent, passive. Watch 7001-7004 for reclass near marked area.","orders":[],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2795/7120
+     assessment: All three contacts remain UNKNOWN. K-316 maintaining silent passive sonar convergence on target cluster. Track 7006 closest at ~21nm. Awaiting acoustic classification before engagement possible.
+     notes (memory for next window): Optimizing passive sonar: reduced speed to 5kt for maximum detection range and sensitivity. Continue silent approach to converge on targets. Once classification complete and HOSTILE confirmed, will maneuver to 8-10nm firing range and engage with appropriate torpedo.
+     order: {"action": "speed", "unit_id": 8, "knots": 5}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "All three contacts remain UNKNOWN. K-316 maintaining silent passive sonar convergence on target cluster. Track 7006 closest at ~21nm. Awaiting acoustic classification before engagement possible.",
+     >   "notes": "Optimizing passive sonar: reduced speed to 5kt for maximum detection range and sensitivity. Continue silent approach to converge on targets. Once classification complete and HOSTILE confirmed, will maneuver to 8-10nm firing range and engage with appropriate torpedo.",
+     >   "orders": [
+     >     {
+     >       "action": "speed",
+     >       "unit_id": 8,
+     >       "knots": 5
+     >     }
+     >   ],
+     >   "next_check_s": 90
+     > }
+     > ```
+
+--- window 18  t=4082s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4347/182
+     assessment: Torpedoes still inbound to Alfa (track 7006). Baltimore remains silent below layer awaiting impact. Other unid tracks nearby not yet classified, could be surface traffic or decoys.
+     notes (memory for next window): Mk48 shots en route to 7006 at 68.203,-22.311. Awaiting impact results. If miss, re-engage with remaining torpedoes. Keep below layer, silent, passive. Monitor 7001-7004 near marked area for reclass.
+     --- raw model reply ---
+     > {"assessment":"Torpedoes still inbound to Alfa (track 7006). Baltimore remains silent below layer awaiting impact. Other unid tracks nearby not yet classified, could be surface traffic or decoys.","notes":"Mk48 shots en route to 7006 at 68.203,-22.311. Awaiting impact results. If miss, re-engage with remaining torpedoes. Keep below layer, silent, passive. Monitor 7001-7004 near marked area for reclass.","orders":[],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2778/4046
+     assessment: Three unknown acoustic contacts detected via passive sonar at 29–34nm range. K-316 correctly positioned in silent approach toward central waypoint. All tracks unidentified; weapons tight pending hostile classification. Continuing search phase.
+     notes (memory for next window): Tracks 7005, 7002, 7006 all fresh (1s old), coarse bearing-only fixes typical of passive sonar range. Current posture optimal: 1310ft (deep, hard to detect), 5kt (quiet, long passive detection range), silent emitters, tight weapons. Waypoint 68.021,-22.696 positions boat centrally. Monitor for acoustic signature evolution and hostile behavior. Will close to ~10nm and fire once HOSTILE confirmed and in range. Submarine's own AI handles evasion and classification assistance.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three unknown acoustic contacts detected via passive sonar at 29–34nm range. K-316 correctly positioned in silent approach toward central waypoint. All tracks unidentified; weapons tight pending hostile classification. Continuing search phase.",
+     >   "notes": "Tracks 7005, 7002, 7006 all fresh (1s old), coarse bearing-only fixes typical of passive sonar range. Current posture optimal: 1310ft (deep, hard to detect), 5kt (quiet, long passive detection range), silent emitters, tight weapons. Waypoint 68.021,-22.696 positions boat centrally. Monitor for acoustic signature evolution and hostile behavior. Will close to ~10nm and fire once HOSTILE confirmed and in range. Submarine's own AI handles evasion and classification assistance.",
+     >   "orders": [],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 19  t=4202s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4359/203
+     assessment: Torpedoes en route to Alfa (7006) near 68.2,-22.3. Baltimore holding below layer, silent. Unknown tracks 7001-7004 unclassified, not near marked area yet.
+     notes (memory for next window): Mk48 shots inbound to 7006. Awaiting impact. Marked area center 67.738,-24.206 r10nm - Alfa at 68.2,-22.3 still well north/east, time to intercept. If torpedoes miss, re-engage with remaining Mk48s. Keep silent/passive below layer.
+     --- raw model reply ---
+     > {"assessment":"Torpedoes en route to Alfa (7006) near 68.2,-22.3. Baltimore holding below layer, silent. Unknown tracks 7001-7004 unclassified, not near marked area yet.","notes":"Mk48 shots inbound to 7006. Awaiting impact. Marked area center 67.738,-24.206 r10nm - Alfa at 68.2,-22.3 still well north/east, time to intercept. If torpedoes miss, re-engage with remaining Mk48s. Keep silent/passive below layer.","orders":[],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2829/2172
+     assessment: Three contacts detected via passive sonar at bearing-only range (10+ km uncertainty). All UNKNOWN and unidentified—ROE prohibits engagement. Optimal defensive posture maintained: deep (1310 ft), silent emitters, passive sonar, tight weapons, 5 kt. Awaiting hostile confirmation before any engagement 
+     notes (memory for next window): Tracks 7005, 7002, 7006 fresh (1s old) but remain UNKNOWN. Current silent posture working well for detection. Submarine AI classifying acoustic signatures. Will hold fire discipline until HOSTILE designation received. Waypoint 68.021,-22.696 remains central to monitor all three contacts. Do NOT engage unknowns.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three contacts detected via passive sonar at bearing-only range (10+ km uncertainty). All UNKNOWN and unidentified—ROE prohibits engagement. Optimal defensive posture maintained: deep (1310 ft), silent emitters, passive sonar, tight weapons, 5 kt. Awaiting hostile confirmation before any engagement action.",
+     >   "notes": "Tracks 7005, 7002, 7006 fresh (1s old) but remain UNKNOWN. Current silent posture working well for detection. Submarine AI classifying acoustic signatures. Will hold fire discipline until HOSTILE designation received. Waypoint 68.021,-22.696 remains central to monitor all three contacts. Do NOT engage unknowns.",
+     >   "orders": [],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 20  t=4322s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4377/255
+     assessment: Mk48 salvo already en route to Alfa (track 7006) at 68.2,-22.3. Baltimore remains silent/passive below layer, well positioned north of marked area. Awaiting torpedo impact results.
+     notes (memory for next window): 3x Mk48 fired at 7006 (Alfa), still pending impact. Alfa at 68.2,-22.3, far from marked area (67.738,-24.206). If miss, re-engage with remaining Mk48s or ugm-84a. Keep silent/passive, below layer, low speed.
+     --- raw model reply ---
+     > {"assessment":"Mk48 salvo already en route to Alfa (track 7006) at 68.2,-22.3. Baltimore remains silent/passive below layer, well positioned north of marked area. Awaiting torpedo impact results.","notes":"3x Mk48 fired at 7006 (Alfa), still pending impact. Alfa at 68.2,-22.3, far from marked area (67.738,-24.206). If miss, re-engage with remaining Mk48s or ugm-84a. Keep silent/passive, below layer, low speed.","orders":[],"next_check_s":90}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2787/2938
+     assessment: Three unknown contacts detected via passive sonar (7005, 7002, 7006, all fresh <1s). Submarine maintaining SILENT/TIGHT defensive posture. Acoustic classification in progress by submarine AI. Positioning for central monitoring. No engagement until HOSTILE classification confirmed.
+     notes (memory for next window): Contacts positioned around K-316: 7005 (SW), 7002 (NE), 7006 (SE). Submarine at 1267 ft (very deep), 5 knots, passive sonar—good stealth profile. Weapons: 8x SET-65 (sub-target), 14x 53-65K (surface), 4x MG-74 (sub-target). Strict fire discipline—will not engage UNKNOWN targets. Waypoint 68.021,-22.696 remains central monitoring position. Allow acoustic signatures to mature for classification.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three unknown contacts detected via passive sonar (7005, 7002, 7006, all fresh <1s). Submarine maintaining SILENT/TIGHT defensive posture. Acoustic classification in progress by submarine AI. Positioning for central monitoring. No engagement until HOSTILE classification confirmed.",
+     >   "notes": "Contacts positioned around K-316: 7005 (SW), 7002 (NE), 7006 (SE). Submarine at 1267 ft (very deep), 5 knots, passive sonar—good stealth profile. Weapons: 8x SET-65 (sub-target), 14x 53-65K (surface), 4x MG-74 (sub-target). Strict fire discipline—will not engage UNKNOWN targets. Waypoint 68.021,-22.696 remains central monitoring position. Allow acoustic signatures to mature for classification.",
+     >   "orders": [],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 21  t=4412s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4359/167
+     assessment: Three Mk48s inbound to Alfa (7006) at 68.2,-22.3, far from marked area; awaiting impact. Baltimore remains silent/passive, deep, low speed.
+     notes (memory for next window): 3x Mk48 pending vs 7006. If all miss, re-engage with remaining Mk48/ugm-84a next window. Alfa still far from marked area (67.738,-24.206). Keep silent, below layer, slow.
+     --- raw model reply ---
+     > {"assessment":"Three Mk48s inbound to Alfa (7006) at 68.2,-22.3, far from marked area; awaiting impact. Baltimore remains silent/passive, deep, low speed.","notes":"3x Mk48 pending vs 7006. If all miss, re-engage with remaining Mk48/ugm-84a next window. Alfa still far from marked area (67.738,-24.206). Keep silent, below layer, slow.","orders":[],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2841/6585
+     assessment: Three unknown contacts (7005 SW ~20nm, 7002 NE ~16nm, 7006 SE ~15nm) passively detected around K-316. All unidentified. Submarine in excellent stealth posture: 866 ft depth, 5 knots, silent emitters, passive sonar. Fire discipline strictly maintained—no engagement authority without hostile confirmat
+     notes (memory for next window): Contacts 7005/7002/7006 require acoustic signature maturation for classification before any action. Possible submarines or quiet surface ships—no emissions detected yet. Hold stealth posture. Monitor for active sonar pings or radar emissions that would reveal military vs. civilian/neutral status. Weapons remain tight. Continue passive listening toward waypoint.
+     order: {"action": "weapons", "unit_id": 8, "status": "tight"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three unknown contacts (7005 SW ~20nm, 7002 NE ~16nm, 7006 SE ~15nm) passively detected around K-316. All unidentified. Submarine in excellent stealth posture: 866 ft depth, 5 knots, silent emitters, passive sonar. Fire discipline strictly maintained—no engagement authority without hostile confirmation. Current configuration optimal for intelligence gathering without revealing position.",
+     >   "notes": "Contacts 7005/7002/7006 require acoustic signature maturation for classification before any action. Possible submarines or quiet surface ships—no emissions detected yet. Hold stealth posture. Monitor for active sonar pings or radar emissions that would reveal military vs. civilian/neutral status. Weapons remain tight. Continue passive listening toward waypoint.",
+     >   "orders": [
+     >     {"action":"weapons","unit_id":8,"status":"tight"}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 22  t=4532s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4270/642
+     assessment: Lost track 7006 (previous target, outcome unknown). Four new unknown contacts appeared, none yet identified as hostile. Baltimore remains silent, submerged, closing toward marked area. No valid hostile track to engage yet.
+     notes (memory for next window): 7006 lost - pending Mk48 shots likely invalid now. Four new unid tracks (7001-7004), closest to marked area is 7002 (67.696,-22.738). Need positive ID before engaging per ROE. Continue passive listening, stay below layer, slow speed, close toward 7002/marked area to classify. Watch for Alfa approaching 67.738,-24.206.
+     order: {"action": "speed", "unit_id": 5, "knots": 10}
+     --- raw model reply ---
+     > {"assessment":"Lost track 7006 (previous target, outcome unknown). Four new unknown contacts appeared, none yet identified as hostile. Baltimore remains silent, submerged, closing toward marked area. No valid hostile track to engage yet.","notes":"7006 lost - pending Mk48 shots likely invalid now. Four new unid tracks (7001-7004), closest to marked area is 7002 (67.696,-22.738). Need positive ID before engaging per ROE. Continue passive listening, stay below layer, slow speed, close toward 7002/marked area to classify. Watch for Alfa approaching 67.738,-24.206.","orders":[{"action":"speed","unit_id":5,"knots":10}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2799/2170
+     assessment: Three UNKNOWN acoustic contacts detected passively at 20-30 nm range (SW, E, SSE bearings). Cannot engage unidentified targets per ROE. Acoustic signatures still maturing; no emissions detected. Maintaining SILENT/PASSIVE posture and TIGHT weapons control pending hostile classification.
+     notes (memory for next window): Contacts 7005/7002/7006 remain unidentified. K-316 well-positioned at 350 ft (above layer) for passive acoustic detection. Current course 217° at 5 kt continues toward waypoint while supporting sensitive listening. If any contact emits (active sonar/radar) or acoustic signatures mature to HOSTILE classification, will immediately reassess for engagement. Weapon stocks adequate (26 total torpedoes). Maintain stealth posture until positive hostile identification.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN acoustic contacts detected passively at 20-30 nm range (SW, E, SSE bearings). Cannot engage unidentified targets per ROE. Acoustic signatures still maturing; no emissions detected. Maintaining SILENT/PASSIVE posture and TIGHT weapons control pending hostile classification.",
+     >   "notes": "Contacts 7005/7002/7006 remain unidentified. K-316 well-positioned at 350 ft (above layer) for passive acoustic detection. Current course 217° at 5 kt continues toward waypoint while supporting sensitive listening. If any contact emits (active sonar/radar) or acoustic signatures mature to HOSTILE classification, will immediately reassess for engagement. Weapon stocks adequate (26 total torpedoes). Maintain stealth posture until positive hostile identification.",
+     >   "orders": [],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 23  t=4652s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 3 order(s), 0 invalid, 0 refused, tokens in/out 4340/381
+     assessment: Four unid contacts near marked area; 7002 closest to zone center and likely our Alfa. No positive ID yet, ROE forbids firing. Baltimore below layer, passive, closing slowly.
+     notes (memory for next window): Track pending shots from lost 7006 are stale/invalid, ignore. Focus on 7002 (67.69,-22.74) nearest marked area - close to classify via passive sonar, do not engage until ID confirmed hostile. Keep speed low to stay quiet, stay below layer.
+     order: {"action": "move", "unit_id": 5, "lat": 67.75, "lon": -22.95}
+     order: {"action": "speed", "unit_id": 5, "knots": 6}
+     order: {"action": "sonar", "unit_id": 5, "status": "passive"}
+     --- raw model reply ---
+     > {"assessment":"Four unid contacts near marked area; 7002 closest to zone center and likely our Alfa. No positive ID yet, ROE forbids firing. Baltimore below layer, passive, closing slowly.","notes":"Track pending shots from lost 7006 are stale/invalid, ignore. Focus on 7002 (67.69,-22.74) nearest marked area - close to classify via passive sonar, do not engage until ID confirmed hostile. Keep speed low to stay quiet, stay below layer.","orders":[{"action":"move","unit_id":5,"lat":67.75,"lon":-22.95},{"action":"speed","unit_id":5,"knots":6},{"action":"sonar","unit_id":5,"status":"passive"}],"next_check_s":180}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2813/3443
+     assessment: Three unknown contacts detected via passive sonar; K-316 maintains stealth posture above thermal layer, listening and transiting toward waypoint. No firing capability until contacts classified as HOSTILE. Waiting for acoustic signature maturation or enemy emissions to determine threat status.
+     notes (memory for next window): Tracks 7005/7002/7006 remain unidentified and scattered around K-316. Submarine at 309 ft (above_layer preset), passive sonar active, heading 217° at 17 kn to waypoint (68.021,-22.696, ETA 44 min). Silent emitters, tight weapons hold appropriate for pre-identification phase. If any contact emits or acoustic signature matures to HOSTILE, will reassess immediately. Weapon stocks: 26 torpedoes total.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three unknown contacts detected via passive sonar; K-316 maintains stealth posture above thermal layer, listening and transiting toward waypoint. No firing capability until contacts classified as HOSTILE. Waiting for acoustic signature maturation or enemy emissions to determine threat status.",
+     >   "notes": "Tracks 7005/7002/7006 remain unidentified and scattered around K-316. Submarine at 309 ft (above_layer preset), passive sonar active, heading 217° at 17 kn to waypoint (68.021,-22.696, ETA 44 min). Silent emitters, tight weapons hold appropriate for pre-identification phase. If any contact emits or acoustic signature matures to HOSTILE, will reassess immediately. Weapon stocks: 26 torpedoes total.",
+     >   "orders": [],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 24  t=4712s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4310/473
+     assessment: Track 7002 (67.69,-22.74) is closest to marked area and likely our Alfa transit track. Baltimore closing but too slow to intercept before mission clock runs out at current speed.
+     notes (memory for next window): 7002 is primary suspect near marked area. Increased speed to 12kn to close faster while still below layer, passive sonar. Classify before engaging - need positive ID as hostile before firing torpedoes.
+     order: {"action": "speed", "unit_id": 5, "knots": 12}
+     order: {"action": "move", "unit_id": 5, "lat": 67.7, "lon": -22.8}
+     --- raw model reply ---
+     > {"assessment":"Track 7002 (67.69,-22.74) is closest to marked area and likely our Alfa transit track. Baltimore closing but too slow to intercept before mission clock runs out at current speed.","notes":"7002 is primary suspect near marked area. Increased speed to 12kn to close faster while still below layer, passive sonar. Classify before engaging - need positive ID as hostile before firing torpedoes.","orders":[{"action":"speed","unit_id":5,"knots":12},{"action":"move","unit_id":5,"lat":67.70,"lon":-22.80}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2823/2853
+     assessment: Three UNKNOWN unidentified contacts detected by passive sonar around K-316. Submarine depth 124 ft, heading 217° at 11 kn to waypoint (ETA 66 min). All tracks remain unidentified—cannot engage without HOSTILE confirmation. Reducing speed to maximize passive listening capability.
+     notes (memory for next window): Speed cut to 5 kn to improve passive sonar discrimination while tracks 7005/7002/7006 mature. Maintaining silent emitters, passive sonar, tight weapons posture appropriate for pre-identification phase. Monitoring for hostile acoustic signature or emissions. Torpedo stock: 26 units. Next window will reassess track classification.
+     order: {"action": "speed", "unit_id": 8, "knots": 5}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN unidentified contacts detected by passive sonar around K-316. Submarine depth 124 ft, heading 217° at 11 kn to waypoint (ETA 66 min). All tracks remain unidentified—cannot engage without HOSTILE confirmation. Reducing speed to maximize passive listening capability.",
+     >   "notes": "Speed cut to 5 kn to improve passive sonar discrimination while tracks 7005/7002/7006 mature. Maintaining silent emitters, passive sonar, tight weapons posture appropriate for pre-identification phase. Monitoring for hostile acoustic signature or emissions. Torpedo stock: 26 units. Next window will reassess track classification.",
+     >   "orders": [
+     >     {"action":"speed","unit_id":8,"knots":5}
+     >   ],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 25  t=4772s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4281/573
+     assessment: Multiple unclassified contacts near Denmark Strait; 7002 closest to marked area and likely the Alfa. No positive ID yet, so torpedo shots remain unqueued. Baltimore closing submerged, passive.
+     notes (memory for next window): 7002 at 67.688,-22.742 is still primary suspect, near marked area. Need positive hostile ID before mk48 shots fire (currently pending but blocked). Continue closing passively; consider brief active ping if ID not resolved soon, given mission clock at 47/120.
+     order: {"action": "move", "unit_id": 5, "lat": 67.7, "lon": -22.8}
+     order: {"action": "speed", "unit_id": 5, "knots": 10}
+     --- raw model reply ---
+     > {"assessment":"Multiple unclassified contacts near Denmark Strait; 7002 closest to marked area and likely the Alfa. No positive ID yet, so torpedo shots remain unqueued. Baltimore closing submerged, passive.","notes":"7002 at 67.688,-22.742 is still primary suspect, near marked area. Need positive hostile ID before mk48 shots fire (currently pending but blocked). Continue closing passively; consider brief active ping if ID not resolved soon, given mission clock at 47/120.","orders":[{"action":"move","unit_id":5,"lat":67.70,"lon":-22.80},{"action":"speed","unit_id":5,"knots":10}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2797/4848
+     assessment: Three UNKNOWN contacts tracked at 20–28 nm (7005/7002/7006), coarse position quality (~7–13 km error). Passive sonar developing acoustic signatures; cannot engage without hostile classification. Maintain current surveillance posture and let tracks mature before tactical decision.
+     notes (memory for next window): K-316 steady on SW course at 5 kn, periscope depth, passive sonar active. Current heading progresses through contact geometry while preserving listening advantage. Tight weapons hold prevents engagement of unidentified contacts per ROE. All 26 torpedoes retained. Expect contact classification by next window; prepare to evaluate threat and adjust depth/course/engage accordingly.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN contacts tracked at 20–28 nm (7005/7002/7006), coarse position quality (~7–13 km error). Passive sonar developing acoustic signatures; cannot engage without hostile classification. Maintain current surveillance posture and let tracks mature before tactical decision.",
+     >   "notes": "K-316 steady on SW course at 5 kn, periscope depth, passive sonar active. Current heading progresses through contact geometry while preserving listening advantage. Tight weapons hold prevents engagement of unidentified contacts per ROE. All 26 torpedoes retained. Expect contact classification by next window; prepare to evaluate threat and adjust depth/course/engage accordingly.",
+     >   "orders": [],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 26  t=4892s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4305/310
+     assessment: Track 7002 persists near marked area, likely the Alfa but still unidentified. Clock at 49/120 min demands resolution now. Baltimore closing passively; need active sonar ping to classify and unlock engagement.
+     notes (memory for next window): Pinged active sonar to force ID on 7002 near marked zone. If classified hostile, immediately engage with mk48. Watch for counter-detection/torpedo response - ready decoys.
+     order: {"action": "sonar", "unit_id": 5, "status": "active"}
+     --- raw model reply ---
+     > {"assessment":"Track 7002 persists near marked area, likely the Alfa but still unidentified. Clock at 49/120 min demands resolution now. Baltimore closing passively; need active sonar ping to classify and unlock engagement.","notes":"Pinged active sonar to force ID on 7002 near marked zone. If classified hostile, immediately engage with mk48. Watch for counter-detection/torpedo response - ready decoys.","orders":[{"action":"sonar","unit_id":5,"status":"active"}],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2829/6150
+     assessment: Four unknown contacts (7005,7002,7006,7007) detected 7-21km around K-316. Maintaining passive listening at periscope depth; SW course optimized for bearing collection through contact geometry. Silent/passive posture preserves tactical advantage. Weapons tight per ROE pending hostile classification.
+     notes (memory for next window): K-316 steady SW 217° at 5kn, periscope depth 34ft, passive sonar, silent. Four UNKNOWN contacts within 7-21km range. All 26 torpedoes ready. ROE strict: cannot engage until hostile classification. Passive listening geometry optimized for bearing resolution. Expect track classification next window from continued transit.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Four unknown contacts (7005,7002,7006,7007) detected 7-21km around K-316. Maintaining passive listening at periscope depth; SW course optimized for bearing collection through contact geometry. Silent/passive posture preserves tactical advantage. Weapons tight per ROE pending hostile classification.",
+     >   "notes": "K-316 steady SW 217° at 5kn, periscope depth 34ft, passive sonar, silent. Four UNKNOWN contacts within 7-21km range. All 26 torpedoes ready. ROE strict: cannot engage until hostile classification. Passive listening geometry optimized for bearing resolution. Expect track classification next window from continued transit.",
+     >   "orders": [],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 27  t=4952s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4290/540
+     assessment: 4 unknown contacts near Denmark Strait; none yet classified hostile despite active ping. 7002 closest to marked zone, 7003 also close. Need positive ID before engaging per ROE.
+     notes (memory for next window): Active sonar pinged, got 4 contacts but none classified hostile yet. Closing on 7002 (nearest marked zone threat). Watch for torpedo counter-launch; decoys ready. Re-issue engage once a track flips to HOSTILE.
+     order: {"action": "move", "unit_id": 5, "lat": 67.69, "lon": -22.76}
+     --- raw model reply ---
+     > {"assessment":"4 unknown contacts near Denmark Strait; none yet classified hostile despite active ping. 7002 closest to marked zone, 7003 also close. Need positive ID before engaging per ROE.","notes":"Active sonar pinged, got 4 contacts but none classified hostile yet. Closing on 7002 (nearest marked zone threat). Watch for torpedo counter-launch; decoys ready. Re-issue engage once a track flips to HOSTILE.","orders":[{"action":"move","unit_id":5,"lat":67.690,"lon":-22.760}],"next_check_s":60}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2875/8129
+     assessment: One confirmed HOSTILE contact (7008, Taskforce1) at bearing ~SW, range ~11.4 nm with position uncertainty ±20 km—marginal for reliable torpedo engagement at present distance. Four UNKNOWN contacts at 7–13 km, holding for classification before any engagement (tight ROE). Mission clock 70 min remainin
+     notes (memory for next window): K-316: increase to 12 kn to compress approach timeline. Maintain silent emcon + passive sonar (stealth priority for submarine). Plan to close to 8–9 nm range for high-confidence anti-surface torpedo salvo at 7008. ROE restricts engagement to identified hostiles; unknowns must remain unengaged pending classification. 26 torpedoes: 14× wp_53-65K (anti-surface, 10 nm), 8× wp_set-65 (ASW, 9 nm), 4× wp_mg-74 (ASW, 8 nm). Avoid acoustic detection by unknown contacts during approach if possible.
+     order: {"action": "speed", "unit_id": 8, "knots": 12}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "One confirmed HOSTILE contact (7008, Taskforce1) at bearing ~SW, range ~11.4 nm with position uncertainty ±20 km—marginal for reliable torpedo engagement at present distance. Four UNKNOWN contacts at 7–13 km, holding for classification before any engagement (tight ROE). Mission clock 70 min remaining; time-critical to close and engage. Current waypoint trajectory aligns with hostile general position but too slow.",
+     >   "notes": "K-316: increase to 12 kn to compress approach timeline. Maintain silent emcon + passive sonar (stealth priority for submarine). Plan to close to 8–9 nm range for high-confidence anti-surface torpedo salvo at 7008. ROE restricts engagement to identified hostiles; unknowns must remain unengaged pending classification. 26 torpedoes: 14× wp_53-65K (anti-surface, 10 nm), 8× wp_set-65 (ASW, 9 nm), 4× wp_mg-74 (ASW, 8 nm). Avoid acoustic detection by unknown contacts during approach if possible.",
+     >   "orders": [
+     >     {"action": "speed", "unit_id": 8, "knots": 12}
+     >   ],
+     >   "next_check_s": 90
+     > }
+     > ```
+
+--- window 28  t=5012s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4308/391
+     assessment: Four unclassified contacts near strait; 7002 closest to Baltimore and nearest the marked zone. No hostile ID yet to fire on. Continue closing while pinging to classify.
+     notes (memory for next window): Tracks 7001-7004 still UNKNOWN relation despite active sonar. Need positive classification before engage will succeed. Closing on 7002. Watch for torpedo threat, decoys ready.
+     order: {"action": "move", "unit_id": 5, "lat": 67.683, "lon": -22.748}
+     order: {"action": "speed", "unit_id": 5, "knots": 12}
+     --- raw model reply ---
+     > {"assessment":"Four unclassified contacts near strait; 7002 closest to Baltimore and nearest the marked zone. No hostile ID yet to fire on. Continue closing while pinging to classify.","notes":"Tracks 7001-7004 still UNKNOWN relation despite active sonar. Need positive classification before engage will succeed. Closing on 7002. Watch for torpedo threat, decoys ready.","orders":[{"action":"move","unit_id":5,"lat":67.683,"lon":-22.748},{"action":"speed","unit_id":5,"knots":12}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2960/7693
+     assessment: K-316 is ~23 nm from confirmed HOSTILE track 7008 (Taskforce1, unidentified class). Mission has 69 minutes remaining. At current 12 kn, closing to 10 nm range would take ~115 minutes (exceeds deadline). Increasing speed to 20 kn enables intercept in ~39 minutes. Current waypoint remains valid. Other
+     notes (memory for next window): Increased K-316 speed to 20 kn to meet time constraint. Current waypoint (68.021, -22.696) positions ~12 nm from 7008; will need additional 2 nm closure to reach 10 nm firing range for wp_53-65K anti-surface torpedoes (10 nm max range). Plan: reach firing range within 30-40 min, then engage 7008 with torpedo salvo. Maintain SILENT emcon + passive sonar for stealth during approach. Weapons: 14× wp_53-65K (anti-surface), 8× wp_set-65 (ASW), 4× wp_mg-74 (ASW). Only 7008 is cleared for engagement.
+     order: {"action": "speed", "unit_id": 8, "knots": 20}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 is ~23 nm from confirmed HOSTILE track 7008 (Taskforce1, unidentified class). Mission has 69 minutes remaining. At current 12 kn, closing to 10 nm range would take ~115 minutes (exceeds deadline). Increasing speed to 20 kn enables intercept in ~39 minutes. Current waypoint remains valid. Other tracks (7005, 7002, 7006, 7007) unidentified; ROE forbids engagement of unknowns.",
+     >   
+     >   "notes": "Increased K-316 speed to 20 kn to meet time constraint. Current waypoint (68.021, -22.696) positions ~12 nm from 7008; will need additional 2 nm closure to reach 10 nm firing range for wp_53-65K anti-surface torpedoes (10 nm max range). Plan: reach firing range within 30-40 min, then engage 7008 with torpedo salvo. Maintain SILENT emcon + passive sonar for stealth during approach. Weapons: 14× wp_53-65K (anti-surface), 8× wp_set-65 (ASW), 4× wp_mg-74 (ASW). Only 7008 is cleared for engagement.",
+     >   
+     >   "orders": [
+     >     {"action":"speed","unit_id":8,"knots":20}
+     >   ],
+     >   
+     >   "next_check_s": 1800
+     > }
+     > ```
+
+--- window 29  t=5132s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 1 refused, tokens in/out 4288/496
+     assessment: Baltimore closing on track 7002 near its waypoint, likely the Alfa. Still unclassified despite active pinging. Other tracks 7001/7003/7004 scattered, unclear. No weapons fired yet; pending shots queued but no valid target identified.
+     notes (memory for next window): 7002 nearly coincides with Baltimore's current waypoint - probable Alfa. Continue approach, keep sonar active to force classification. Try engage on 7002 each window until it resolves hostile. Watch torpedo threats, decoys ready. Mission area is 67.738,-24.206 r10nm - Alfa must not reach it.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7002, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     REFUSED w29-s0-o1 {"action": "engage", "unit_id": 5, "track_id": 7002, "salvo": 2, "weapon": "usn_mk48_mod4"}: track is not assessed hostile (neutral, friendly or unknown) - engage refused
+     --- raw model reply ---
+     > {"assessment":"Baltimore closing on track 7002 near its waypoint, likely the Alfa. Still unclassified despite active pinging. Other tracks 7001/7003/7004 scattered, unclear. No weapons fired yet; pending shots queued but no valid target identified.","notes":"7002 nearly coincides with Baltimore's current waypoint - probable Alfa. Continue approach, keep sonar active to force classification. Try engage on 7002 each window until it resolves hostile. Watch torpedo threats, decoys ready. Mission area is 67.738,-24.206 r10nm - Alfa must not reach it.","orders":[{"action":"engage","unit_id":5,"track_id":7002,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2947/10151
+     assessment: K-316 accelerating to 15kn toward hostile SSN 7008 (Los Angeles-class, 67.972,-22.977). Closing from 18nm to 7nm using waypoint 68.021,-22.696, within wp_set-65 engagement range (9nm). Maintain SILENT emcon, passive sonar, 350ft thermal-layer depth for stealth. Will engage anti-sub torpedoes once co
+     notes (memory for next window): 7008 confirmed hostile SSN. Waypoint positions K-316 ~7nm from target. Critical: DO NOT use wp_53-65K (surface weapons only). Plan 2-salvo with wp_set-65 (9nm max range, 8x available) vs 6km position uncertainty. Maintain thermal layer depth (350ft) throughout approach for stealth and detection resistance. Three unknown contacts (7002,7006,7007) outside immediate area. Keep TIGHT weapons posture per ROE.
+     order: {"action": "speed", "unit_id": 8, "knots": 15}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 accelerating to 15kn toward hostile SSN 7008 (Los Angeles-class, 67.972,-22.977). Closing from 18nm to 7nm using waypoint 68.021,-22.696, within wp_set-65 engagement range (9nm). Maintain SILENT emcon, passive sonar, 350ft thermal-layer depth for stealth. Will engage anti-sub torpedoes once confirmed firing range.",
+     >   "notes": "7008 confirmed hostile SSN. Waypoint positions K-316 ~7nm from target. Critical: DO NOT use wp_53-65K (surface weapons only). Plan 2-salvo with wp_set-65 (9nm max range, 8x available) vs 6km position uncertainty. Maintain thermal layer depth (350ft) throughout approach for stealth and detection resistance. Three unknown contacts (7002,7006,7007) outside immediate area. Keep TIGHT weapons posture per ROE.",
+     >   "orders": [
+     >     {
+     >       "action": "speed",
+     >       "unit_id": 8,
+     >       "knots": 15
+     >     }
+     >   ],
+     >   "next_check_s": 1200
+     > }
+     > ```
+
+--- window 30  t=5252s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 1 refused, tokens in/out 4420/299
+     assessment: Multiple unknown contacts near Baltimore; 7002 closest to mission area, likely Alfa but still unclassified. Continuing active sonar to force ID and closing range for torpedo shot.
+     notes (memory for next window): 7002 at 67.676,-22.752 near mission area center - highest priority. Keep active sonar, attempt engage each window until hostile ID confirms. Watch 7001/7003/7004 as possible decoys or other subs. Baltimore still 52min from waypoint - consider closing faster.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7002, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     order: {"action": "speed", "unit_id": 5, "knots": 25}
+     REFUSED w30-s0-o1 {"action": "engage", "unit_id": 5, "track_id": 7002, "salvo": 2, "weapon": "usn_mk48_mod4"}: track is not assessed hostile (neutral, friendly or unknown) - engage refused
+     --- raw model reply ---
+     > {"assessment":"Multiple unknown contacts near Baltimore; 7002 closest to mission area, likely Alfa but still unclassified. Continuing active sonar to force ID and closing range for torpedo shot.","notes":"7002 at 67.676,-22.752 near mission area center - highest priority. Keep active sonar, attempt engage each window until hostile ID confirms. Watch 7001/7003/7004 as possible decoys or other subs. Baltimore still 52min from waypoint - consider closing faster.","orders":[{"action":"engage","unit_id":5,"track_id":7002,"salvo":2,"weapon":"usn_mk48_mod4"},{"action":"speed","unit_id":5,"knots":25}],"next_check_s":120}
+  side1: 5 order(s), 0 invalid, 0 refused, tokens in/out 2979/5437
+     assessment: CRITICAL: Incoming Mk48 Mod4 torpedo (7010) ~2nm from my position (68.163,-22.471 vs 68.181,-22.407). Hostile USN SSN 7008 confirmed at 67.961,-22.972 (~7nm). Emergency evasion now: decoy, very_deep dive, flank speed, radical course change northeast to break acoustic contact.
+     notes (memory for next window): EMERGENCY EVASION: Decoy deployed vs incoming torpedo. Diving to 1310ft (very_deep) + 30kn flank speed northeast to maximum distance and acoustic shadow. If torpedo clears in 60s, will engage SSN 7008 with wp_set-65 x2 salvo (9nm range available). Unknowns 7002,7006,7007,7009 remain distant. Weapons posture TIGHT per ROE.
+     order: {"action": "decoy", "unit_id": 8}
+     order: {"action": "depth", "unit_id": 8, "status": "very_deep"}
+     order: {"action": "speed", "unit_id": 8, "knots": 30}
+     order: {"action": "move", "unit_id": 8, "lat": 68.35, "lon": -22.1}
+     order: {"action": "weapons", "unit_id": 8, "status": "tight"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "CRITICAL: Incoming Mk48 Mod4 torpedo (7010) ~2nm from my position (68.163,-22.471 vs 68.181,-22.407). Hostile USN SSN 7008 confirmed at 67.961,-22.972 (~7nm). Emergency evasion now: decoy, very_deep dive, flank speed, radical course change northeast to break acoustic contact.",
+     >   "notes": "EMERGENCY EVASION: Decoy deployed vs incoming torpedo. Diving to 1310ft (very_deep) + 30kn flank speed northeast to maximum distance and acoustic shadow. If torpedo clears in 60s, will engage SSN 7008 with wp_set-65 x2 salvo (9nm range available). Unknowns 7002,7006,7007,7009 remain distant. Weapons posture TIGHT per ROE.",
+     >   "orders": [
+     >     {"action":"decoy","unit_id":8},
+     >     {"action":"depth","unit_id":8,"status":"very_deep"},
+     >     {"action":"speed","unit_id":8,"knots":30},
+     >     {"action":"move","unit_id":8,"lat":68.350,"lon":-22.100},
+     >     {"action":"weapons","unit_id":8,"status":"tight"}
+     >   ],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 31  t=5312s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 3 order(s), 0 invalid, 2 refused, tokens in/out 4464/503
+     assessment: Multiple unknown contacts near Denmark Strait mission area; pending torpedo shots on 7007 already queued. 7002 sits near area center - prime suspect but not yet classified hostile.
+     notes (memory for next window): Pending Mk48 shots on 7007 (68.2,-22.3). 7002 near mission center still unid - retry engage each window. Baltimore closing toward waypoint; increase speed to close faster. Keep active sonar to force classification.
+     order: {"action": "speed", "unit_id": 5, "knots": 18}
+     order: {"action": "engage", "unit_id": 5, "track_id": 7002, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     order: {"action": "engage", "unit_id": 5, "track_id": 7007, "salvo": 1, "weapon": "usn_mk48_mod4"}
+     REFUSED w31-s0-o2 {"action": "engage", "unit_id": 5, "track_id": 7002, "salvo": 2, "weapon": "usn_mk48_mod4"}: track is not assessed hostile (neutral, friendly or unknown) - engage refused
+     REFUSED w31-s0-o3 {"action": "engage", "unit_id": 5, "track_id": 7007, "salvo": 1, "weapon": "usn_mk48_mod4"}: track is not assessed hostile (neutral, friendly or unknown) - engage refused
+     --- raw model reply ---
+     > {"assessment":"Multiple unknown contacts near Denmark Strait mission area; pending torpedo shots on 7007 already queued. 7002 sits near area center - prime suspect but not yet classified hostile.","notes":"Pending Mk48 shots on 7007 (68.2,-22.3). 7002 near mission center still unid - retry engage each window. Baltimore closing toward waypoint; increase speed to close faster. Keep active sonar to force classification.","orders":[{"action":"speed","unit_id":5,"knots":18},{"action":"engage","unit_id":5,"track_id":7002,"salvo":2,"weapon":"usn_mk48_mod4"},{"action":"engage","unit_id":5,"track_id":7007,"salvo":1,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 3033/6240
+     assessment: Emergency evasion ongoing: two Mark 48 mod4 torpedoes at ~2-2.6nm (tracks 7010, 7011) from LA-class SSN 7008 (~35-40nm). Maintaining very_deep depth 1310ft, speed 40kn, heading 51° northeast. Decoy deployed last window. Torpedo impact ETA 3-4min if lock holds; evasion should break engagement.
+     notes (memory for next window): WINDOW 31: Two inbound Mark 48 mod4 at 2-2.6nm. Depth very_deep + 40kn flank + NE course + decoy = evasion. LA-class SSN 7008 detected via torpedo launch; estimated 35-40nm distant. Unknown tracks 7002/7007/7009 distant/unidentified. Plan: Hold evasion 90s until torpedo threat clears, then reassess for counter-attack on SSN with wp_set-65 salvo (9nm range). Sonar passive for stealth. Weapons tight per ROE.
+     order: {"action": "depth", "unit_id": 8, "status": "very_deep"}
+     order: {"action": "speed", "unit_id": 8, "knots": 40}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 8:wp_noisemaker x1
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Emergency evasion ongoing: two Mark 48 mod4 torpedoes at ~2-2.6nm (tracks 7010, 7011) from LA-class SSN 7008 (~35-40nm). Maintaining very_deep depth 1310ft, speed 40kn, heading 51° northeast. Decoy deployed last window. Torpedo impact ETA 3-4min if lock holds; evasion should break engagement.",
+     >   "notes": "WINDOW 31: Two inbound Mark 48 mod4 at 2-2.6nm. Depth very_deep + 40kn flank + NE course + decoy = evasion. LA-class SSN 7008 detected via torpedo launch; estimated 35-40nm distant. Unknown tracks 7002/7007/7009 distant/unidentified. Plan: Hold evasion 90s until torpedo threat clears, then reassess for counter-attack on SSN with wp_set-65 salvo (9nm range). Sonar passive for stealth. Weapons tight per ROE.",
+     >   "orders": [
+     >     {"action":"depth","unit_id":8,"status":"very_deep"},
+     >     {"action":"speed","unit_id":8,"knots":40}
+     >   ],
+     >   "next_check_s": 90
+     > }
+     > ```
+
+--- window 32  t=5402s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 3 order(s), 0 invalid, 0 refused, tokens in/out 4544/361
+     assessment: 7007 (Alfa) confirmed HOSTILE at 68.279,-22.156, heading toward mission area. Baltimore closing with active sonar. Pending torpedo shots should now fire since track is ID'd hostile.
+     notes (memory for next window): 7007 is confirmed hostile Alfa. Re-issued engage orders now that ID is confirmed. Continue closing, keep active sonar for tracking. Watch 7002/7001/7003/7004 for further classification.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7007, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     order: {"action": "move", "unit_id": 5, "lat": 68.279, "lon": -22.156}
+     order: {"action": "speed", "unit_id": 5, "knots": 20}
+     --- raw model reply ---
+     > {"assessment":"7007 (Alfa) confirmed HOSTILE at 68.279,-22.156, heading toward mission area. Baltimore closing with active sonar. Pending torpedo shots should now fire since track is ID'd hostile.","notes":"7007 is confirmed hostile Alfa. Re-issued engage orders now that ID is confirmed. Continue closing, keep active sonar for tracking. Watch 7002/7001/7003/7004 for further classification.","orders":[{"action":"engage","unit_id":5,"track_id":7007,"salvo":2,"weapon":"usn_mk48_mod4"},{"action":"move","unit_id":5,"lat":68.279,"lon":-22.156},{"action":"speed","unit_id":5,"knots":20}],"next_check_s":120}
+  side1: 4 order(s), 0 invalid, 0 refused, tokens in/out 3018/6119
+     assessment: K-316 evading two active Mark 48 mod4 at 2-3nm (tracks 7010, 7011). Boat at above_layer depth (350ft) but evasion plan calls for very_deep (1310ft); correcting now. LA-class SSN 7008 at 35+ nm SW—secondary threat once torpedoes clear. Unknown tracks 7009/7002/7007 at greater distance. Continue aggre
+     notes (memory for next window): WINDOW 32: Depth discrepancy noted. Previous window evasion plan (very_deep + 40kn + NE course + decoy) not fully executed—boat reporting 24kn at above_layer. Resetting now. Torpedoes have run ~5 minutes; should expire shortly. At T+180s reassess and prepare wp_set-65 salvo (9nm range) vs SSN 7008 at 67.955,-22.962 if clear. Passive sonar maintained. Weapons tight per ROE.
+     order: {"action": "depth", "unit_id": 8, "status": "very_deep"}
+     order: {"action": "speed", "unit_id": 8, "knots": 40}
+     order: {"action": "decoy", "unit_id": 8}
+     order: {"action": "move", "unit_id": 8, "lat": 68.5, "lon": -21.5}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 evading two active Mark 48 mod4 at 2-3nm (tracks 7010, 7011). Boat at above_layer depth (350ft) but evasion plan calls for very_deep (1310ft); correcting now. LA-class SSN 7008 at 35+ nm SW—secondary threat once torpedoes clear. Unknown tracks 7009/7002/7007 at greater distance. Continue aggressive evasion.",
+     >   "notes": "WINDOW 32: Depth discrepancy noted. Previous window evasion plan (very_deep + 40kn + NE course + decoy) not fully executed—boat reporting 24kn at above_layer. Resetting now. Torpedoes have run ~5 minutes; should expire shortly. At T+180s reassess and prepare wp_set-65 salvo (9nm range) vs SSN 7008 at 67.955,-22.962 if clear. Passive sonar maintained. Weapons tight per ROE.",
+     >   "orders": [
+     >     {"action":"depth","unit_id":8,"status":"very_deep"},
+     >     {"action":"speed","unit_id":8,"knots":40},
+     >     {"action":"decoy","unit_id":8},
+     >     {"action":"move","unit_id":8,"lat":68.500,"lon":-21.500}
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 33  t=5522s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4389/255
+     assessment: Alfa (7007) confirmed hostile at 68.273,-22.142, ~13nm from marked area center, pending torpedo shots already queued. Baltimore closing at 10kn active sonar.
+     notes (memory for next window): 4 Mk48 shots pending on 7007. Continue monitoring 7001-7004 for classification. Watch Alfa speed/heading toward marked zone (67.738,-24.206).
+     order: {"action": "engage", "unit_id": 5, "track_id": 7007, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     --- raw model reply ---
+     > {"assessment":"Alfa (7007) confirmed hostile at 68.273,-22.142, ~13nm from marked area center, pending torpedo shots already queued. Baltimore closing at 10kn active sonar.","notes":"4 Mk48 shots pending on 7007. Continue monitoring 7001-7004 for classification. Watch Alfa speed/heading toward marked zone (67.738,-24.206).","orders":[{"action":"engage","unit_id":5,"track_id":7007,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 3 order(s), 0 invalid, 0 refused, tokens in/out 3043/7177
+     assessment: Close submarine engagement. Two Mk48 Mod4 torpedoes homing at 1-2nm (tracks 7010, 7011); Los Angeles-class SSN at ~20nm bearing SW (track 7008, identified hostile). Evading to below thermal layer while closing on enemy SSN. Will fire torpedoes once within 8-9nm range.
+     notes (memory for next window): WINDOW 33: Two active enemy torpedoes plus hostile SSN at 67.950,-22.954. Diving to below_layer depth and accelerating to 30kn for evasion and closure. One decoy expended last window (3 remain). Torpedoes fired ~5min ago per prior note—should expire within next 5-10 min. Once SSN closes to 8-9nm range, engage with wp_set-65 salvo (8x available). Passive sonar maintained, weapons tight per ROE.
+     order: {"action": "depth", "unit_id": 8, "status": "below_layer"}
+     order: {"action": "speed", "unit_id": 8, "knots": 30}
+     order: {"action": "move", "unit_id": 8, "lat": 68.05, "lon": -22.75}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 8:wp_noisemaker x1
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment":"Close submarine engagement. Two Mk48 Mod4 torpedoes homing at 1-2nm (tracks 7010, 7011); Los Angeles-class SSN at ~20nm bearing SW (track 7008, identified hostile). Evading to below thermal layer while closing on enemy SSN. Will fire torpedoes once within 8-9nm range.",
+     >   "notes":"WINDOW 33: Two active enemy torpedoes plus hostile SSN at 67.950,-22.954. Diving to below_layer depth and accelerating to 30kn for evasion and closure. One decoy expended last window (3 remain). Torpedoes fired ~5min ago per prior note—should expire within next 5-10 min. Once SSN closes to 8-9nm range, engage with wp_set-65 salvo (8x available). Passive sonar maintained, weapons tight per ROE.",
+     >   "orders":[
+     >     {"action":"depth","unit_id":8,"status":"below_layer"},
+     >     {"action":"speed","unit_id":8,"knots":30},
+     >     {"action":"move","unit_id":8,"lat":68.050,"lon":-22.750}
+     >   ],
+     >   "next_check_s":180
+     > }
+     > ```
+
+--- window 34  t=5642s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4401/178
+     assessment: 4 Mk48 shots pending on Alfa (7007) near marked zone, ~5km uncertainty. Baltimore closing. Continue tracking, let torpedoes run.
+     notes (memory for next window): Monitoring pending Mk48 shots on 7007 (Alfa). Baltimore active pinging. 7001-7004 still unid, likely not Alfa-related. Watch for torpedo impact confirmation and Alfa evasive maneuvers toward marked zone.
+     --- raw model reply ---
+     > {"assessment":"4 Mk48 shots pending on Alfa (7007) near marked zone, ~5km uncertainty. Baltimore closing. Continue tracking, let torpedoes run.","notes":"Monitoring pending Mk48 shots on 7007 (Alfa). Baltimore active pinging. 7001-7004 still unid, likely not Alfa-related. Watch for torpedo impact confirmation and Alfa evasive maneuvers toward marked zone.","orders":[],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2756/2249
+     assessment: All hostile tracks lost; enemy torpedoes likely expired. Hostile SSN no longer tracked. Continuing evasion course to waypoint while reducing speed to improve passive sonar listening capability and stealth.
+     notes (memory for next window): WINDOW 34: No current tracks. Hostile SSN last plotted at 67.950,-22.954 (now lost). Reduced to 25kn for passive sonar optimization and stealth. Maintaining weapons tight, passive sonar. Continue transit to waypoint. Monitor for new contacts.
+     order: {"action": "speed", "unit_id": 8, "knots": 25}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "All hostile tracks lost; enemy torpedoes likely expired. Hostile SSN no longer tracked. Continuing evasion course to waypoint while reducing speed to improve passive sonar listening capability and stealth.",
+     >   "notes": "WINDOW 34: No current tracks. Hostile SSN last plotted at 67.950,-22.954 (now lost). Reduced to 25kn for passive sonar optimization and stealth. Maintaining weapons tight, passive sonar. Continue transit to waypoint. Monitor for new contacts.",
+     >   "orders": [
+     >     {"action":"speed","unit_id":8,"knots":25}
+     >   ],
+     >   "next_check_s": 90
+     > }
+     > ```
+
+--- window 35  t=5732s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4403/161
+     assessment: Pending Mk48 shots on Alfa (track 7007) near marked zone edge. Awaiting impact. Baltimore pinging actively, exposed but tracking well.
+     notes (memory for next window): Mk48 salvo in flight toward 7007. Monitor for hit/miss and Alfa evasion toward marked zone. If shots miss, re-engage immediately. Other tracks 7001-7004 unid, low priority.
+     --- raw model reply ---
+     > {"assessment":"Pending Mk48 shots on Alfa (track 7007) near marked zone edge. Awaiting impact. Baltimore pinging actively, exposed but tracking well.","notes":"Mk48 salvo in flight toward 7007. Monitor for hit/miss and Alfa evasion toward marked zone. If shots miss, re-engage immediately. Other tracks 7001-7004 unid, low priority.","orders":[],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2673/1506
+     assessment: No current tracks. Hostile SSN recently lost at 67.950,-22.754. Transiting to waypoint at 40kn; currently at 350ft with passive sonar. Tactical situation warrants ASW optimization—reduce speed to improve passive sonar detection while hostile remains in operational area.
+     notes (memory for next window): WINDOW 35: No contacts. Reducing speed to 25kn to optimize passive sonar detection for known hostile SSN. Maintaining waypoint transit 68.050,-22.750. Weapons tight, passive sonar active. Lost hostile may still be in vicinity.
+     order: {"action": "speed", "unit_id": 8, "knots": 25}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "No current tracks. Hostile SSN recently lost at 67.950,-22.754. Transiting to waypoint at 40kn; currently at 350ft with passive sonar. Tactical situation warrants ASW optimization—reduce speed to improve passive sonar detection while hostile remains in operational area.",
+     >   "notes": "WINDOW 35: No contacts. Reducing speed to 25kn to optimize passive sonar detection for known hostile SSN. Maintaining waypoint transit 68.050,-22.750. Weapons tight, passive sonar active. Lost hostile may still be in vicinity.",
+     >   "orders": [
+     >     {"action": "speed", "unit_id": 8, "knots": 25}
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 36  t=5852s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4389/154
+     assessment: Mk48 salvo still in flight toward Alfa (7007), which is near marked zone edge. Awaiting impact. Other tracks unid, low priority.
+     notes (memory for next window): Monitor Mk48 salvo vs 7007. If miss, re-engage immediately with another salvo. Alfa is close to marked zone (67.738,-24.206) - urgency high. Keep sonar active to track it.
+     --- raw model reply ---
+     > {"assessment":"Mk48 salvo still in flight toward Alfa (7007), which is near marked zone edge. Awaiting impact. Other tracks unid, low priority.","notes":"Monitor Mk48 salvo vs 7007. If miss, re-engage immediately with another salvo. Alfa is close to marked zone (67.738,-24.206) - urgency high. Keep sonar active to track it.","orders":[],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2668/5223
+     assessment: Hostile SSN lost but may remain in vicinity. Continuing search transit to waypoint 68.050,-22.750 using passive sonar listening. No new contacts. Current posture (22 kn, above_layer depth, passive sonar, weapons tight) appropriate for detecting a quiet target.
+     notes (memory for next window): K-316 en route to next waypoint (ETA 42 min). Maintaining search pattern with passive sonar active. If contact regained, shift to engagement. Mission 55 min remaining of 120. Hostile SSN was previously detected and lost; likely still in operational area.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Hostile SSN lost but may remain in vicinity. Continuing search transit to waypoint 68.050,-22.750 using passive sonar listening. No new contacts. Current posture (22 kn, above_layer depth, passive sonar, weapons tight) appropriate for detecting a quiet target.",
+     >   "notes": "K-316 en route to next waypoint (ETA 42 min). Maintaining search pattern with passive sonar active. If contact regained, shift to engagement. Mission 55 min remaining of 120. Hostile SSN was previously detected and lost; likely still in operational area.",
+     >   "orders": [],
+     >   "next_check_s": 240
+     > }
+     > ```
+
+--- window 37  t=5912s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4389/216
+     assessment: Mk48 salvo already queued against Alfa (track 7007), which is ~16nm from marked zone and closing. Baltimore maintaining active sonar track. Awaiting salvo results.
+     notes (memory for next window): Pending 4x Mk48 shots vs 7007 in flight/queued. Monitor outcome; if miss, re-engage immediately. Alfa near zone (67.738,-24.206), urgency extreme. Keep sonar active for guidance.
+     --- raw model reply ---
+     > {"assessment":"Mk48 salvo already queued against Alfa (track 7007), which is ~16nm from marked zone and closing. Baltimore maintaining active sonar track. Awaiting salvo results.","notes":"Pending 4x Mk48 shots vs 7007 in flight/queued. Monitor outcome; if miss, re-engage immediately. Alfa near zone (67.738,-24.206), urgency extreme. Keep sonar active for guidance.","orders":[],"next_check_s":60}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2657/3236
+     assessment: K-316 conducting passive sonar search en route to waypoint. No current contacts. Hostile SSN previously detected and lost; likely still operational in area. Reducing speed to 30 knots to enhance passive sonar detection capability while maintaining steady transit progress. Silent/tight posture approp
+     notes (memory for next window): Adjusted speed from 41 to 30 knots to improve passive listening performance against hostile SSN. ETA to waypoint now ~31 min. Maintain silent emcon, passive sonar, tight weapons posture. Mission 54 min remaining. Continue passive search pattern and watch for contact opportunities.
+     order: {"action": "speed", "unit_id": 8, "knots": 30}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 conducting passive sonar search en route to waypoint. No current contacts. Hostile SSN previously detected and lost; likely still operational in area. Reducing speed to 30 knots to enhance passive sonar detection capability while maintaining steady transit progress. Silent/tight posture appropriate for this search phase.",
+     >   "notes": "Adjusted speed from 41 to 30 knots to improve passive listening performance against hostile SSN. ETA to waypoint now ~31 min. Maintain silent emcon, passive sonar, tight weapons posture. Mission 54 min remaining. Continue passive search pattern and watch for contact opportunities.",
+     >   "orders": [
+     >     {"action": "speed", "unit_id": 8, "knots": 30}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 38  t=5972s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4393/217
+     assessment: 4x Mk48 inbound on Alfa (track 7007) near 68.29,-21.98, still ~25nm from protected zone. Baltimore pinging actively for guidance; torpedoes should arrive soon.
+     notes (memory for next window): 4x Mk48 in flight at 7007. Await impact results next window; if miss, re-engage with fresh salvo. Monitor zone proximity - Alfa not yet inside 10nm radius zone.
+     --- raw model reply ---
+     > {"assessment":"4x Mk48 inbound on Alfa (track 7007) near 68.29,-21.98, still ~25nm from protected zone. Baltimore pinging actively for guidance; torpedoes should arrive soon.","notes":"4x Mk48 in flight at 7007. Await impact results next window; if miss, re-engage with fresh salvo. Monitor zone proximity - Alfa not yet inside 10nm radius zone.","orders":[],"next_check_s":60}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2676/2033
+     assessment: K-316 in silent/passive search posture, no hostile contacts yet. 53 min mission time remaining. Submarine transiting to search waypoint; reducing speed to 28 knots to maximize passive sonar detection range while maintaining coverage.
+     notes (memory for next window): Submarine K-316 conducting passive acoustic search for hostile SSN. Depth 350 ft (above_layer), silent emcon, passive sonar, tight weapons. Speed reduced to 28 knots to optimize listening sensitivity. Waypoint 68.050,-22.750 ETA ~35 min. Maintain search pattern and monitor acoustic contacts. With no emitters active on either side, detection is likely to come through passive sonar; slow/steady transit maximizes range.
+     order: {"action": "speed", "unit_id": 8, "knots": 28}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 in silent/passive search posture, no hostile contacts yet. 53 min mission time remaining. Submarine transiting to search waypoint; reducing speed to 28 knots to maximize passive sonar detection range while maintaining coverage.",
+     >   "notes": "Submarine K-316 conducting passive acoustic search for hostile SSN. Depth 350 ft (above_layer), silent emcon, passive sonar, tight weapons. Speed reduced to 28 knots to optimize listening sensitivity. Waypoint 68.050,-22.750 ETA ~35 min. Maintain search pattern and monitor acoustic contacts. With no emitters active on either side, detection is likely to come through passive sonar; slow/steady transit maximizes range.",
+     >   "orders": [
+     >     {"action": "speed", "unit_id": 8, "knots": 28}
+     >   ],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 39  t=6032s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4382/427
+     assessment: 4 Mk48 torpedoes inbound to Alfa (track 7007) near 68.291,-21.967. Awaiting impact. Alfa still well outside marked zone. Baltimore pinging actively, exposed but tracking well.
+     notes (memory for next window): 4 Mk48 in flight at 7007 from last window plus queued shots. Check impact results next window. If Alfa survives/evades, re-engage with fresh salvo and consider Moss torpedo as backup. Watch zone proximity.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7007, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     --- raw model reply ---
+     > {"assessment":"4 Mk48 torpedoes inbound to Alfa (track 7007) near 68.291,-21.967. Awaiting impact. Alfa still well outside marked zone. Baltimore pinging actively, exposed but tracking well.","notes":"4 Mk48 in flight at 7007 from last window plus queued shots. Check impact results next window. If Alfa survives/evades, re-engage with fresh salvo and consider Moss torpedo as backup. Watch zone proximity.","orders":[{"action":"engage","unit_id":5,"track_id":7007,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2713/4073
+     assessment: K-316 in passive acoustic search for hostile SSN, no contacts yet. Submarine maintaining silent posture and good search configuration. Slight speed reduction to 20 knots will improve passive sonar detection range while keeping waypoint ETA within mission timeline.
+     notes (memory for next window): K-316 at 68.223,-22.167 heading 129°. Reducing speed to 20 kn for better passive listening; ETA to waypoint 68.050,-22.750 approximately 50 min. Silent emcon, passive sonar, tight weapons. Continue search. 52 minutes mission time remaining.
+     order: {"action": "speed", "unit_id": 8, "knots": 20}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 in passive acoustic search for hostile SSN, no contacts yet. Submarine maintaining silent posture and good search configuration. Slight speed reduction to 20 knots will improve passive sonar detection range while keeping waypoint ETA within mission timeline.",
+     >   "notes": "K-316 at 68.223,-22.167 heading 129°. Reducing speed to 20 kn for better passive listening; ETA to waypoint 68.050,-22.750 approximately 50 min. Silent emcon, passive sonar, tight weapons. Continue search. 52 minutes mission time remaining.",
+     >   "orders": [
+     >     {"action": "speed", "unit_id": 8, "knots": 20}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 40  t=6152s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4442/472
+     assessment: 6 Mk48 shots pending on Alfa (track 7007) near 68.299,-21.911. Baltimore closing from 67.956,-22.932, active pinging for terminal guidance. Alfa still distant from safe-zone (~35nm), good intercept window remains.
+     notes (memory for next window): 6 pending Mk48 shots at 7007 in flight/queued from prior window - check impact results next window. If Alfa evades, follow up with fresh salvo or Moss. Baltimore emitting active sonar - monitor for counter-detection/torpedo threats, ready decoy if needed.
+     --- raw model reply ---
+     > {"assessment":"6 Mk48 shots pending on Alfa (track 7007) near 68.299,-21.911. Baltimore closing from 67.956,-22.932, active pinging for terminal guidance. Alfa still distant from safe-zone (~35nm), good intercept window remains.","notes":"6 pending Mk48 shots at 7007 in flight/queued from prior window - check impact results next window. If Alfa evades, follow up with fresh salvo or Moss. Baltimore emitting active sonar - monitor for counter-detection/torpedo threats, ready decoy if needed.","orders":[],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2681/1763
+     assessment: K-316 conducting search mission with no hostile contacts detected. Currently at 35 knots moving toward search waypoint; reducing speed to 20 knots to maximize passive sonar listening capability while maintaining patrol progress. Silent EMCON and tight weapons posture appropriate for search phase. 50
+     notes (memory for next window): K-316 heading 56° at new speed 20 kn toward 68.050,-22.750 (ETA ~45 min at reduced speed). Silent emcon, passive sonar, tight weapons. Reducing speed improves sonar detection while sustaining search pattern. No hostile contacts yet. Continue search sweep.
+     order: {"action": "speed", "unit_id": 8, "knots": 20}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 conducting search mission with no hostile contacts detected. Currently at 35 knots moving toward search waypoint; reducing speed to 20 knots to maximize passive sonar listening capability while maintaining patrol progress. Silent EMCON and tight weapons posture appropriate for search phase. 50 minutes mission time remaining.",
+     >   "notes": "K-316 heading 56° at new speed 20 kn toward 68.050,-22.750 (ETA ~45 min at reduced speed). Silent emcon, passive sonar, tight weapons. Reducing speed improves sonar detection while sustaining search pattern. No hostile contacts yet. Continue search sweep.",
+     >   "orders": [
+     >     {
+     >       "action": "speed",
+     >       "unit_id": 8,
+     >       "knots": 20
+     >     }
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 41  t=6272s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4435/429
+     assessment: Alfa (7007) is identified hostile and under active torpedo attack with 6 Mk48s in flight/queued. Baltimore continues pinging, revealing own position - risk of counter-fire. Other unid tracks (7001-7004) unclassified, ignore for now.
+     notes (memory for next window): 6 Mk48 shots pending on 7007 from last window - check hit/miss results next window. If Alfa survives and keeps moving away, consider closing range or switching to Moss torpedo. Watch for incoming torpedo threat on Baltimore given active pinging; ready decoy order if detected.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7007, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     --- raw model reply ---
+     > {"assessment":"Alfa (7007) is identified hostile and under active torpedo attack with 6 Mk48s in flight/queued. Baltimore continues pinging, revealing own position - risk of counter-fire. Other unid tracks (7001-7004) unclassified, ignore for now.","notes":"6 Mk48 shots pending on 7007 from last window - check hit/miss results next window. If Alfa survives and keeps moving away, consider closing range or switching to Moss torpedo. Watch for incoming torpedo threat on Baltimore given active pinging; ready decoy order if detected.","orders":[{"action":"engage","unit_id":5,"track_id":7007,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":90}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2676/6806
+     assessment: K-316 conducting area search sweep at 30 kn, 350 ft (above thermal layer). Silent emcon, passive sonar, tight weapons. No hostile tracks detected. ETA waypoint 37 min, then 11 min for secondary search before mission clock expiry.
+     notes (memory for next window): Submarine maintaining stealth-optimized search posture: passive listening provides area coverage while preserving tactical surprise. If hostile contact emerges, can slow to 20 kn for enhanced sonar discrimination or adjust depth for acoustic advantage. Tight weapons posture ensures engagement discipline. 26 torpedoes in inventory ready.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 conducting area search sweep at 30 kn, 350 ft (above thermal layer). Silent emcon, passive sonar, tight weapons. No hostile tracks detected. ETA waypoint 37 min, then 11 min for secondary search before mission clock expiry.",
+     >   "notes": "Submarine maintaining stealth-optimized search posture: passive listening provides area coverage while preserving tactical surprise. If hostile contact emerges, can slow to 20 kn for enhanced sonar discrimination or adjust depth for acoustic advantage. Tight weapons posture ensures engagement discipline. 26 torpedoes in inventory ready.",
+     >   "orders": [],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 42  t=6362s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4489/420
+     assessment: 7 Mk48 shots still pending on Alfa (7007) at 68.325,-21.789, coarse quality. Baltimore closing. Other unknown contacts likely noise/decoys. Continue engagement, maintain active sonar to track Alfa.
+     notes (memory for next window): 7 Mk48 shots pending from prior windows on 7007 - verify hits next window. If Alfa evades torpedoes repeatedly, consider closing to point-blank or switching to Moss. Watch unidentified tracks 7001-7004 for possible additional subs/escorts. Alfa must not reach marked area 67.738,-24.206 r10nm.
+     order: {"action": "move", "unit_id": 5, "lat": 68.325, "lon": -21.789}
+     --- raw model reply ---
+     > {"assessment":"7 Mk48 shots still pending on Alfa (7007) at 68.325,-21.789, coarse quality. Baltimore closing. Other unknown contacts likely noise/decoys. Continue engagement, maintain active sonar to track Alfa.","notes":"7 Mk48 shots pending from prior windows on 7007 - verify hits next window. If Alfa evades torpedoes repeatedly, consider closing to point-blank or switching to Moss. Watch unidentified tracks 7001-7004 for possible additional subs/escorts. Alfa must not reach marked area 67.738,-24.206 r10nm.","orders":[{"action":"move","unit_id":5,"lat":68.325,"lon":-21.789}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2661/1496
+     assessment: No hostile contacts detected. K-316 transiting toward waypoint at 27 kn under passive sonar. Reducing speed to improve sonar listening effectiveness and threat detection capability while maintaining stealth posture.
+     notes (memory for next window): Submarine at 350 ft (above thermal layer) heading 086° toward 68.050,-22.750 (42 min ETA). Reducing speed to 20 kn optimizes passive sonar discrimination; fast transit speed self-noise limits detection range. Weapons tight, sonar passive. 26 torpedoes ready. 47 min mission time remaining. Monitor for hostile emergence.
+     order: {"action": "speed", "unit_id": 8, "knots": 20}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "No hostile contacts detected. K-316 transiting toward waypoint at 27 kn under passive sonar. Reducing speed to improve sonar listening effectiveness and threat detection capability while maintaining stealth posture.",
+     >   "notes": "Submarine at 350 ft (above thermal layer) heading 086° toward 68.050,-22.750 (42 min ETA). Reducing speed to 20 kn optimizes passive sonar discrimination; fast transit speed self-noise limits detection range. Weapons tight, sonar passive. 26 torpedoes ready. 47 min mission time remaining. Monitor for hostile emergence.",
+     >   "orders": [
+     >     {"action": "speed", "unit_id": 8, "knots": 20}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 43  t=6482s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4506/637
+     assessment: 7 Mk48 shots in flight at Alfa (track 7007), still live and holding position ~68.3,-21.7, well short of the marked safe zone. Baltimore closing from the southwest; need to shorten range for better hit chance.
+     notes (memory for next window): 7+ Mk48 shots pending on 7007; Alfa still live near 68.327,-21.724, not yet near marked area. Continue closing to <20nm for reliable hits. Monitor 7001-7004 unids for escorts. Consider switching to Moss torpedo if Mk48s keep missing.
+     order: {"action": "speed", "unit_id": 5, "knots": 18}
+     order: {"action": "engage", "unit_id": 5, "track_id": 7007, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     --- raw model reply ---
+     > {"assessment":"7 Mk48 shots in flight at Alfa (track 7007), still live and holding position ~68.3,-21.7, well short of the marked safe zone. Baltimore closing from the southwest; need to shorten range for better hit chance.","notes":"7+ Mk48 shots pending on 7007; Alfa still live near 68.327,-21.724, not yet near marked area. Continue closing to <20nm for reliable hits. Monitor 7001-7004 unids for escorts. Consider switching to Moss torpedo if Mk48s keep missing.","orders":[{"action":"speed","unit_id":5,"knots":18},{"action":"engage","unit_id":5,"track_id":7007,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 2697/1475
+     assessment: K-316 transiting at 21 kn to waypoint (57 min ETA), depth 350 ft above thermal layer, silent posture with passive sonar active. No contacts detected. Area clear or hostiles distant. Submarine optimally configured for stealth and detection.
+     notes (memory for next window): K-316 maintains SILENT/passive sonar/TIGHT posture—balanced 21-kn speed optimizes listening while covering distance. 26 torpedoes loaded (8x SET-65, 14x 53-65K, 4x MG-74 ready). Depth above thermal layer appropriate for northern ops. 45 min mission time left. Continue transit; monitor for passive sonar contact emergence.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 transiting at 21 kn to waypoint (57 min ETA), depth 350 ft above thermal layer, silent posture with passive sonar active. No contacts detected. Area clear or hostiles distant. Submarine optimally configured for stealth and detection.",
+     >   "notes": "K-316 maintains SILENT/passive sonar/TIGHT posture—balanced 21-kn speed optimizes listening while covering distance. 26 torpedoes loaded (8x SET-65, 14x 53-65K, 4x MG-74 ready). Depth above thermal layer appropriate for northern ops. 45 min mission time left. Continue transit; monitor for passive sonar contact emergence.",
+     >   "orders": [],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 44  t=6602s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4519/667
+     assessment: Alfa (track 7007) identified hostile ~34nm from Baltimore, still well short of marked area. Mk48 shots pending but out of 27nm range; need to close distance for valid shots.
+     notes (memory for next window): Alfa at ~68.32,-21.71 moving slowly. Baltimore closing via waypoint near 68.325,-21.789. Increased speed to close gap faster since already pinging active (stealth less critical now). Watch for Mk48 shots firing once in range (<27nm). Monitor 7001-7004 unids for escorts.
+     order: {"action": "speed", "unit_id": 5, "knots": 15}
+     --- raw model reply ---
+     > {"assessment":"Alfa (track 7007) identified hostile ~34nm from Baltimore, still well short of marked area. Mk48 shots pending but out of 27nm range; need to close distance for valid shots.","notes":"Alfa at ~68.32,-21.71 moving slowly. Baltimore closing via waypoint near 68.325,-21.789. Increased speed to close gap faster since already pinging active (stealth less critical now). Watch for Mk48 shots firing once in range (<27nm). Monitor 7001-7004 unids for escorts.","orders":[{"action":"speed","unit_id":5,"knots":15}],"next_check_s":180}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 2767/6356
+     assessment: Two new UNKNOWN contacts detected. Track 7013 at ~13 nm within torpedo range requires urgent classification. Current course diverges southwesterly; altering southeast to intercept and classify before engagement window closes. Increasing speed to 12 knots.
+     notes (memory for next window): K-316 responding to new contacts. Accelerating to 12 kn and steering to 67.950,-21.900 (southeast, closer to Track 7013). Maintaining SILENT/passive/TIGHT posture to preserve surprise. Check again in 60s to assess classification and contact movement. If identified HOSTILE, prepare immediate engagement. 45 min mission time remaining.
+     order: {"action": "speed", "unit_id": 8, "knots": 12}
+     order: {"action": "move", "unit_id": 8, "lat": 67.95, "lon": -21.9}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Two new UNKNOWN contacts detected. Track 7013 at ~13 nm within torpedo range requires urgent classification. Current course diverges southwesterly; altering southeast to intercept and classify before engagement window closes. Increasing speed to 12 knots.",
+     >   "notes": "K-316 responding to new contacts. Accelerating to 12 kn and steering to 67.950,-21.900 (southeast, closer to Track 7013). Maintaining SILENT/passive/TIGHT posture to preserve surprise. Check again in 60s to assess classification and contact movement. If identified HOSTILE, prepare immediate engagement. 45 min mission time remaining.",
+     >   "orders": [
+     >     {
+     >       "action": "speed",
+     >       "unit_id": 8,
+     >       "knots": 12
+     >     },
+     >     {
+     >       "action": "move",
+     >       "unit_id": 8,
+     >       "lat": 67.950,
+     >       "lon": -21.900
+     >     }
+     >   ],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 45  t=6662s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4522/233
+     assessment: Alfa holds at ~68.315,-21.724, pending Mk48 shots queued but likely out of 27nm range still. Baltimore closing. Need to keep closing distance for torpedoes to actually fire.
+     notes (memory for next window): Alfa at 68.315,-21.724. Baltimore closing, 8 Mk48 shots pending but may be out of range. Keep closing; watch for shots actually firing. Unids 7001-7004 still unclassified, monitor for escorts.
+     order: {"action": "move", "unit_id": 5, "lat": 68.315, "lon": -21.724}
+     order: {"action": "speed", "unit_id": 5, "knots": 12}
+     --- raw model reply ---
+     > {"assessment":"Alfa holds at ~68.315,-21.724, pending Mk48 shots queued but likely out of 27nm range still. Baltimore closing. Need to keep closing distance for torpedoes to actually fire.","notes":"Alfa at 68.315,-21.724. Baltimore closing, 8 Mk48 shots pending but may be out of range. Keep closing; watch for shots actually firing. Unids 7001-7004 still unclassified, monitor for escorts.","orders":[{"action":"move","unit_id":5,"lat":68.315,"lon":-21.724},{"action":"speed","unit_id":5,"knots":12}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2811/3439
+     assessment: Three unidentified live contacts detected at 25–60 nm range. Track 7013 (closest, ~25 nm) near my waypoint. Maintaining SILENT/passive/TIGHT posture while closing distance for target classification. Need contact identification before engagement decision.
+     notes (memory for next window): K-316 accelerating to intercept unknown contacts. Current waypoint (67.950, -21.900) positions me ~8 nm from Track 7013. Weapons ready: 8× SET-65 (sub, 9 nm), 14× 53-65K (surface, 10 nm), 4× MG-74 (sub, 8 nm). At 12 kn will reach interception range in ~40 min. Recheck in 60s for contact movement and classification. 42 min mission time left.
+     order: {"action": "speed", "unit_id": 8, "knots": 12}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three unidentified live contacts detected at 25–60 nm range. Track 7013 (closest, ~25 nm) near my waypoint. Maintaining SILENT/passive/TIGHT posture while closing distance for target classification. Need contact identification before engagement decision.",
+     >   "notes": "K-316 accelerating to intercept unknown contacts. Current waypoint (67.950, -21.900) positions me ~8 nm from Track 7013. Weapons ready: 8× SET-65 (sub, 9 nm), 14× 53-65K (surface, 10 nm), 4× MG-74 (sub, 8 nm). At 12 kn will reach interception range in ~40 min. Recheck in 60s for contact movement and classification. 42 min mission time left.",
+     >   "orders": [
+     >     {"action":"speed","unit_id":8,"knots":12}
+     >   ],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 46  t=6722s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4496/829
+     assessment: Alfa confirmed hostile at 68.324,-21.683, ~35nm from Baltimore - just outside Mk48 range (27nm). Pending torpedo shots will not resolve until we close distance. Marked safe-zone is far southwest, not immediate threat yet.
+     notes (memory for next window): Alfa tracked at 68.324,-21.683, Baltimore closing at higher speed to get within 27nm Mk48 range. Pending 8 Mk48 shots on track 7007 held until in range. Watch unids 7001-7004 as possible escorts. Marked area 67.738,-24.206 r10nm - Alfa not yet near it.
+     order: {"action": "speed", "unit_id": 5, "knots": 20}
+     order: {"action": "move", "unit_id": 5, "lat": 68.324, "lon": -21.683}
+     --- raw model reply ---
+     > {"assessment":"Alfa confirmed hostile at 68.324,-21.683, ~35nm from Baltimore - just outside Mk48 range (27nm). Pending torpedo shots will not resolve until we close distance. Marked safe-zone is far southwest, not immediate threat yet.","notes":"Alfa tracked at 68.324,-21.683, Baltimore closing at higher speed to get within 27nm Mk48 range. Pending 8 Mk48 shots on track 7007 held until in range. Watch unids 7001-7004 as possible escorts. Marked area 67.738,-24.206 r10nm - Alfa not yet near it.","orders":[{"action":"speed","unit_id":5,"knots":20},{"action":"move","unit_id":5,"lat":68.324,"lon":-21.683}],"next_check_s":120}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 2850/10294
+     assessment: Three UNKNOWN contacts detected at 20-30 nm range (7012, 7013, 7014), all unidentified and live. ROE prohibits engagement without positive hostile classification. Mission time critical: 41 min remaining. Cannot reach interception range without active classification. Executing planned 12-kt intercept
+     notes (memory for next window): K-316 at 68.238°N, -21.985°W; Track 7013 (closest) 67.751°N, -21.899°W (~30 nm). Previous window plan was 12 kt intercept reaching ~10 nm weapon range in ~40 min; now activating active sonar to classify contacts within remaining time. Passive sonar signature analysis insufficient for ROE compliance. Active ping will reveal position but necessary to identify hostile vs. neutral/civilian. Weapons ready: 8×SET-65 (9 nm, sub), 14×53-65K (10 nm, surface), 4×MG-74 (8 nm, sub). Once classified hostile, will close to 10 nm range and engage.
+     order: {"action": "speed", "unit_id": 8, "knots": 12}
+     order: {"action": "sonar", "unit_id": 8, "status": "active"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN contacts detected at 20-30 nm range (7012, 7013, 7014), all unidentified and live. ROE prohibits engagement without positive hostile classification. Mission time critical: 41 min remaining. Cannot reach interception range without active classification. Executing planned 12-kt intercept to Track 7013 plus active sonar ping to force contact ID before weapon engagement window closes.",
+     >   "notes": "K-316 at 68.238°N, -21.985°W; Track 7013 (closest) 67.751°N, -21.899°W (~30 nm). Previous window plan was 12 kt intercept reaching ~10 nm weapon range in ~40 min; now activating active sonar to classify contacts within remaining time. Passive sonar signature analysis insufficient for ROE compliance. Active ping will reveal position but necessary to identify hostile vs. neutral/civilian. Weapons ready: 8×SET-65 (9 nm, sub), 14×53-65K (10 nm, surface), 4×MG-74 (8 nm, sub). Once classified hostile, will close to 10 nm range and engage.",
+     >   "orders": [
+     >     {"action":"speed","unit_id":8,"knots":12},
+     >     {"action":"sonar","unit_id":8,"status":"active"}
+     >   ],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 47  t=6782s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4532/589
+     assessment: Alfa (track 7007) holding at ~68.3,-21.7, bearing away from marked area. Baltimore closing but still ~34nm out, Mk48 range 27nm. Pending shots will fire once in range. Unids 7001-7004 unclassified, could be escorts but no immediate threat.
+     notes (memory for next window): Baltimore closing on Alfa at 68.315,-21.707 from 67.966,-22.915 (~34nm). Pending 8 Mk48 shots set, will auto-engage once within 27nm. Keep speed up to close faster; monitor unids 7001-7004 for escort/ASW threat. Marked area far SW, Alfa not threatening it yet.
+     order: {"action": "speed", "unit_id": 5, "knots": 20}
+     --- raw model reply ---
+     > {"assessment":"Alfa (track 7007) holding at ~68.3,-21.7, bearing away from marked area. Baltimore closing but still ~34nm out, Mk48 range 27nm. Pending shots will fire once in range. Unids 7001-7004 unclassified, could be escorts but no immediate threat.","notes":"Baltimore closing on Alfa at 68.315,-21.707 from 67.966,-22.915 (~34nm). Pending 8 Mk48 shots set, will auto-engage once within 27nm. Keep speed up to close faster; monitor unids 7001-7004 for escort/ASW threat. Marked area far SW, Alfa not threatening it yet.","orders":[{"action":"speed","unit_id":5,"knots":20}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2901/6522
+     assessment: Three UNKNOWN contacts detected at 1s old, coarse position (7013 closest, ~22 nm). K-316 actively pinging for classification. Increasing speed per previous plan to close faster for hostile identification. Weapons tight pending classification per ROE.
+     notes (memory for next window): K-316 at 68.238°N -21.981°W, depth 440 ft (below_layer), sonar ACTIVE. Track 7013 (67.874°N -21.918°W) nearest, 7014 south, 7012 northwest. Waypoint 67.950°N -21.900°W leads toward intercept. Speed increasing 5→12 kt. Weapons: 8×SET-65 (9nm sub), 14×53-65K (10nm surface), 4×MG-74 (8nm sub); tight posture. Mission ~40 min remaining. Cannot engage until targets classified HOSTILE.
+     order: {"action": "speed", "unit_id": 8, "knots": 12}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Three UNKNOWN contacts detected at 1s old, coarse position (7013 closest, ~22 nm). K-316 actively pinging for classification. Increasing speed per previous plan to close faster for hostile identification. Weapons tight pending classification per ROE.",
+     >   "notes": "K-316 at 68.238°N -21.981°W, depth 440 ft (below_layer), sonar ACTIVE. Track 7013 (67.874°N -21.918°W) nearest, 7014 south, 7012 northwest. Waypoint 67.950°N -21.900°W leads toward intercept. Speed increasing 5→12 kt. Weapons: 8×SET-65 (9nm sub), 14×53-65K (10nm surface), 4×MG-74 (8nm sub); tight posture. Mission ~40 min remaining. Cannot engage until targets classified HOSTILE.",
+     >   "orders": [
+     >     {"action":"speed","unit_id":8,"knots":12}
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 48  t=6902s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4529/437
+     assessment: Baltimore closing on Alfa (track 7007) at ~33nm range, pending Mk48 shots queued, will fire once within 27nm. Active sonar pinging, Alfa likely aware. Unid tracks 7001-7004 unclassified, low threat so far.
+     notes (memory for next window): Baltimore pursuing Alfa 7007 near 68.3,-21.7, range closing. Shots will auto-fire inside 27nm. Watch unids for escort. Marked area still far SW, no urgency yet. Keep active sonar to maintain track given it's moving fast enough to force a shot before it reaches marked area.
+     order: {"action": "speed", "unit_id": 5, "knots": 20}
+     --- raw model reply ---
+     > {"assessment":"Baltimore closing on Alfa (track 7007) at ~33nm range, pending Mk48 shots queued, will fire once within 27nm. Active sonar pinging, Alfa likely aware. Unid tracks 7001-7004 unclassified, low threat so far.","notes":"Baltimore pursuing Alfa 7007 near 68.3,-21.7, range closing. Shots will auto-fire inside 27nm. Watch unids for escort. Marked area still far SW, no urgency yet. Keep active sonar to maintain track given it's moving fast enough to force a shot before it reaches marked area.","orders":[{"action":"speed","unit_id":5,"knots":20}],"next_check_s":120}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 2884/7917
+     assessment: K-316 tracking 3 contacts: 7012 (HOSTILE, ~45nm away), 7013 (UNKNOWN, ~19nm south), 7014 (UNKNOWN, ~46nm away). Mission critical: ~38 minutes remain. Closest unknown contact (7013) nearly at waypoint. Single HOSTILE too distant to engage currently. Must accelerate to close range before mission clock
+     notes (memory for next window): K-316 position 68.236°N -21.975°W, depth 440ft (below_layer, good for listening). Sonar ACTIVE detecting contacts. Track 7013 at 67.925°N -21.922°W is ~19nm south and matches general waypoint routing. Track 7012 (HOSTILE) at 67.989°N -22.830°W is ~45nm away—outside current torpedo range (8-10nm). Weapons TIGHT posture maintained: 8×SET-65, 14×53-65K, 4×MG-74. Cannot engage unknown contacts until classified hostile. At 20kt closure, expect intercept with 7013 in ~10-12 windows.
+     order: {"action": "speed", "unit_id": 8, "knots": 20}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "K-316 tracking 3 contacts: 7012 (HOSTILE, ~45nm away), 7013 (UNKNOWN, ~19nm south), 7014 (UNKNOWN, ~46nm away). Mission critical: ~38 minutes remain. Closest unknown contact (7013) nearly at waypoint. Single HOSTILE too distant to engage currently. Must accelerate to close range before mission clock expires.",
+     >   "notes": "K-316 position 68.236°N -21.975°W, depth 440ft (below_layer, good for listening). Sonar ACTIVE detecting contacts. Track 7013 at 67.925°N -21.922°W is ~19nm south and matches general waypoint routing. Track 7012 (HOSTILE) at 67.989°N -22.830°W is ~45nm away—outside current torpedo range (8-10nm). Weapons TIGHT posture maintained: 8×SET-65, 14×53-65K, 4×MG-74. Cannot engage unknown contacts until classified hostile. At 20kt closure, expect intercept with 7013 in ~10-12 windows.",
+     >   "orders": [
+     >     {
+     >       "action": "speed",
+     >       "unit_id": 8,
+     >       "knots": 20
+     >     }
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 49  t=7023s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)

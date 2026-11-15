@@ -3,7 +3,7 @@
 Usage examples (game running with the scenario loaded):
   python match.py --side0 scripted:patrol --side1 scripted:intercept --windows 4          # free, no model
   python match.py --side0 anthropic:<model> --side1 anthropic:<model> --confirm-spend      # spends API credit, see --max-usd
-Spec forms: scripted:patrol | scripted:intercept | anthropic:<model-id> (API key from env) | claudecli:<model alias/id> (your Claude login via
+Spec forms: scripted:patrol | scripted:intercept | anthropic:<model-id> (API key from env) | openrouter:<model-slug> (OPENROUTER_API_KEY from env) | claudecli:<model alias/id> (your Claude login via
 the Claude Code CLI, tools disabled) | cmd:<command that reads stdin, prints JSON>
 Commanders only ever receive their own side's /state. /truth is used for scoring and the spectator log only.
 """
@@ -12,6 +12,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 from bridge_client import call, nm, check_state
 import commander as C
+import score as S
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -28,6 +29,8 @@ def make_commander(spec, side, sc, step, args):
     elif kind == "claudecli":
         model, _, effort = arg.partition("@")      # e.g. claudecli:sonnet@low
         prov = C.ClaudeCLIProvider(model, effort=effort or None)
+    elif kind == "openrouter":
+        prov = C.OpenRouterProvider(arg, max_tokens=args.max_reply_tokens)
     elif kind == "cmd":
         prov = C.CommandProvider(arg)
     else:
@@ -71,6 +74,23 @@ def compact_truth(truth):
 LAST_TRUTH = {}   # newest truth seen while a step runs: if the game ends the mission mid-step, score from this
 
 
+def write_manifest(rundir, args, sc, specs, step, max_game):
+    """Everything needed to say what exactly was measured. No secrets: provider keys live in the environment only."""
+    import hashlib, platform
+    def sha(path):
+        try:
+            with open(path, "rb") as f: return hashlib.sha256(f.read()).hexdigest()[:16]
+        except OSError: return None
+    man = {"ruleset": C.RULESET_ID, "ruleset_hash": C.ruleset_hash(), "scenario": sc["name"], "scenario_file": os.path.basename(args.scenario),
+           "scenario_sha": sha(args.scenario), "specs": specs, "step_s": step, "max_game_s": max_game, "scale": args.scale,
+           "caps": {"max_calls": args.max_calls, "max_in_tokens": args.max_in_tokens, "max_out_tokens": args.max_out_tokens, "max_usd": args.max_usd,
+                    "max_reply_tokens": args.max_reply_tokens}, "plugin_dll_sha": sha(os.environ.get("GF_PLUGIN_DLL", "")),
+           "python": platform.python_version(), "started": time.strftime("%Y-%m-%d %H:%M:%S")}
+    with open(os.path.join(rundir, "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump(man, f, indent=2)
+    return man
+
+
 def wait_paused(deadline_s=300):
     t0 = time.time()
     last_gt, still = None, 0
@@ -107,7 +127,7 @@ def main():
     ap.add_argument("--base", default=None, help="bridge base URL override (tests)")
     ap.add_argument("--max-calls", type=int, default=60)
     ap.add_argument("--max-in-tokens", type=int, default=1500000)
-    ap.add_argument("--max-out-tokens", type=int, default=400000)   # Haiku at low effort writes ~8k tokens per call; --max-usd is the real spend cap
+    ap.add_argument("--max-out-tokens", type=int, default=800000)   # Haiku at low effort writes ~8k tokens per call; --max-usd is the real spend cap
     ap.add_argument("--continue-when-exhausted", action="store_true", help="old behaviour: a commander whose budget ran out silently holds while the match goes on (invalidates comparisons)")
     ap.add_argument("--max-reply-tokens", type=int, default=1500)
     ap.add_argument("--max-usd", type=float, default=0.0)
@@ -126,6 +146,7 @@ def main():
     max_game = a.max_game_s or sc.get("max_game_s")      # the mission budget is GAME time: commanders may ask for short windows, which must not eat the budget
     windows = a.windows or (sc.get("max_windows", 200) if max_game else sc["windows"])
     specs = {0: a.side0, 1: a.side1}
+    first = {}   # "t": first window truth, "last": newest window truth (compact), for scoring
     if any(not s.startswith("scripted") for s in specs.values()) and not (a.confirm_spend or a.dry_prompt):
         sys.exit("refusing to start: model commanders can spend money. Re-run with --confirm-spend (and consider --max-usd/--price-in/--price-out).")
     cmdrs = {s: make_commander(specs[s], s, sc, step, a) for s in (0, 1)}
@@ -147,6 +168,7 @@ def main():
         try: os.makedirs(rundir); break
         except FileExistsError: n += 1; rundir = f"{base_dir}_{n}"
     log = open(os.path.join(rundir, "events.jsonl"), "a", encoding="utf-8")
+    write_manifest(rundir, a, sc, specs, step, max_game)
 
     def emit(kind, **kw):
         log.write(json.dumps({"kind": kind, "wall": round(time.time(), 2), **kw}) + "\n"); log.flush()
@@ -175,6 +197,7 @@ def main():
             code, truth = call("GET", "/truth")
             assert code == 200, truth
             emit("window", w=w, truth=compact_truth(truth))
+            first.setdefault("t", compact_truth(truth)); first["last"] = compact_truth(truth)
             done, win, why = evaluate(truth, sc)
             if done:
                 winner, reason, done_w = win, why, w
@@ -214,6 +237,7 @@ def main():
         code, truth = call("GET", "/truth")
         if code == 200:
             emit("window", w=windows, truth=compact_truth(truth))
+            first.setdefault("t", compact_truth(truth)); first["last"] = compact_truth(truth)
             done, win, why = evaluate(truth, sc)
             if done:
                 winner, reason = win, why
@@ -223,7 +247,10 @@ def main():
         if done:
             winner, reason = win, why + " (game ended mission; scored from last truth)"
     summary = {"scenario": sc["name"], "specs": specs, "label": a.label, "windows_played": done_w, "winner_side": winner, "reason": reason,
-               "budgets": {s: cmdrs[s].budget.snapshot() for s in (0, 1)}}
+               "budgets": {s: cmdrs[s].budget.snapshot() for s in (0, 1)}, "ruleset": C.RULESET_ID}
+    if "t" in first:   # margin scoring; if the game ended the mission mid-step the truth polled during that step is the newest
+        final = compact_truth(LAST_TRUTH["t"]) if reason.startswith("game ended") or "last truth" in reason else first["last"]
+        summary["score"] = S.score_match(first["t"], final, winner, {str(s): summary["budgets"][s]["usd"] for s in (0, 1)})
     emit("match_end", **summary)
     with open(os.path.join(rundir, "summary.json"), "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)

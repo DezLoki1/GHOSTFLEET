@@ -17,7 +17,11 @@ ACTIONS = {
     "engage": {"unit_id", "track_id"},
     "launch": {"unit_id", "aircraft", "loadout", "mission"},
     "rtb": {"unit_id"},
+    "depth": {"unit_id", "status"},
+    "sonar": {"unit_id", "status"},
+    "decoy": {"unit_id"},
 }
+DEPTHS = ("surface", "periscope", "shallow", "above_layer", "below_layer", "deep", "very_deep")
 OPTIONAL = {"engage": {"salvo", "weapon"}, "launch": {"count"}}
 MISSIONS = {"CAP", "Intercept", "BombStrike", "MissileAttack", "SEAD", "Jamming", "AEW", "Recon", "MPA", "SearchAndDestroyASW", "SAR"}
 
@@ -37,12 +41,16 @@ Order types (JSON objects, unit_id must be one of YOUR units):
   {{"action":"emitters","unit_id":N,"status":"silent|active"}}   silent = search radars, active sonar and jammers OFF (harder to detect, but that unit sees less); active = search radars ON. Only units with a search radar are affected: if a unit's radar_on stays false after "active" it has none (e.g. missile launchers, guns, observation posts) - do not repeat the order
   {{"action":"weapons","unit_id":N,"status":"hold|tight|free"}}   hold = no fire, tight = fire only at positively hostile targets, free = fire at anything not known friendly/neutral
   {{"action":"engage","unit_id":N,"track_id":T,"salvo":1-4,"weapon":"<id from YOUR WEAPONS>"}}   order this unit to fire at one of your tracks NOW (salvo and weapon optional; without weapon the unit picks the best one itself). The track must be identified as hostile and your own plotting table must hold it; the result tells you whether a shot was actually queued (it is refused if the target is out of range, you have no suitable ammo, or the track is not an identified hostile). Missiles take time to arrive, so judge range using YOUR WEAPONS and the track positions.
-  {{"action":"launch","unit_id":CARRIER,"aircraft":"<id>","loadout":"<name>","mission":"CAP|Intercept|BombStrike|MissileAttack|SEAD|Jamming|AEW|Recon|MPA|SearchAndDestroyASW|SAR","count":1-4}}   queue aircraft to launch from a carrier or ship with a flight deck. Use only the aircraft and loadouts listed under YOUR AIR WING. Launching takes minutes; the aircraft then appear in YOUR UNITS and you give them move/engage orders. SEAD aircraft carry anti-radiation missiles for suppressing SAM and radar sites; check each loadout before you commit it.
+  {{"action":"launch","unit_id":CARRIER,"aircraft":"<id>","loadout":"<name>","mission":"CAP|Intercept|BombStrike|MissileAttack|SEAD|Jamming|AEW|Recon|MPA|SearchAndDestroyASW|SAR","count":1-4}}   queue aircraft to launch from a carrier or ship with a flight deck. aircraft, loadout and mission are ALL required. Use only the aircraft and loadouts listed under YOUR AIR WING. Launching takes minutes; the aircraft then appear in YOUR UNITS and you give them move/engage orders. SEAD aircraft carry anti-radiation missiles for suppressing SAM and radar sites; check each loadout before you commit it.
   {{"action":"rtb","unit_id":N}}   an aircraft returns to base and lands (use when fuel is low or its weapons are spent)
+  {{"action":"depth","unit_id":N,"status":"surface|periscope|shallow|above_layer|below_layer|deep|very_deep"}}   submarines only: dive or rise to a preset depth (feet per preset are in YOUR UNITS); the boat changes depth gradually
+  {{"action":"sonar","unit_id":N,"status":"active|passive"}}   active = ping (finds targets at range, but everyone listening learns where you are); passive = listen only (the default, quiet)
+  {{"action":"decoy","unit_id":N}}   submarines only: launch a noisemaker decoy (limited stock) when a torpedo is homing on you
 Weapon economy: your stocks are finite and cannot be replenished. Use the cheapest weapon that does the job: guns against small boats inside gun range, anti-ship missiles only against larger ships you cannot reach with guns, SAMs for aircraft and incoming missiles. Check YOUR WEAPONS (range and count) before ordering, and the "ROUNDS YOU EXPENDED" line to see what you actually fired.
 Standing postures: your units start with weapon and emitter postures chosen by the scenario designers. Keep them unless you have a specific reason; blanket-setting every unit to tight or hold can silence your own defenses.
 Aircraft are fast but fragile and carry few weapons. Keep them outside the range of known SAM sites and fighters except to launch, and withdraw afterwards. engage with no weapon only designates the target and the aircraft AI may fly a close-in attack run. engage WITH a named weapon fires it once the target is inside that weapon's range, so position the aircraft just inside that range (see YOUR WEAPONS) and then move it away. Watch each aircraft's fuel range.
 A carrier's air wing is not in YOUR UNITS until you launch it: check YOUR AIR WING for fighters, strike, SEAD (anti-radar) and electronic-warfare aircraft, and launch what the mission needs instead of fighting only with the aircraft already airborne. An anti-radiation missile may be refused against a radar that is not currently emitting; the refusal message lists what is usable. Ships can also queue gun and missile shots on land targets within range.
+Submarines: your boat's own AI handles steering, contact analysis and torpedo evasion; you choose where it goes, how deep, how fast, whether to ping, and when to shoot. A submarine is blind and deaf beyond a few miles unless it listens well: going fast is noisy: it makes you easy to hear and makes you hear less; going slow is the reverse. Depth relative to the thermal layer (above_layer / below_layer) changes who can hear whom, and deep water may be better for survival and shallow water for reaching a target. Tracks you hold may be only a bearing or a rough area, not a position to shoot at.
 Distances are large and ships are slow (10-30 kn). Each unit's status shows an ETA to its waypoint: plan with it, use speed orders when time matters, and use next_check_s to skip quiet periods.
 Note: "weapons free" only lets a unit's own AI shoot when it decides to; it does not guarantee shots. Use engage to make sure the shots you want are fired, and to choose the target and weapon.
 At most {max_orders} orders per window. Only order what you want to change; units keep their current orders otherwise.
@@ -140,6 +148,39 @@ class ClaudeCLIProvider:
         return d.get("result", ""), {"in": tin, "out": u.get("output_tokens", 0), "usd": d.get("total_cost_usd", 0.0)}
 
 
+class OpenRouterProvider:
+    """OpenRouter (OpenAI-compatible chat completions), any model slug e.g. openrouter:google/gemini-2.5-pro. Key from env OPENROUTER_API_KEY only
+    (never logged, never in a run folder). Cost is the provider-reported usage.cost."""
+    def __init__(self, model, max_tokens=1500, key_env="OPENROUTER_API_KEY", timeout=180):
+        self.model, self.max_tokens, self.key_env, self.timeout = model, max_tokens, key_env, timeout
+
+    def complete(self, system, user):
+        key = os.environ.get(self.key_env)
+        if not key:
+            raise RuntimeError(f"environment variable {self.key_env} is not set")
+        body = json.dumps({"model": self.model, "max_tokens": self.max_tokens, "usage": {"include": True},
+                           "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}).encode()
+        req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", data=body, method="POST",
+                                     headers={"Authorization": "Bearer " + key, "content-type": "application/json"})
+        last = None
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(req, timeout=self.timeout) as r:
+                    d = json.loads(r.read().decode())
+                if d.get("error"):
+                    raise RuntimeError(str(d["error"])[:300])
+                u = d.get("usage") or {}
+                return d["choices"][0]["message"].get("content") or "", {"in": u.get("prompt_tokens", 0), "out": u.get("completion_tokens", 0), "usd": u.get("cost", 0.0) or 0.0}
+            except urllib.error.HTTPError as e:
+                last = f"HTTP {e.code}: {e.read().decode()[:300]}"
+                if e.code not in (429, 500, 502, 503, 529):
+                    break
+            except Exception as e:
+                last = repr(e)
+            time.sleep(2 ** attempt)
+        raise RuntimeError("openrouter call failed: " + str(last))
+
+
 class CommandProvider:
     """Runs any CLI that reads the prompt on stdin and prints the reply on stdout (e.g. an agent CLI in print mode).
     Token use is only estimated (chars/4). Check that provider's terms before automating it."""
@@ -186,6 +227,11 @@ def unit_status(u):
         bits.append(f"alt {u['altitude_ft']:.0f} ft")
     if u.get("range_left_nm") is not None:
         bits.append(f"fuel range {u['range_left_nm']:.0f} nm")
+    sub = u.get("sub")
+    if sub:
+        # the plugin's "setting" is only meaningful after a depth order (a mission start does not set it), so it is not shown; battery is 0 on nuclear boats
+        bits.append(f"depth {sub['depth_ft']:.0f} ft" + (f"; battery {sub['battery_pct']:.0f}%" if sub.get("battery_pct", 0) > 0 else "") + ("; SNORKEL MAST OUT" if sub.get("snorkel") else "")
+                    + "; sonar " + ("ACTIVE (pinging)" if u.get("sonar_on") else "passive"))
     t = u.get("tasks") or {}
     for e in t.get("engage", []):
         bits.append(f"PENDING SHOT {e['weapon']}->track {e['track_id'] if e['track_id'] else '?'}")
@@ -194,12 +240,15 @@ def unit_status(u):
     return "; ".join(bits)
 
 
-def render_state(st, prev_tracks, last_orders, last_results, notes, window, windows, dead=frozenset(), spent="", events="", clock=""):
+def render_state(st, prev_tracks, last_orders, last_results, notes, window, windows, dead=frozenset(), spent="", events="", clock="", invalid=()):
     L = [f"WINDOW {window + 1}  game_time={st['game_time_s']:.0f}s  you={st['side_name']}" + (f"  {clock}" if clock else f"  (of at most {windows} windows)")]
     L.append("YOUR UNITS (id | name | type | lat,lon | hdg | kn | weapons | emcon | waypoint | status):")
     for u in st["own_units"]:
         wp = f"{u['waypoint']['lat']:.3f},{u['waypoint']['lon']:.3f}" if u.get("waypoint") else "none"
         L.append(f"  {u['unit_id']} | {u['name']} | {u['type']} | {_fmt_ll(u)} | {u['heading']:.0f} | {u['speed_kn']:.0f} | {u['weapons']} | {'SILENT' if u['emcon'] else 'emitting'} | {wp} | {unit_status(u) or 'ok'}")
+    for u in st["own_units"]:
+        if u.get("sub"):
+            L.append(f"DEPTH PRESETS for {u['name']} (unit {u['unit_id']}), feet: " + ", ".join(f"{k} {v}" for k, v in u["sub"]["presets_ft"].items()))
     if events:
         L.append("EVENTS SINCE LAST WINDOW: " + events)
     shootable = lambda u: [a for a in u.get("ammo", []) if a["kind"] not in ("Chaff", "Noisemaker", "Decoy", "Flare") and "_tank_" not in a["id"]]   # decoys and drop tanks are not engage weapons
@@ -219,7 +268,7 @@ def render_state(st, prev_tracks, last_orders, last_results, notes, window, wind
     if not shown:
         L.append("  (none)")
     for c in shown:
-        fresh = c["live"] and c["age_s"] <= STALE_AFTER_S   # the game keeps a destroyed object's track flagged live while its age keeps growing
+        fresh = c["age_s"] <= STALE_AFTER_S   # age alone decides: the game keeps a destroyed object's track flagged live while its age grows, and sonar tracks are never flagged live
         L.append(f"  {c['track_id']} | {c['class'] or '?'} | {c['side'] or '?'} | {str(c.get('relation', 'unknown')).upper()} | {'ID' if c['identified'] else 'unid'} | {'live' if fresh else 'STALE'} | {c['age_s']:.0f} | {_fmt_ll(c)} | {_quality(c)}")
     if dead:
         L.append(f"REMOVED TRACKS (the game refused your engage because they are destroyed or lost; do not target them or plan around them): {sorted(dead)}")
@@ -232,6 +281,9 @@ def render_state(st, prev_tracks, last_orders, last_results, notes, window, wind
         bad = [(o, r) for o, r in pairs if not r.get("ok")]
         L.append(f"YOUR LAST ORDERS: {len(last_orders)} sent, {len(bad)} rejected"
                  + "".join(f"\n  rejected: {json.dumps(o)} -> {r['message']}" for o, r in bad))
+    if invalid:   # orders that never reached the game: without this the model cannot know they were dropped
+        L.append(f"ORDERS NOT SENT (malformed, fix and resend if still wanted): {len(invalid)}"
+                 + "".join(f"\n  {json.dumps(o)} -> {r}" for o, r in invalid))
     if spent:
         L.append("ROUNDS EXPENDED SINCE LAST WINDOW (unit:weapon x count): " + spent)
     if notes:
@@ -282,8 +334,9 @@ def validate_orders(orders, own_ids):
             allowed = ACTIONS[o["action"]] | OPTIONAL.get(o["action"], set())
             if set(o) - allowed - {"action"}:
                 raise ValueError("unexpected keys " + str(sorted(set(o) - allowed - {"action"})))
-            if not ACTIONS[o["action"]] - {"unit_id"} <= set(o):
-                raise ValueError("missing fields")
+            missing = sorted(ACTIONS[o["action"]] - set(o))
+            if missing:
+                raise ValueError("missing fields: " + ", ".join(missing))
             if isinstance(o["unit_id"], bool) or not isinstance(o["unit_id"], int) or o["unit_id"] not in own_ids:
                 raise ValueError("unit_id is not one of your units")
             a = o["action"]
@@ -296,6 +349,10 @@ def validate_orders(orders, own_ids):
                 raise ValueError("status must be silent|active")
             if a == "weapons" and o["status"] not in ("hold", "tight", "free"):
                 raise ValueError("status must be hold|tight|free")
+            if a == "depth" and o["status"] not in DEPTHS:
+                raise ValueError("status must be one of " + ", ".join(DEPTHS))
+            if a == "sonar" and o["status"] not in ("active", "passive"):
+                raise ValueError("status must be active|passive")
             if a == "launch":
                 if not all(isinstance(o[k], str) and 0 < len(o[k]) <= 80 for k in ("aircraft", "loadout", "mission")):
                     raise ValueError("aircraft, loadout and mission must be strings")
@@ -343,7 +400,8 @@ class LLMCommander:
         if self.t0 is None:
             self.t0 = st["game_time_s"]
         clock = f"MISSION CLOCK: {(st['game_time_s'] - self.t0) / 60:.0f} of {self.limit_s / 60:.0f} minutes used" if self.limit_s else ""
-        return render_state(st, self.prev_tracks, self.last_orders, self.last_results, self.notes, window, windows, frozenset(self.dead), spent, events, clock)
+        return render_state(st, self.prev_tracks, self.last_orders, self.last_results, self.notes, window, windows, frozenset(self.dead), spent, events, clock,
+                            getattr(self, "last_rejected", ()))
 
     def _commanded(self):
         """(unit, weapon) pairs this commander's accepted engage orders covered last window; weapon None = any weapon of that unit."""
@@ -401,7 +459,7 @@ class LLMCommander:
                 d.next_check_s = min(600.0, max(30.0, float(nc)))   # the bridge refuses single steps over 600 s
         except Exception as e:   # bad reply, timeout, provider error: hold this window, keep the match going
             d.error = f"{type(e).__name__}: {e}"
-        self.last_orders = d.orders
+        self.last_orders, self.last_rejected = d.orders, d.rejected
         return d
 
     def feedback(self, results):
@@ -444,3 +502,16 @@ class ScriptedCommander:
 
     def feedback(self, results):
         pass
+
+
+# ---------------------------------------------------------------- ruleset identity
+RULESET_ID = "v0"   # bump deliberately when anything the models see or may do changes; results are only comparable within one ruleset
+
+
+def ruleset_hash():
+    """Short hash of everything that shapes what a commander sees and may do (prompt, order set, limits, state rendering, validation).
+    shortcut: provider code and match.py defaults are not hashed (they are recorded in each run's manifest); extend if they start to matter."""
+    import hashlib, inspect
+    parts = [SYSTEM_PROMPT, repr(sorted((k, sorted(v)) for k, v in ACTIONS.items())), repr(sorted((k, sorted(v)) for k, v in OPTIONAL.items())),
+             repr(sorted(MISSIONS)), str(MAX_ORDERS), str(STALE_AFTER_S), inspect.getsource(render_state), inspect.getsource(validate_orders)]
+    return hashlib.sha256("\n".join(parts).encode()).hexdigest()[:12]

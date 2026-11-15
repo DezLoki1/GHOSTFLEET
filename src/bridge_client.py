@@ -3,7 +3,7 @@ import json, math, urllib.error, urllib.request
 
 BASE = "http://127.0.0.1:8765"
 CONTACT_KEYS = {"track_id", "class", "side", "relation", "identified", "live", "age_s", "lat", "lon", "sigma_major", "sigma_minor"}
-UNIT_KEYS = {"unit_id", "name", "type", "lat", "lon", "heading", "speed_kn", "weapons", "emcon", "radar_on", "sonar_on", "controllable", "waypoint", "ammo", "damage_pct", "altitude_ft", "range_left_nm", "tasks", "deck"}
+UNIT_KEYS = {"unit_id", "name", "type", "lat", "lon", "heading", "speed_kn", "weapons", "emcon", "radar_on", "sonar_on", "controllable", "waypoint", "ammo", "damage_pct", "altitude_ft", "range_left_nm", "tasks", "deck", "sub"}
 STATE_KEYS = {"side", "side_name", "game_time_s", "paused", "stepping", "own_units", "contacts"}
 
 

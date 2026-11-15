@@ -6,6 +6,7 @@ import bridge_client, commander as C, match, mock_bridge
 from commander import Budget, LLMCommander, extract_json, validate_orders
 
 PORT = 18765
+PINNED_V0_HASH = "4c1e37f07b9d"
 
 
 class FakeProvider:
@@ -142,6 +143,84 @@ class Universal(unittest.TestCase):
         self.assertNotIn("raider", sc["sides"]["1"]["objective"])     # the opposing side does not get the player's plan
 
 
+class Scoring(unittest.TestCase):
+    def test_margin_and_ruleset(self):
+        import score
+        t = lambda k0, l0, a0, k1, l1, a1, tt: {"t": tt, "sides": [{"side": 0, "name": "T1", "kill": k0, "loss": l0, "alive": a0, "total": 10},
+                                                                  {"side": 1, "name": "T2", "kill": k1, "loss": l1, "alive": a1, "total": 10},
+                                                                  {"side": 2, "name": "Neutral", "kill": 0, "loss": 0, "alive": 5, "total": 5}]}
+        s = score.score_match(t(0, 0, 10, 0, 0, 10, 100), t(9, 1, 9, 1, 9, 4, 700), 0, {"0": 1.0, "1": 2.0})
+        self.assertEqual(set(s), {"0", "1"})
+        self.assertEqual((s["0"]["result"], s["0"]["margin"], s["0"]["units_lost"], s["0"]["game_s"]), (1.0, 0.8, 1, 600))
+        self.assertEqual((s["1"]["result"], s["1"]["margin"], s["1"]["units_lost"], s["1"]["usd"]), (0.0, -0.8, 6, 2.0))
+        self.assertEqual(score.score_match(t(0, 0, 10, 0, 0, 10, 0), t(0, 0, 10, 0, 0, 10, 5), None, {})["0"]["result"], 0.5)   # no verdict, nothing happened
+        # the ruleset is pinned: changing the prompt, order set or state rendering must be a deliberate version bump (edit RULESET_ID and this hash together)
+        self.assertEqual((C.RULESET_ID, C.ruleset_hash()), ("v0", PINNED_V0_HASH))
+
+    def test_invalid_orders_reported_back(self):
+        prov = FakeProvider(['{"assessment":"a","notes":"","orders":[{"action":"launch","unit_id":8,"aircraft":"x","loadout":"y"}]}', GOOD])
+        c = LLMCommander("side0:fake", prov, "obj", "roe", 60, Budget(max_calls=5))
+        st = {"side": 0, "side_name": "T1", "game_time_s": 0, "paused": True, "stepping": False, "contacts": [],
+              "own_units": [{"unit_id": 8, "name": "Y", "type": "Vessel", "lat": 1.0, "lon": 1.0, "heading": 0, "speed_kn": 5, "weapons": "tight", "emcon": False}]}
+        d = c.decide(st, 0, 5); self.assertIn("missing fields: mission", d.rejected[0][1])
+        c.decide(st, 1, 5); self.assertIn("ORDERS NOT SENT", prov.prompts[1]); self.assertIn("missing fields: mission", prov.prompts[1])
+
+
+class Providers(unittest.TestCase):
+    def test_openrouter_parses_usage_and_never_leaks_key(self):
+        import io, urllib.request
+        seen = {}
+        def fake(req, timeout=0):
+            seen["auth"] = req.headers.get("Authorization"); seen["body"] = req.data.decode()
+            return io.BytesIO(json.dumps({"choices": [{"message": {"content": "{}"}}], "usage": {"prompt_tokens": 11, "completion_tokens": 7, "cost": 0.0123}}).encode())
+        old, os.environ["OPENROUTER_API_KEY"] = urllib.request.urlopen, "sk-test-not-real"
+        urllib.request.urlopen = fake
+        try:
+            text, u = C.OpenRouterProvider("some/model").complete("sys", "usr")
+        finally:
+            urllib.request.urlopen = old; del os.environ["OPENROUTER_API_KEY"]
+        self.assertEqual((text, u), ("{}", {"in": 11, "out": 7, "usd": 0.0123}))
+        self.assertEqual(seen["auth"], "Bearer sk-test-not-real"); self.assertNotIn("sk-test", seen["body"])
+        with self.assertRaises(RuntimeError): C.OpenRouterProvider("m").complete("s", "u")   # no key in env -> clear error
+
+
+class Submarines(unittest.TestCase):
+    def test_sub_orders_validated_and_rendered(self):
+        good, bad = validate_orders([{"action": "depth", "unit_id": 5, "status": "below_layer"}, {"action": "depth", "unit_id": 5, "status": "abyss"},
+                                     {"action": "sonar", "unit_id": 5, "status": "active"}, {"action": "sonar", "unit_id": 5, "status": "on"},
+                                     {"action": "decoy", "unit_id": 5}], {5})
+        self.assertEqual([o["action"] for o in good], ["depth", "sonar", "decoy"]); self.assertEqual(len(bad), 2)
+        u = {"unit_id": 5, "name": "SSN", "type": "Submarine", "lat": 1.0, "lon": 1.0, "heading": 0, "speed_kn": 10, "weapons": "tight", "emcon": False, "sonar_on": False,
+             "sub": {"depth_ft": 150.0, "setting": "shallow", "battery_pct": 97.0, "snorkel": False, "presets_ft": {"surface": 0, "periscope": 60, "deep": 600}}}
+        text = C.render_state({"side": 0, "side_name": "T1", "game_time_s": 0, "paused": True, "stepping": False, "own_units": [u], "contacts": []}, None, [], [], "", 0, 5)
+        self.assertIn("depth 150 ft; battery 97%; sonar passive", text); self.assertIn("DEPTH PRESETS for SSN (unit 5), feet: surface 0, periscope 60, deep 600", text)
+
+
+class MarkedArea(unittest.TestCase):
+    def test_escape_zone_told_to_player_side_only(self):
+        import gen_scenario
+        ini = """[Environment]
+MapCenterLatitude=60.0
+MapCenterLongitude=10.0
+[Mission]
+PlayerTaskforce=Taskforce1
+EnemyTaskforce=Taskforce2
+[Language_en]
+Name=T
+Description=D
+
+[Trigger4]
+Action_Victory=Taskforce2
+Condition_Condition1_Type=UnitsInTheArea
+Condition_Condition1_PositionNM=-30,0,60
+Condition_Condition1_AreaRadiusNM=10
+Condition_Condition1_AreaDisplaySide=Blue
+"""
+        sc = gen_scenario.build(ini, "t.ini", 300, 7200)
+        self.assertIn("centre 61.000,", sc["sides"]["0"]["objective"]); self.assertNotIn("MARKED AREA", sc["sides"]["1"]["objective"])
+        self.assertEqual((sc["step_s"], sc["max_game_s"]), (300, 7200))
+
+
 class Budgets(unittest.TestCase):
     def test_exhaust(self):
         b = Budget(max_calls=2); b.calls = 2; self.assertTrue(b.exhausted())
@@ -187,6 +266,10 @@ class FullMatch(unittest.TestCase):
                 self.assertNotIn(leak, p)
         self.assertTrue(os.path.exists(os.path.join(d, "summary.json")))
         self.assertEqual([e for e in ev if e["kind"] == "match_end"][0]["windows_played"], 3)
+        with open(os.path.join(d, "manifest.json"), encoding="utf-8") as f: man = json.load(f)
+        self.assertEqual((man["ruleset"], man["ruleset_hash"]), (C.RULESET_ID, C.ruleset_hash()))
+        with open(os.path.join(d, "summary.json"), encoding="utf-8") as f: summ = json.load(f)
+        self.assertIn("score", summ); self.assertEqual(set(summ["score"]), {"0", "1"})
 
     def test_budget_exhaustion_holds(self):
         prov = FakeProvider([GOOD])

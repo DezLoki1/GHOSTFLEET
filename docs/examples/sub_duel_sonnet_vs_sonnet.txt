@@ -1,0 +1,300 @@
+SUMMARY
+{
+  "scenario": "Sub Duel - Denmark Strait (1985)",
+  "specs": {
+    "0": "claudecli:sonnet@low",
+    "1": "claudecli:sonnet@low"
+  },
+  "label": "sub_sonnet_sonnet",
+  "windows_played": 18,
+  "winner_side": 0,
+  "reason": "game declared Victory for the player side",
+  "budgets": {
+    "0": {
+      "calls": 18,
+      "in_tokens": 77281,
+      "out_tokens": 5158,
+      "usd": 0.1852
+    },
+    "1": {
+      "calls": 18,
+      "in_tokens": 69568,
+      "out_tokens": 3535,
+      "usd": 0.1511
+    }
+  },
+  "ruleset": "v0",
+  "score": {
+    "0": {
+      "result": 1.0,
+      "kills": 5,
+      "losses": 0,
+      "net": 5,
+      "margin": 1.0,
+      "units_lost": 0,
+      "game_s": 1860,
+      "usd": 0.1852
+    },
+    "1": {
+      "result": 0.0,
+      "kills": 0,
+      "losses": 5,
+      "net": -5,
+      "margin": -1.0,
+      "units_lost": 1,
+      "game_s": 1860,
+      "usd": 0.1511
+    }
+  }
+}
+
+FULL REPLAY (assessments, notes, orders, refusals, raw model replies)
+======================================================================
+MATCH Sub Duel - Denmark Strait (1985)  windows=120 step=300.0s scale=4.0  side0=claudecli:sonnet@low  side1=claudecli:sonnet@low
+
+--- window 1  t=121s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 3907/478
+     assessment: No contacts yet. Alfa likely transiting south through Denmark Strait toward marked area off Iceland. Baltimore must quietly position to intercept while listening.
+     notes (memory for next window): No tracks yet. Moving Baltimore toward choke point near marked area at low speed, passive sonar, silent emcon to maximize listening and minimize detection. Watch for Alfa contact approaching from north/northeast.
+     order: {"action": "move", "unit_id": 5, "lat": 67.95, "lon": -23.75}
+     order: {"action": "speed", "unit_id": 5, "knots": 8}
+     order: {"action": "sonar", "unit_id": 5, "status": "passive"}
+     order: {"action": "depth", "unit_id": 5, "status": "above_layer"}
+     --- raw model reply ---
+     > {"assessment":"No contacts yet. Alfa likely transiting south through Denmark Strait toward marked area off Iceland. Baltimore must quietly position to intercept while listening.","notes":"No tracks yet. Moving Baltimore toward choke point near marked area at low speed, passive sonar, silent emcon to maximize listening and minimize detection. Watch for Alfa contact approaching from north/northeast.","orders":[{"action":"move","unit_id":5,"lat":67.95,"lon":-23.75},{"action":"speed","unit_id":5,"knots":8},{"action":"sonar","unit_id":5,"status":"passive"},{"action":"depth","unit_id":5,"status":"above_layer"}],"next_check_s":300}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3630/113
+     assessment: No contacts yet. Submarine proceeding quietly toward patrol waypoint, no threats detected.
+     notes (memory for next window): No tracks held at start. Continue transit to waypoint, stay silent, monitor passively. Re-check in 10 min or sooner if contacts appear.
+     --- raw model reply ---
+     > {"assessment":"No contacts yet. Submarine proceeding quietly toward patrol waypoint, no threats detected.","notes":"No tracks held at start. Continue transit to waypoint, stay silent, monitor passively. Re-check in 10 min or sooner if contacts appear.","orders":[],"next_check_s":300}
+
+--- window 2  t=421s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4257/514
+     assessment: Four new unknown contacts near the strait, likely surface traffic plus possibly the Alfa among them. No classification yet; all tracks unid. Continuing quiet approach toward marked area to localize and classify before engaging.
+     notes (memory for next window): 4 unid tracks appeared near 67.7-68.6N,-22 to -23W, east of marked area. Baltimore inbound to 67.950,-23.750. Need classification - likely surface shipping lane plus submerged contact. Stay silent, passive sonar, let AI classify before shooting. Watch track 7002 (closest, good quality, near 67.71,-22.82) for sub signature.
+     order: {"action": "speed", "unit_id": 5, "knots": 12}
+     --- raw model reply ---
+     > {"assessment":"Four new unknown contacts near the strait, likely surface traffic plus possibly the Alfa among them. No classification yet; all tracks unid. Continuing quiet approach toward marked area to localize and classify before engaging.","notes":"4 unid tracks appeared near 67.7-68.6N,-22 to -23W, east of marked area. Baltimore inbound to 67.950,-23.750. Need classification - likely surface shipping lane plus submerged contact. Stay silent, passive sonar, let AI classify before shooting. Watch track 7002 (closest, good quality, near 67.71,-22.82) for sub signature.","orders":[{"action":"speed","unit_id":5,"knots":12}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3775/158
+     assessment: Unknown contact 7001 detected ~6km uncertainty, bearing SE of our transit path, not yet classified. Remain stealthy, continue transit, monitor passively, no action until identified.
+     notes (memory for next window): Track 7001 unknown contact near 67.893,-21.909, appeared this window. Staying silent, continuing transit to waypoint. Will reassess if contact resolves to hostile or closes range.
+     --- raw model reply ---
+     > {"assessment":"Unknown contact 7001 detected ~6km uncertainty, bearing SE of our transit path, not yet classified. Remain stealthy, continue transit, monitor passively, no action until identified.","notes":"Track 7001 unknown contact near 67.893,-21.909, appeared this window. Staying silent, continuing transit to waypoint. Will reassess if contact resolves to hostile or closes range.","orders":[],"next_check_s":180}
+
+--- window 3  t=541s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4357/249
+     assessment: Multiple unclassified contacts near marked area; likely surface traffic plus possible Alfa submerged near 7002/7005. Baltimore remains silent, closing to classify before engaging.
+     notes (memory for next window): 5 unid tracks: 7001(68.63,-22.47),7002(67.71,-22.82,good qual),7003(67.91,-21.95),7004(68.56,-22.97),7005(68.01,-22.71,coarse). Baltimore heading to 67.950,-23.750. Continue passive listening, let AI classify. Watch 7002 and 7005 closest to our path for sub signature. Do not ping yet - stay stealthy to avoid alerting Alfa.
+     --- raw model reply ---
+     > {"assessment":"Multiple unclassified contacts near marked area; likely surface traffic plus possible Alfa submerged near 7002/7005. Baltimore remains silent, closing to classify before engaging.","notes":"5 unid tracks: 7001(68.63,-22.47),7002(67.71,-22.82,good qual),7003(67.91,-21.95),7004(68.56,-22.97),7005(68.01,-22.71,coarse). Baltimore heading to 67.950,-23.750. Continue passive listening, let AI classify. Watch 7002 and 7005 closest to our path for sub signature. Do not ping yet - stay stealthy to avoid alerting Alfa.","orders":[],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3739/134
+     assessment: No current tracks; previous contact 7001 lost. Continuing silent transit toward waypoint, no threats confirmed.
+     notes (memory for next window): Lost track 7001 near 67.893,-21.909. No active contacts. Continue silent transit to 68.021,-22.696. Watch for reappearance of 7001 or new contacts near that area.
+     --- raw model reply ---
+     > {"assessment":"No current tracks; previous contact 7001 lost. Continuing silent transit toward waypoint, no threats confirmed.","notes":"Lost track 7001 near 67.893,-21.909. No active contacts. Continue silent transit to 68.021,-22.696. Watch for reappearance of 7001 or new contacts near that area.","orders":[],"next_check_s":300}
+
+--- window 4  t=661s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 4352/617
+     assessment: Alfa (7005) identified HOSTILE ~13nm NE of Baltimore, coarse fix. Within Mk48 range. Engage now before it reaches marked area to the SW.
+     notes (memory for next window): Fired Mk48 at 7005 (Alfa). Baltimore turning toward contact to refine track. Watch for torpedo evasion response from Alfa and decoys. Other unid tracks (7001-7004) remain unclassified, avoid engaging them.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     order: {"action": "move", "unit_id": 5, "lat": 67.996, "lon": -22.7}
+     --- raw model reply ---
+     > {"assessment":"Alfa (7005) identified HOSTILE ~13nm NE of Baltimore, coarse fix. Within Mk48 range. Engage now before it reaches marked area to the SW.","notes":"Fired Mk48 at 7005 (Alfa). Baltimore turning toward contact to refine track. Watch for torpedo evasion response from Alfa and decoys. Other unid tracks (7001-7004) remain unclassified, avoid engaging them.","orders":[{"action":"engage","unit_id":5,"track_id":7005,"salvo":2,"weapon":"usn_mk48_mod4"},{"action":"move","unit_id":5,"lat":67.996,"lon":-22.700}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3738/125
+     assessment: No active contacts; continuing silent transit toward waypoint. No threats detected this window.
+     notes (memory for next window): Still no contacts since losing 7001 near 67.893,-21.909. Continue silent transit to 68.021,-22.696, staying slow/quiet. Watch for reappearance near that area or along transit path.
+     --- raw model reply ---
+     > {"assessment":"No active contacts; continuing silent transit toward waypoint. No threats detected this window.","notes":"Still no contacts since losing 7001 near 67.893,-21.909. Continue silent transit to 68.021,-22.696, staying slow/quiet. Watch for reappearance near that area or along transit path.","orders":[],"next_check_s":400}
+
+--- window 5  t=781s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4383/578
+     assessment: Alfa (7005) confirmed hostile, ~13nm east of Baltimore, within Mk48 range. Previous shots in flight. Continue engagement and hold position to monitor outcome.
+     notes (memory for next window): Alfa at 67.996,-22.498, range ~13nm from Baltimore. Fired 2 Mk48 last window, firing 2 more this window. Watch for torpedo evasion/decoys from Alfa. Avoid engaging unid tracks 7001-7004. Alfa must not reach marked area center 67.738,-24.206 r10nm - currently alfa is east of that, moving away is good but monitor course changes.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     rounds expended since last window: you ordered: 5:usn_mk48_mod4 x2; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"Alfa (7005) confirmed hostile, ~13nm east of Baltimore, within Mk48 range. Previous shots in flight. Continue engagement and hold position to monitor outcome.","notes":"Alfa at 67.996,-22.498, range ~13nm from Baltimore. Fired 2 Mk48 last window, firing 2 more this window. Watch for torpedo evasion/decoys from Alfa. Avoid engaging unid tracks 7001-7004. Alfa must not reach marked area center 67.738,-24.206 r10nm - currently alfa is east of that, moving away is good but monitor course changes.","orders":[{"action":"engage","unit_id":5,"track_id":7005,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3736/121
+     assessment: No contacts for multiple windows; continuing silent transit toward waypoint. No immediate threats detected.
+     notes (memory for next window): Still no contacts since losing 7001 near 67.893,-21.909. Continuing silent transit to 68.021,-22.696. Watch for reappearance along path or near destination.
+     --- raw model reply ---
+     > {"assessment":"No contacts for multiple windows; continuing silent transit toward waypoint. No immediate threats detected.","notes":"Still no contacts since losing 7001 near 67.893,-21.909. Continuing silent transit to 68.021,-22.696. Watch for reappearance along path or near destination.","orders":[],"next_check_s":400}
+
+--- window 6  t=901s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4435/264
+     assessment: Alfa holds hostile ID at 67.995,-22.461, ~13nm from Baltimore, moving away from marked area - good. Two Mk48s inbound from last salvo. Continue prosecution with another salvo.
+     notes (memory for next window): Alfa at 67.995,-22.461, range ~13nm. 4 Mk48 fired total across two salvos once this order processes. Watch for evasion/decoys. Ignore unid tracks 7001-7004. Keep Baltimore moving toward intercept but silent.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 2, "weapon": "usn_mk48_mod4"}
+     rounds expended since last window: you ordered: 5:usn_mk48_mod4 x2; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"Alfa holds hostile ID at 67.995,-22.461, ~13nm from Baltimore, moving away from marked area - good. Two Mk48s inbound from last salvo. Continue prosecution with another salvo.","notes":"Alfa at 67.995,-22.461, range ~13nm. 4 Mk48 fired total across two salvos once this order processes. Watch for evasion/decoys. Ignore unid tracks 7001-7004. Keep Baltimore moving toward intercept but silent.","orders":[{"action":"engage","unit_id":5,"track_id":7005,"salvo":2,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3727/113
+     assessment: No contacts. Continuing silent transit toward waypoint, no threats detected.
+     notes (memory for next window): Still no contacts since losing 7001 near 67.893,-21.909. Continuing silent transit to 68.021,-22.696. Watch for reappearance along path or near destination.
+     --- raw model reply ---
+     > {"assessment":"No contacts. Continuing silent transit toward waypoint, no threats detected.","notes":"Still no contacts since losing 7001 near 67.893,-21.909. Continuing silent transit to 68.021,-22.696. Watch for reappearance along path or near destination.","orders":[],"next_check_s":300}
+
+--- window 7  t=1021s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4340/149
+     assessment: Alfa holding course near 67.997,-22.470, ~13nm from Baltimore. Mk48 shots pending from last order. Maintain silent approach, let torpedoes run.
+     notes (memory for next window): Awaiting Mk48 impact on track 7005. Baltimore staying silent, continuing toward intercept. Watch for counter-detection or decoys from Alfa after hits land.
+     --- raw model reply ---
+     > {"assessment":"Alfa holding course near 67.997,-22.470, ~13nm from Baltimore. Mk48 shots pending from last order. Maintain silent approach, let torpedoes run.","notes":"Awaiting Mk48 impact on track 7005. Baltimore staying silent, continuing toward intercept. Watch for counter-detection or decoys from Alfa after hits land.","orders":[],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3729/130
+     assessment: No contacts; continuing silent transit toward waypoint with no new sensor data. No threats detected this window.
+     notes (memory for next window): No contacts since losing 7001 near 67.893,-21.909. Continuing silent transit to 68.021,-22.696, ETA ~15min remaining. Watch for reappearance along path or near destination.
+     --- raw model reply ---
+     > {"assessment":"No contacts; continuing silent transit toward waypoint with no new sensor data. No threats detected this window.","notes":"No contacts since losing 7001 near 67.893,-21.909. Continuing silent transit to 68.021,-22.696, ETA ~15min remaining. Watch for reappearance along path or near destination.","orders":[],"next_check_s":300}
+
+--- window 8  t=1141s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4284/229
+     assessment: Mk48 en route to Alfa (track 7005) at close range (~1.3nm). Maintaining silence to avoid counter-detection. Other unknown tracks likely surface/air contacts, not immediate threats.
+     notes (memory for next window): Mk48 shot pending on 7005, impact imminent given close range. Hold course, stay silent, monitor for torpedo evasion by Alfa or counter-fire. If shot misses or Alfa evades, re-engage immediately with another Mk48.
+     --- raw model reply ---
+     > {"assessment":"Mk48 en route to Alfa (track 7005) at close range (~1.3nm). Maintaining silence to avoid counter-detection. Other unknown tracks likely surface/air contacts, not immediate threats.","notes":"Mk48 shot pending on 7005, impact imminent given close range. Hold course, stay silent, monitor for torpedo evasion by Alfa or counter-fire. If shot misses or Alfa evades, re-engage immediately with another Mk48.","orders":[],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3851/159
+     assessment: Two unidentified coarse contacts, neither classified hostile yet. K-316 continuing silent transit; no immediate threat confirmed.
+     notes (memory for next window): Tracks 7002 (67.703,-22.809) and 7003 (69.036,-22.458) are unknown, coarse quality. Continuing silent transit toward 68.021,-22.696. Monitor for identification/classification changes and reappearance along path.
+     --- raw model reply ---
+     > {"assessment":"Two unidentified coarse contacts, neither classified hostile yet. K-316 continuing silent transit; no immediate threat confirmed.","notes":"Tracks 7002 (67.703,-22.809) and 7003 (69.036,-22.458) are unknown, coarse quality. Continuing silent transit toward 68.021,-22.696. Monitor for identification/classification changes and reappearance along path.","orders":[],"next_check_s":180}
+
+--- window 9  t=1201s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4307/179
+     assessment: Mk48 shot pending on hostile Alfa (7005) at close range ~3km. Holding silent, maintaining course. Alfa not yet near marked area. Monitoring for evasion.
+     notes (memory for next window): Mk48 pending vs 7005. If miss/evasion, re-engage immediately with another Mk48 or moss torpedo. Watch tracks 7001-7004 for other contacts, currently unid. Keep Baltimore silent, avoid counter-detection.
+     --- raw model reply ---
+     > {"assessment":"Mk48 shot pending on hostile Alfa (7005) at close range ~3km. Holding silent, maintaining course. Alfa not yet near marked area. Monitoring for evasion.","notes":"Mk48 pending vs 7005. If miss/evasion, re-engage immediately with another Mk48 or moss torpedo. Watch tracks 7001-7004 for other contacts, currently unid. Keep Baltimore silent, avoid counter-detection.","orders":[],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3913/196
+     assessment: No positive hostile contacts; three unknown coarse tracks around our transit route, none confirmed threats. Continue quiet transit, avoid detection, keep listening passively.
+     notes (memory for next window): Tracks 7002 (~67.807,-22.677), 7003 (~69.065,-22.461), 7004 (~68.594,-23.035) all unknown/unclassified, coarse quality. No hostile ID yet. Staying silent, passive sonar, continuing toward waypoint. Watch for ID changes or closing tracks.
+     --- raw model reply ---
+     > {"assessment":"No positive hostile contacts; three unknown coarse tracks around our transit route, none confirmed threats. Continue quiet transit, avoid detection, keep listening passively.","notes":"Tracks 7002 (~67.807,-22.677), 7003 (~69.065,-22.461), 7004 (~68.594,-23.035) all unknown/unclassified, coarse quality. No hostile ID yet. Staying silent, passive sonar, continuing toward waypoint. Watch for ID changes or closing tracks.","orders":[],"next_check_s":300}
+
+--- window 10  t=1261s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4305/240
+     assessment: Mk48 shot already pending against hostile Alfa (7005). Baltimore staying silent and slow to avoid counter-detection. Other tracks 7001-7004 remain unidentified, no immediate threat confirmed.
+     notes (memory for next window): Mk48 pending vs 7005. If miss, immediately re-engage with second Mk48 or moss. Watch 7001-7004 for escorts/other subs. Keep silent, passive sonar, low speed.
+     --- raw model reply ---
+     > {"assessment":"Mk48 shot already pending against hostile Alfa (7005). Baltimore staying silent and slow to avoid counter-detection. Other tracks 7001-7004 remain unidentified, no immediate threat confirmed.","notes":"Mk48 pending vs 7005. If miss, immediately re-engage with second Mk48 or moss. Watch 7001-7004 for escorts/other subs. Keep silent, passive sonar, low speed.","orders":[],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3936/150
+     assessment: No hostile ID yet; three unknown coarse tracks static relative to last window. Remaining silent and passive is correct for a submarine; no immediate threat warrants action.
+     notes (memory for next window): Tracks 7002/7003/7004 still unknown, positions essentially unchanged - likely slow/stationary contacts. Continue toward waypoint silently, monitor for ID or closing behavior.
+     --- raw model reply ---
+     > {"assessment":"No hostile ID yet; three unknown coarse tracks static relative to last window. Remaining silent and passive is correct for a submarine; no immediate threat warrants action.","notes":"Tracks 7002/7003/7004 still unknown, positions essentially unchanged - likely slow/stationary contacts. Continue toward waypoint silently, monitor for ID or closing behavior.","orders":[],"next_check_s":300}
+
+--- window 11  t=1321s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4293/202
+     assessment: Mk48 shot pending vs Alfa (track 7005), close range ~12nm. Awaiting impact. Other tracks 7001-7004 unidentified, possibly escorts/noise.
+     notes (memory for next window): Mk48 in flight at 7005. If miss, immediately re-engage with second Mk48. Watch 7001-7004 for escorts. Stay silent/passive, low speed.
+     --- raw model reply ---
+     > {"assessment":"Mk48 shot pending vs Alfa (track 7005), close range ~12nm. Awaiting impact. Other tracks 7001-7004 unidentified, possibly escorts/noise.","notes":"Mk48 in flight at 7005. If miss, immediately re-engage with second Mk48. Watch 7001-7004 for escorts. Stay silent/passive, low speed.","orders":[],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3895/139
+     assessment: No change in unidentified contacts; all remain stale/coarse and unclassified. No immediate threat to K-316. Continue silent transit toward waypoint.
+     notes (memory for next window): Tracks 7002/7003/7004 still unknown, static. Maintain silent transit, monitor for ID or closing behavior. No engagement yet - need positive hostile ID.
+     --- raw model reply ---
+     > {"assessment":"No change in unidentified contacts; all remain stale/coarse and unclassified. No immediate threat to K-316. Continue silent transit toward waypoint.","notes":"Tracks 7002/7003/7004 still unknown, static. Maintain silent transit, monitor for ID or closing behavior. No engagement yet - need positive hostile ID.","orders":[],"next_check_s":300}
+
+--- window 12  t=1381s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4279/172
+     assessment: Mk48 in flight toward Alfa (track 7005) ~20nm east. Awaiting impact. Unknown tracks 7001-7004 may be escorts/decoys; stay silent to avoid detection while torpedo runs.
+     notes (memory for next window): Mk48 in flight at 7005. If miss, re-engage immediately with second Mk48. Monitor 7001-7004 for escort activity. Stay silent/passive, low speed until outcome known.
+     --- raw model reply ---
+     > {"assessment":"Mk48 in flight toward Alfa (track 7005) ~20nm east. Awaiting impact. Unknown tracks 7001-7004 may be escorts/decoys; stay silent to avoid detection while torpedo runs.","notes":"Mk48 in flight at 7005. If miss, re-engage immediately with second Mk48. Monitor 7001-7004 for escort activity. Stay silent/passive, low speed until outcome known.","orders":[],"next_check_s":60}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3943/144
+     assessment: No positive hostile ID yet; four unknown contacts scattered around, none closing aggressively. Maintain stealth and continue transit while monitoring passively.
+     notes (memory for next window): Tracks 7002-7005 all unknown, no confirmed hostiles. Continue silent transit toward waypoint, passive sonar. Re-assess if any track closes distance or gains ID.
+     --- raw model reply ---
+     > {"assessment":"No positive hostile ID yet; four unknown contacts scattered around, none closing aggressively. Maintain stealth and continue transit while monitoring passively.","notes":"Tracks 7002-7005 all unknown, no confirmed hostiles. Continue silent transit toward waypoint, passive sonar. Re-assess if any track closes distance or gains ID.","orders":[],"next_check_s":300}
+
+--- window 13  t=1441s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 4292/290
+     assessment: Mk48 still inbound to Alfa (7005). Other unknown tracks (7001-7004) likely surface/air contacts, not yet classified. Maintain stealth, prepare follow-up shot.
+     notes (memory for next window): Mk48 in flight at 7005, pending outcome. Queue second Mk48 engage now in case first misses. Stay silent/passive. Watch 7001-7004 for escort activity, do not engage until classified.
+     order: {"action": "engage", "unit_id": 5, "track_id": 7005, "salvo": 1, "weapon": "usn_mk48_mod4"}
+     --- raw model reply ---
+     > {"assessment":"Mk48 still inbound to Alfa (7005). Other unknown tracks (7001-7004) likely surface/air contacts, not yet classified. Maintain stealth, prepare follow-up shot.","notes":"Mk48 in flight at 7005, pending outcome. Queue second Mk48 engage now in case first misses. Stay silent/passive. Watch 7001-7004 for escort activity, do not engage until classified.","orders":[{"action":"engage","unit_id":5,"track_id":7005,"salvo":1,"weapon":"usn_mk48_mod4"}],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3949/147
+     assessment: No confirmed hostiles; four unknown contacts at distance, none closing aggressively. Continue quiet transit submerged, monitor passively.
+     notes (memory for next window): Tracks 7002-7005 remain unidentified, no change. Continue silent transit toward waypoint at depth 440ft, passive sonar. Re-assess if any track gains hostile ID or closes range sharply.
+     --- raw model reply ---
+     > {"assessment":"No confirmed hostiles; four unknown contacts at distance, none closing aggressively. Continue quiet transit submerged, monitor passively.","notes":"Tracks 7002-7005 remain unidentified, no change. Continue silent transit toward waypoint at depth 440ft, passive sonar. Re-assess if any track gains hostile ID or closes range sharply.","orders":[],"next_check_s":300}
+
+--- window 14  t=1561s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4327/128
+     assessment: Mk48s in flight at Alfa (7005). Continuing to hold course; awaiting impact. Other tracks unclassified, no escort action yet.
+     notes (memory for next window): Two Mk48s fired at 7005. Await outcome. Stay silent/passive, monitor 7001-7004 for escort activity before engaging.
+     --- raw model reply ---
+     > {"assessment":"Mk48s in flight at Alfa (7005). Continuing to hold course; awaiting impact. Other tracks unclassified, no escort action yet.","notes":"Two Mk48s fired at 7005. Await outcome. Stay silent/passive, monitor 7001-7004 for escort activity before engaging.","orders":[],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3955/135
+     assessment: No hostile identification yet on any track; continuing silent transit is safest. No immediate threat to K-316.
+     notes (memory for next window): Tracks 7002-7005 still unidentified, no hostile ID. Continue silent transit toward waypoint at 440ft, passive sonar. Re-assess if any track gains hostile ID or closes range sharply.
+     --- raw model reply ---
+     > {"assessment":"No hostile identification yet on any track; continuing silent transit is safest. No immediate threat to K-316.","notes":"Tracks 7002-7005 still unidentified, no hostile ID. Continue silent transit toward waypoint at 440ft, passive sonar. Re-assess if any track gains hostile ID or closes range sharply.","orders":[],"next_check_s":300}
+
+--- window 15  t=1681s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4269/177
+     assessment: Torpedoes still inbound to Alfa (track 7005). Maintaining silent/passive posture to avoid detection. Unknown tracks 7001-7004 may be surface escorts or civilian; no action warranted yet.
+     notes (memory for next window): Awaiting torpedo impact on 7005. Monitor 7001-7004 for escort activity. Baltimore stays silent/passive. If torpedoes miss, reassess firing solution and consider closing range or second salvo.
+     --- raw model reply ---
+     > {"assessment":"Torpedoes still inbound to Alfa (track 7005). Maintaining silent/passive posture to avoid detection. Unknown tracks 7001-7004 may be surface escorts or civilian; no action warranted yet.","notes":"Awaiting torpedo impact on 7005. Monitor 7001-7004 for escort activity. Baltimore stays silent/passive. If torpedoes miss, reassess firing solution and consider closing range or second salvo.","orders":[],"next_check_s":120}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 3905/151
+     assessment: No hostile IDs yet; three unknown contacts remain distant. Continue quiet transit toward waypoint, avoid detection, keep listening passively.
+     notes (memory for next window): Tracks 7003-7005 still unidentified, no hostile ID. Continue silent transit toward waypoint at 440ft, passive sonar. Re-assess if any track gains hostile ID or closes range sharply.
+     --- raw model reply ---
+     > {"assessment":"No hostile IDs yet; three unknown contacts remain distant. Continue quiet transit toward waypoint, avoid detection, keep listening passively.","notes":"Tracks 7003-7005 still unidentified, no hostile ID. Continue silent transit toward waypoint at 440ft, passive sonar. Re-assess if any track gains hostile ID or closes range sharply.","orders":[],"next_check_s":300}
+
+--- window 16  t=1801s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4295/265
+     assessment: Torpedoes in flight toward Alfa (track 7005), ~1.5nm from Baltimore. Awaiting impact. Unknown tracks 7001-7004 likely surface contacts or other subs, none yet classified hostile.
+     notes (memory for next window): Mk48s inbound on 7005. Hold course/speed, stay silent passive. If miss, close range and re-engage with Moss or second Mk48 salvo. Watch 7001-7004 for escort/other sub activity near Denmark Strait.
+     --- raw model reply ---
+     > {"assessment":"Torpedoes in flight toward Alfa (track 7005), ~1.5nm from Baltimore. Awaiting impact. Unknown tracks 7001-7004 likely surface contacts or other subs, none yet classified hostile.","notes":"Mk48s inbound on 7005. Hold course/speed, stay silent passive. If miss, close range and re-engage with Moss or second Mk48 salvo. Watch 7001-7004 for escort/other sub activity near Denmark Strait.","orders":[],"next_check_s":60}
+  side1: 4 order(s), 0 invalid, 0 refused, tokens in/out 4035/649
+     assessment: Hostile torpedo (track 7006) closing from west, very near K-316; already evaded one with noisemaker. Other unid tracks remain distant/low priority. Priority: evade torpedo, go quiet and deep, open range.
+     notes (memory for next window): Torpedo 7006 engaged K-316, noisemaker deployed. Switching to passive, diving very_deep, speeding away east. Monitor for further torpedo tracks; resume passive transit once clear. Tracks 7003-7005 still unid, no action.
+     order: {"action": "sonar", "unit_id": 8, "status": "passive"}
+     order: {"action": "depth", "unit_id": 8, "status": "very_deep"}
+     order: {"action": "speed", "unit_id": 8, "knots": 28}
+     order: {"action": "move", "unit_id": 8, "lat": 67.95, "lon": -22.3}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 8:wp_noisemaker x1
+     --- raw model reply ---
+     > {"assessment":"Hostile torpedo (track 7006) closing from west, very near K-316; already evaded one with noisemaker. Other unid tracks remain distant/low priority. Priority: evade torpedo, go quiet and deep, open range.","notes":"Torpedo 7006 engaged K-316, noisemaker deployed. Switching to passive, diving very_deep, speeding away east. Monitor for further torpedo tracks; resume passive transit once clear. Tracks 7003-7005 still unid, no action.","orders":[{"action":"sonar","unit_id":8,"status":"passive"},{"action":"depth","unit_id":8,"status":"very_deep"},{"action":"speed","unit_id":8,"knots":28},{"action":"move","unit_id":8,"lat":67.95,"lon":-22.3}],"next_check_s":60}
+
+--- window 17  t=1861s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4299/218
+     assessment: Mk48 shots already queued on Alfa (7005). Holding silent passive while torpedoes run. Other unid tracks (7001-7004) not yet classified, could be escorts or decoys - monitoring.
+     notes (memory for next window): Mk48s inbound on 7005 (Alfa). Awaiting impact. If miss, close range with Moss for follow-up shot. Keep tracking 7001-7004 for other contacts. Baltimore stays silent/passive, tight ROE.
+     --- raw model reply ---
+     > {"assessment":"Mk48 shots already queued on Alfa (7005). Holding silent passive while torpedoes run. Other unid tracks (7001-7004) not yet classified, could be escorts or decoys - monitoring.","notes":"Mk48s inbound on 7005 (Alfa). Awaiting impact. If miss, close range with Moss for follow-up shot. Keep tracking 7001-7004 for other contacts. Baltimore stays silent/passive, tight ROE.","orders":[],"next_check_s":90}
+  side1: 4 order(s), 0 invalid, 0 refused, tokens in/out 4075/342
+     assessment: Hostile torpedo 7006 still tracking us at near-zero range; already evaded one hit with noisemakers. Continue high-speed evasive run deep, silent. Unid tracks 7003-7005 too distant/unclear to act on.
+     notes (memory for next window): Torpedo 7006 persists near K-316; keep evading deep/silent, speed east. Watch for new torpedo spawns. 7003-7005 still unid, no action until classified.
+     order: {"action": "depth", "unit_id": 8, "status": "very_deep"}
+     order: {"action": "speed", "unit_id": 8, "knots": 32}
+     order: {"action": "emitters", "unit_id": 8, "status": "silent"}
+     order: {"action": "sonar", "unit_id": 8, "status": "passive"}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 8:wp_set-65 x1, 8:wp_noisemaker x2
+     --- raw model reply ---
+     > {"assessment":"Hostile torpedo 7006 still tracking us at near-zero range; already evaded one hit with noisemakers. Continue high-speed evasive run deep, silent. Unid tracks 7003-7005 too distant/unclear to act on.","notes":"Torpedo 7006 persists near K-316; keep evading deep/silent, speed east. Watch for new torpedo spawns. 7003-7005 still unid, no action until classified.","orders":[{"action":"depth","unit_id":8,"status":"very_deep"},{"action":"speed","unit_id":8,"knots":32},{"action":"emitters","unit_id":8,"status":"silent"},{"action":"sonar","unit_id":8,"status":"passive"}],"next_check_s":60}
+
+--- window 18  t=1921s  Taskforce1: 1/1 alive (kills 0, losses 0)  Taskforce2: 1/1 alive (kills 0, losses 0)  Neutral: 4/4 alive (kills 0, losses 0)
+  side0: 0 order(s), 0 invalid, 0 refused, tokens in/out 4300/209
+     assessment: Mk48 torpedoes inbound on Alfa (track 7005), still live and close (~15nm from Baltimore). Awaiting impact. Other unid tracks 7001-7004 unclassified, not immediate threats.
+     notes (memory for next window): Mk48s still inbound on 7005. If no kill confirmed next window, close range and fire Moss as backup. Keep silent/passive, tight ROE. Monitor 7001-7004 for ID.
+     --- raw model reply ---
+     > {"assessment":"Mk48 torpedoes inbound on Alfa (track 7005), still live and close (~15nm from Baltimore). Awaiting impact. Other unid tracks 7001-7004 unclassified, not immediate threats.","notes":"Mk48s still inbound on 7005. If no kill confirmed next window, close range and fire Moss as backup. Keep silent/passive, tight ROE. Monitor 7001-7004 for ID.","orders":[],"next_check_s":120}
+  side1: 4 order(s), 0 invalid, 0 refused, tokens in/out 4037/429
+     assessment: Torpedo 7006 is essentially on top of K-316 (<1nm). Immediate threat. Need evasive action plus decoy.
+     notes (memory for next window): Torpedo 7006 very close, already expended 2 noisemakers automatically. Ordered decoy, deep dive, speed increase, course change away from torpedo bearing. Monitor for re-acquisition. 7003-7005 still unid.
+     order: {"action": "decoy", "unit_id": 8}
+     order: {"action": "depth", "unit_id": 8, "status": "deep"}
+     order: {"action": "speed", "unit_id": 8, "knots": 28}
+     order: {"action": "move", "unit_id": 8, "lat": 67.9, "lon": -22.6}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 8:wp_noisemaker x2
+     --- raw model reply ---
+     > {"assessment":"Torpedo 7006 is essentially on top of K-316 (<1nm). Immediate threat. Need evasive action plus decoy.","notes":"Torpedo 7006 very close, already expended 2 noisemakers automatically. Ordered decoy, deep dive, speed increase, course change away from torpedo bearing. Monitor for re-acquisition. 7003-7005 still unid.","orders":[{"action":"decoy","unit_id":8},{"action":"depth","unit_id":8,"status":"deep"},{"action":"speed","unit_id":8,"knots":28},{"action":"move","unit_id":8,"lat":67.90,"lon":-22.60}],"next_check_s":60}
+
+--- window 19  t=1981s  Taskforce1: 1/1 alive (kills 5, losses 0)  Taskforce2: 0/1 alive (kills 0, losses 5)  Neutral: 4/4 alive (kills 0, losses 0)
+
+RESULT: winner side 0 (game declared Victory for the player side); windows played 18; budgets {'0': {'calls': 18, 'in_tokens': 77281, 'out_tokens': 5158, 'usd': 0.1852}, '1': {'calls': 18, 'in_tokens': 69568, 'out_tokens': 3535, 'usd': 0.1511}}

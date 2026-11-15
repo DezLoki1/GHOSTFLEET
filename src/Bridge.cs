@@ -218,6 +218,7 @@ namespace GhostFleet
                   .Append(",\"range_left_nm\":").Append(u.IsAirUnit ? F(u.RangeInKm.Value * 0.5399568) : "null")   // aircraft fuel range
                   .Append(",\"tasks\":").Append(TasksJson(tf, u))
                   .Append(",\"deck\":").Append(DeckJson(u))
+                  .Append(",\"sub\":").Append(SubJson(u))
                   .Append(",\"waypoint\":").Append(wp.HasValue ? "{\"lat\":" + F(wp.Value.Latitude) + ",\"lon\":" + F(wp.Value.Longitude) + "}" : "null")
                   .Append('}');
             }
@@ -248,6 +249,26 @@ namespace GhostFleet
             }
             sb.Append("]}");
             return sb.ToString();
+        }
+
+        static readonly string[] DepthNames = { "surface", "periscope", "shallow", "above_layer", "below_layer", "deep", "very_deep" };
+
+        // Submarines only: depth, the preset the boat is steering to, battery, snorkel, and what each preset means in feet. Own data only.
+        static string SubJson(ObjectBase u)
+        {
+            var s = u as Submarine;
+            if (s == null) return "null";
+            var sb = new StringBuilder("{\"depth_ft\":").Append(F(-s.getHeightInFeet()));
+            sb.Append(",\"setting\":").Append(Q(DepthNames[Math.Max(0, Math.Min(6, s._currentPresetDepth))]));
+            sb.Append(",\"battery_pct\":").Append(F(s.BatteryChargePercentage.Value));
+            sb.Append(",\"snorkel\":").Append(s.isSnorkelMastOut() ? "true" : "false");
+            sb.Append(",\"presets_ft\":{");
+            for (int i = 0; i < DepthNames.Length; i++)
+            {
+                if (i > 0) sb.Append(',');
+                sb.Append(Q(DepthNames[i])).Append(':').Append(s.GetPresetDepthFeet(i));
+            }
+            return sb.Append("}}").ToString();
         }
 
         // Own unit's remaining weapons: id (usable as the engage order's "weapon"), count, kind, max range in nm. Own data only.
@@ -498,6 +519,34 @@ namespace GhostFleet
                     catch (Exception e) { msg = "launch failed: " + e.GetType().Name; Logger.LogError("launch: " + e); return false; }
                     msg = "launch queued: " + n + " x " + o.aircraft + " / " + o.loadout + " as " + mt + "; they appear among your units once airborne (minutes)"; return true;
                 }
+                case "depth":
+                {
+                    var sub = u as Submarine;
+                    if (sub == null) { msg = "only submarines have a depth setting"; return false; }
+                    int idx = Array.IndexOf(DepthNames, (o.status ?? "").ToLowerInvariant());
+                    if (idx < 0) { msg = "status must be one of " + string.Join("|", DepthNames); return false; }
+                    int ft = sub.setPresetDepth(idx, true);   // same call as the depth menu; the boat dives or rises at its own rate
+                    sub.setPlayerHeightControl(false);
+                    msg = "depth set to " + DepthNames[idx] + " (about " + ft + " ft); the boat changes depth gradually"; return true;
+                }
+                case "sonar":
+                {
+                    string m = (o.status ?? "").ToLowerInvariant();
+                    if (m != "active" && m != "passive") { msg = "status must be active|passive"; return false; }
+                    if (!u.HasActiveSonar()) { msg = "this unit has no working active sonar (passive listening is always on)"; return false; }
+                    if (m == "active") { u.setEMCON(false); u.EnableActiveSonars(false, false); msg = "active sonar on (pings reveal your position to anyone listening)"; }
+                    else { u.DisableActiveSonars(false, false); msg = "active sonar off (passive only)"; }
+                    return true;
+                }
+                case "decoy":
+                {
+                    var sub = u as Submarine;
+                    if (sub == null) { msg = "only submarines launch noisemakers with this order"; return false; }
+                    int left = 0; foreach (var kv in sub.AmmunitionAmountDictionary) { Ammunition a; sub.AmmunitionNameToAmmunitionDictionary.TryGetValue(kv.Key, out a); if (a != null && a._ap != null && a._ap._type == Ammunition.Type.Noisemaker) left += kv.Value; }
+                    if (left <= 0) { msg = "no noisemakers left"; return false; }
+                    sub.launchNoisemaker();
+                    msg = "noisemaker launch queued (" + left + " left before this one)"; return true;
+                }
                 case "rtb":
                     if (!(u is Aircraft) && !(u is Helicopter)) { msg = "only aircraft can return to base"; return false; }
                     try { u.setOrder(Order.Type.ReturnToBase, null, true); }
@@ -545,7 +594,7 @@ namespace GhostFleet
                     catch (Exception e) { msg = "engage failed: " + e.GetType().Name; Logger.LogError("engage: " + e); return false; }
                 }
                 default:
-                    msg = "unknown action (move|speed|emitters|weapons|engage)"; return false;
+                    msg = "unknown action (move|speed|emitters|weapons|engage|launch|rtb|depth|sonar|decoy)"; return false;
             }
         }
     }

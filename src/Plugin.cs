@@ -24,6 +24,9 @@ namespace GhostFleet
             Directory.CreateDirectory(dir);
             _file = Path.Combine(dir, "snapshots.log");
             Logger.LogInfo("GhostFleet loaded. Snapshots: " + _file);
+            // The game gives the AI sub behaviours (contact solutions, torpedo evasion, snorkelling) only to AI-owned boats, not the player's. Both commanders'
+            // boats must be steered the same way, so the player side's boat gets them too: the commander gives high-level orders, the boat's AI does the rest.
+            try { DM._subAIAppliesToPlayer = true; } catch (Exception e) { Logger.LogError("subAI flag: " + e); }
             try { StartBridge(); } catch (Exception e) { Logger.LogError("Bridge failed to start: " + e); }
         }
 

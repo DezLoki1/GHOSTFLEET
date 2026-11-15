@@ -23,7 +23,7 @@ def main():
 
     out = os.path.join(HERE, "runs", time.strftime("batch_%Y%m%d_%H%M%S") + "_" + a.label)
     os.makedirs(out)
-    rows, total = [], 0.0
+    rows, total, per = [], 0.0, {}   # per: model -> list of that model's per-match score dicts
     for i in range(a.n):
         if a.max_total_usd and total >= a.max_total_usd:
             rows.append({"i": i + 1, "note": f"not started: batch cost cap {a.max_total_usd} reached"}); break
@@ -41,6 +41,9 @@ def main():
             cost = sum(b["usd"] for b in s["budgets"].values())
             total += cost
             w = s["winner_side"]
+            for side, spec in (("0", s0), ("1", s1)):
+                if side in s.get("score", {}):
+                    per.setdefault(spec, []).append(dict(s["score"][side], side=int(side)))
             row.update(winner_side=w, winner=(s0 if w == 0 else s1 if w == 1 else None), reason=s["reason"], windows=s["windows_played"],
                        cost=round(cost, 3), report=os.path.join(dirs[-1], "report.txt"))
         else:
@@ -57,6 +60,11 @@ def main():
             wins[r["winner"]] = wins.get(r["winner"], 0) + 1
         lines.append(f"match {r['i']}: side0={r['side0']} side1={r['side1']} -> winner side {r.get('winner_side')} ({r.get('winner') or 'no winner'}) | {r.get('reason', r.get('note'))} | "
                      f"{r.get('windows', '?')} windows | ${r.get('cost', '?')}\n    report: {r.get('report', '-')}")
+    mean = lambda xs: sum(xs) / len(xs)
+    lines += ["", "BY MODEL (game scoring units; margin = (kills-losses)/(kills+losses), +1 best; result 1 win / 0 loss / 0.5 no verdict):"]
+    for spec, ms in per.items():
+        lines.append(f"  {spec}: n={len(ms)}  result {mean([m['result'] for m in ms]):.2f}  margin {mean([m['margin'] for m in ms]):+.2f}  units lost {mean([m['units_lost'] for m in ms]):.1f}"
+                     f"  game min {mean([m['game_s'] for m in ms]) / 60:.0f}  cost ${mean([m['usd'] for m in ms]):.2f}  (as Blue/side0: {sum(m['side'] == 0 for m in ms)}, side1: {sum(m['side'] == 1 for m in ms)})")
     lines += ["", "WINS BY MODEL: " + (", ".join(f"{k}: {v}" for k, v in wins.items()) or "none")]
     path = os.path.join(out, "batch_report.txt")
     with open(path, "w", encoding="utf-8") as f:
