@@ -1,0 +1,936 @@
+SUMMARY
+{
+  "scenario": "Action in the Gulf of Sidra (1986)",
+  "specs": {
+    "0": "claudecli:sonnet@low",
+    "1": "claudecli:haiku@low"
+  },
+  "label": "sonnet_haiku3_1",
+  "windows_played": 25,
+  "winner_side": 0,
+  "reason": "game declared Victory for the player side",
+  "budgets": {
+    "0": {
+      "calls": 25,
+      "in_tokens": 238587,
+      "out_tokens": 25457,
+      "usd": 0.9813
+    },
+    "1": {
+      "calls": 25,
+      "in_tokens": 137624,
+      "out_tokens": 258461,
+      "usd": 1.5557
+    }
+  }
+}
+
+FULL REPLAY (assessments, notes, orders, refusals, raw model replies)
+======================================================================
+MATCH Action in the Gulf of Sidra (1986)  windows=70 step=600s scale=4.0  side0=claudecli:sonnet@low  side1=claudecli:haiku@low
+
+--- window 1  t=4919s  Taskforce1: 13/13 alive (kills 0, losses 0)  Taskforce2: 16/16 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 0 order(s), 1 invalid, 0 refused, tokens in/out 7169/332
+     assessment: No contacts yet; task force transiting toward Sirte. Need better air picture before striking SA-5 site.
+     notes (memory for next window): No tracks identified yet. Launch AEW to build picture before committing SEAD/strike against Sirte SA-5. Continue transit of carrier group west, surface group north toward Sirte. Watch for Libyan air/naval counterattack.
+     INVALID {"action": "launch", "unit_id": 66, "aircraft": "usn_e-2c", "loadout": "AEW", "count": 1}: missing fields
+     --- raw model reply ---
+     > {"assessment":"No contacts yet; task force transiting toward Sirte. Need better air picture before striking SA-5 site.","notes":"No tracks identified yet. Launch AEW to build picture before committing SEAD/strike against Sirte SA-5. Continue transit of carrier group west, surface group north toward Sirte. Watch for Libyan air/naval counterattack.","orders":[{"action":"launch","unit_id":66,"aircraft":"usn_e-2c","loadout":"AEW","count":1}],"next_check_s":300}
+  side1: 6 order(s), 0 invalid, 0 refused, tokens in/out 3650/4448
+     assessment: No enemy tracks detected. All units currently SILENT. Activating search radars on key air defenses and interceptor aircraft to establish early warning capability and threat detection.
+     notes (memory for next window): Switched S-200 (140nm range), S-75 SAMs, northern SA-2, and both MiG-25P fighters to ACTIVE search mode for threat detection. Vessels continue transit. Aircraft already at high altitude (68000 ft) ideal for intercept. Awaiting track information.
+     order: {"action": "emitters", "unit_id": 25, "status": "active"}
+     order: {"action": "emitters", "unit_id": 408, "status": "active"}
+     order: {"action": "emitters", "unit_id": 413, "status": "active"}
+     order: {"action": "emitters", "unit_id": 41, "status": "active"}
+     order: {"action": "emitters", "unit_id": 49, "status": "active"}
+     order: {"action": "emitters", "unit_id": 1, "status": "active"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "No enemy tracks detected. All units currently SILENT. Activating search radars on key air defenses and interceptor aircraft to establish early warning capability and threat detection.",
+     >   "notes": "Switched S-200 (140nm range), S-75 SAMs, northern SA-2, and both MiG-25P fighters to ACTIVE search mode for threat detection. Vessels continue transit. Aircraft already at high altitude (68000 ft) ideal for intercept. Awaiting track information.",
+     >   "orders": [
+     >     {"action":"emitters","unit_id":25,"status":"active"},
+     >     {"action":"emitters","unit_id":408,"status":"active"},
+     >     {"action":"emitters","unit_id":413,"status":"active"},
+     >     {"action":"emitters","unit_id":41,"status":"active"},
+     >     {"action":"emitters","unit_id":49,"status":"active"},
+     >     {"action":"emitters","unit_id":1,"status":"active"}
+     >   ],
+     >   "next_check_s": 60
+     > }
+     > ```
+
+--- window 2  t=4979s  Taskforce1: 13/13 alive (kills 0, losses 0)  Taskforce2: 16/16 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 0 order(s), 1 invalid, 0 refused, tokens in/out 8302/399
+     assessment: Multiple unid surface contacts near Libyan coast and SA-5 site at Sirte (7017) now identified but stale/coarse. No immediate hostile engagement range. Surface group continues north, carrier group west.
+     notes (memory for next window): SA-5 track 7017 near 31.708,17.032, coarse/stale - need live fix before SEAD strike. Many unid contacts (7001-7013) south of our ships, likely Libyan coastal/civilian traffic - do not engage until classified. Launch AEW to refine picture before committing SEAD.
+     INVALID {"action": "launch", "unit_id": 66, "aircraft": "usn_e-2c", "loadout": "AEW", "count": 1}: missing fields
+     --- raw model reply ---
+     > {"assessment":"Multiple unid surface contacts near Libyan coast and SA-5 site at Sirte (7017) now identified but stale/coarse. No immediate hostile engagement range. Surface group continues north, carrier group west.","notes":"SA-5 track 7017 near 31.708,17.032, coarse/stale - need live fix before SEAD strike. Many unid contacts (7001-7013) south of our ships, likely Libyan coastal/civilian traffic - do not engage until classified. Launch AEW to refine picture before committing SEAD.","orders":[{"action":"launch","unit_id":66,"aircraft":"usn_e-2c","loadout":"AEW","count":1}],"next_check_s":180}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 3964/7331
+     assessment: HOSTILE USN E-2C AWACS (track 7002, 34.041°N 17.516°E) is critical threat—enemy C&C node. Unknown hostile 7001 at 33.280°N 17.459°E. Unidentified 7003 near fleet (31.800°N 19.447°E)—hold fire to avoid fratricide. Both MiG-25P at 68000ft intercepting E-2C. Layered SAM defenses active.
+     notes (memory for next window): Two MiG-25P airborne at 68000ft, fuel 963nm, speed 558kn—ideal intercept platform vs. E-2C (~300-350kn). Closing speed ~850kn relative; intercept ~10min. E-2C currently 174nm from S-200, out of range but MiG will engage first. Ground SAMs (S-200 140nm, S-75, SA-2 27nm) layered defense ready. Fleet transits unimpeded. Tracks 7004/7005 stale. Cannot engage 7003 (UNKNOWN).
+     order: {"action": "move", "unit_id": 408, "lat": 34.041, "lon": 17.516}
+     order: {"action": "move", "unit_id": 413, "lat": 33.9, "lon": 17.4}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "HOSTILE USN E-2C AWACS (track 7002, 34.041°N 17.516°E) is critical threat—enemy C&C node. Unknown hostile 7001 at 33.280°N 17.459°E. Unidentified 7003 near fleet (31.800°N 19.447°E)—hold fire to avoid fratricide. Both MiG-25P at 68000ft intercepting E-2C. Layered SAM defenses active.",
+     >   
+     >   "notes": "Two MiG-25P airborne at 68000ft, fuel 963nm, speed 558kn—ideal intercept platform vs. E-2C (~300-350kn). Closing speed ~850kn relative; intercept ~10min. E-2C currently 174nm from S-200, out of range but MiG will engage first. Ground SAMs (S-200 140nm, S-75, SA-2 27nm) layered defense ready. Fleet transits unimpeded. Tracks 7004/7005 stale. Cannot engage 7003 (UNKNOWN).",
+     >   
+     >   "orders": [
+     >     {"action":"move","unit_id":408,"lat":34.041,"lon":17.516},
+     >     {"action":"move","unit_id":413,"lat":33.9,"lon":17.4}
+     >   ],
+     >   
+     >   "next_check_s":120
+     > }
+     > ```
+
+--- window 3  t=5099s  Taskforce1: 13/13 alive (kills 0, losses 0)  Taskforce2: 16/16 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 2 order(s), 2 invalid, 0 refused, tokens in/out 8258/624
+     assessment: SA-5 track stale/coarse; need AEW fix before SEAD strike. Hostile Taskforce2 surface contacts near Benghazi/east, unid tracks south likely coastal traffic - hold fire until classified. No immediate threat to our ships this window.
+     notes (memory for next window): Launched AEW (E-2C) and SEAD flight (A-7E) from Saratoga to refine SA-5 fix at 7017 before committing strike. Keep fighters (Tarbox) on CAP near TF, avoid SAM envelope until SEAD clears it. Continue classifying unid tracks 7001-7013 south.
+     order: {"action": "move", "unit_id": 385, "lat": 33.0, "lon": 17.6}
+     order: {"action": "move", "unit_id": 396, "lat": 33.0, "lon": 17.6}
+     INVALID {"action": "launch", "unit_id": 66, "aircraft": "usn_e-2c", "loadout": "AEW", "count": 1}: missing fields
+     INVALID {"action": "launch", "unit_id": 66, "aircraft": "usn_a-7e", "loadout": "SEADLongRange", "count": 2}: missing fields
+     --- raw model reply ---
+     > {"assessment":"SA-5 track stale/coarse; need AEW fix before SEAD strike. Hostile Taskforce2 surface contacts near Benghazi/east, unid tracks south likely coastal traffic - hold fire until classified. No immediate threat to our ships this window.","notes":"Launched AEW (E-2C) and SEAD flight (A-7E) from Saratoga to refine SA-5 fix at 7017 before committing strike. Keep fighters (Tarbox) on CAP near TF, avoid SAM envelope until SEAD clears it. Continue classifying unid tracks 7001-7013 south.","orders":[{"action":"launch","unit_id":66,"aircraft":"usn_e-2c","loadout":"AEW","count":1},{"action":"launch","unit_id":66,"aircraft":"usn_a-7e","loadout":"SEADLongRange","count":2},{"action":"move","unit_id":385,"lat":33.0,"lon":17.6},{"action":"move","unit_id":396,"lat":33.0,"lon":17.6}],"next_check_s":300}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 4052/5200
+     assessment: E-2C (7002) is primary threat at 34.004°N/17.564°E, ~12nm from intercepting MiG-25P. Both fighters now in range with AA-6 missiles (27nm). Engaging immediately to eliminate enemy air-coordination platform. Unknown track 7003 near fleet vessels (~16nm from 337) but UNKNOWN relation—cannot engage per 
+     notes (memory for next window): MiG-25P closure at ~850kn; missile impact expected within 2–3min. Both fighters armed with 4x AA-6 (2×AA-6a 27nm, 2×AA-6b 25nm each); salvo=2 conserves ammo while ensuring high-probability kill vs. E-2C. Tracks 7001, 7006 (new, hostile/unknown) remain unengaged pending classification. Tracks 7004/7005 stale. Unknown 7003 requires identification before any engagement; hold vessels alert. AAM weapon economy good; focused use only. Recover MiGs post-engagement if successful or if fuel/threats demand it.
+     order: {"action": "engage", "unit_id": 408, "track_id": 7002, "salvo": 2, "weapon": "wp_aa-6a"}
+     order: {"action": "engage", "unit_id": 413, "track_id": 7002, "salvo": 2, "weapon": "wp_aa-6a"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "E-2C (7002) is primary threat at 34.004°N/17.564°E, ~12nm from intercepting MiG-25P. Both fighters now in range with AA-6 missiles (27nm). Engaging immediately to eliminate enemy air-coordination platform. Unknown track 7003 near fleet vessels (~16nm from 337) but UNKNOWN relation—cannot engage per rules. Ground SAMs layered and ready. Fleet transiting safely.",
+     >   "notes": "MiG-25P closure at ~850kn; missile impact expected within 2–3min. Both fighters armed with 4x AA-6 (2×AA-6a 27nm, 2×AA-6b 25nm each); salvo=2 conserves ammo while ensuring high-probability kill vs. E-2C. Tracks 7001, 7006 (new, hostile/unknown) remain unengaged pending classification. Tracks 7004/7005 stale. Unknown 7003 requires identification before any engagement; hold vessels alert. AAM weapon economy good; focused use only. Recover MiGs post-engagement if successful or if fuel/threats demand it.",
+     >   "orders": [
+     >     {"action": "engage", "unit_id": 408, "track_id": 7002, "salvo": 2, "weapon": "wp_aa-6a"},
+     >     {"action": "engage", "unit_id": 413, "track_id": 7002, "salvo": 2, "weapon": "wp_aa-6a"}
+     >   ],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 4  t=5219s  Taskforce1: 13/13 alive (kills 0, losses 0)  Taskforce2: 18/18 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 8278/866
+     assessment: SA-5 site at Sirte confirmed hostile but stale/coarse fix. Several hostile Taskforce2 contacts west and south, unclassified. No immediate threat to TF. Continue ISR and prep SEAD strike.
+     notes (memory for next window): SA-5 (7017) still only coarse-fixed, stale. TF2 hostiles 7014/7015/7018 near 32-33N,13-14E (west), 7016/7019/7020 south - need classification before engaging. Launching SEAD flight from Saratoga to prosecute SA-5 once refined. Keep CAP (Tarbox) and AEW up. Avoid SAM envelope (~29km uncertainty radius) until target refined by SEAD/AEW.
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_a-7e", "loadout": "SEADLongRange", "mission": "SEAD", "count": 2}
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_e-2c", "loadout": "AEW", "mission": "AEW", "count": 1}
+     --- raw model reply ---
+     > {"assessment":"SA-5 site at Sirte confirmed hostile but stale/coarse fix. Several hostile Taskforce2 contacts west and south, unclassified. No immediate threat to TF. Continue ISR and prep SEAD strike.","notes":"SA-5 (7017) still only coarse-fixed, stale. TF2 hostiles 7014/7015/7018 near 32-33N,13-14E (west), 7016/7019/7020 south - need classification before engaging. Launching SEAD flight from Saratoga to prosecute SA-5 once refined. Keep CAP (Tarbox) and AEW up. Avoid SAM envelope (~29km uncertainty radius) until target refined by SEAD/AEW.","orders":[{"action":"launch","unit_id":66,"aircraft":"usn_a-7e","loadout":"SEADLongRange","mission":"SEAD","count":2},{"action":"launch","unit_id":66,"aircraft":"usn_e-2c","loadout":"AEW","mission":"AEW","count":1}],"next_check_s":300}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 4362/12413
+     assessment: E-2C (7002) engaged by MiGs with pending AA-6 missiles; impact expected ~22-25 min. Hostile tracks 7001, 7006 nearby. Unknown 7003 very close to vessels (~4nm). Launching F1E fighters for air defense and intercept capability. SAM sites and vessels ready.
+     notes (memory for next window): MiGs-25P (408/413) heading to waypoints 34.041,17.516 & 33.900,17.400 for E-2C intercept at 33.967,17.613. Missiles queued upon range (~8nm). F1E launch this window from airbase; ~30-40min transit to combat area. Track 7003 (unknown, live) at 31.795,19.443 very near Tariq Ibn Ziyad (337) and Ain Zaara (328) - vessel AIs will engage if hostile. Tracks 7004/7005 stale. SAM defensive network active (SA-2/S-75/S-200). Next: assess MiG engagement result, position F1Es against 7001/7006, classify 7003.
+     order: {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "Intercept", "count": 2}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "E-2C (7002) engaged by MiGs with pending AA-6 missiles; impact expected ~22-25 min. Hostile tracks 7001, 7006 nearby. Unknown 7003 very close to vessels (~4nm). Launching F1E fighters for air defense and intercept capability. SAM sites and vessels ready.",
+     >   "notes": "MiGs-25P (408/413) heading to waypoints 34.041,17.516 & 33.900,17.400 for E-2C intercept at 33.967,17.613. Missiles queued upon range (~8nm). F1E launch this window from airbase; ~30-40min transit to combat area. Track 7003 (unknown, live) at 31.795,19.443 very near Tariq Ibn Ziyad (337) and Ain Zaara (328) - vessel AIs will engage if hostile. Tracks 7004/7005 stale. SAM defensive network active (SA-2/S-75/S-200). Next: assess MiG engagement result, position F1Es against 7001/7006, classify 7003.",
+     >   "orders": [
+     >     {
+     >       "action": "launch",
+     >       "unit_id": 65,
+     >       "aircraft": "fr_f1e",
+     >       "loadout": "AirToAir",
+     >       "mission": "Intercept",
+     >       "count": 2
+     >     }
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 5  t=5519s  Taskforce1: 13/13 alive (kills 0, losses 0)  Taskforce2: 21/21 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 3 order(s), 0 invalid, 0 refused, tokens in/out 8559/1028
+     assessment: SA-5 at Sirte remains only coarsely fixed (stale, 27km uncertainty); multiple TF2 hostiles clustered west (13-14E) and unclassified contacts near our southern ships. Caron is nearly stationary - needs to rejoin formation. No direct threat to our ships this window.
+     notes (memory for next window): SA-5 (7017) still stale/coarse - need SEAD+AEW to refine and strike. New hostiles 7021/7022/7024 appeared near 32.5-33N,13-14E, far from our ships - watch for closing. Caron DD-970 was at 1kn, ordered back to 20kn. Launching SEAD (A-6E) + AEW (E-2C) from Saratoga to prosecute SA-5 once located precisely. Keep weapons tight, avoid firing on unclassified/neutral tracks (7006/7007 confirmed neutral).
+     order: {"action": "speed", "unit_id": 259, "knots": 20}
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_a-6e", "loadout": "SEADLongRange", "mission": "SEAD", "count": 2}
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_e-2c", "loadout": "AEW", "mission": "AEW", "count": 1}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 227:usn_rim-66c x8, 239:usn_rim-66b x2
+     --- raw model reply ---
+     > {"assessment":"SA-5 at Sirte remains only coarsely fixed (stale, 27km uncertainty); multiple TF2 hostiles clustered west (13-14E) and unclassified contacts near our southern ships. Caron is nearly stationary - needs to rejoin formation. No direct threat to our ships this window.","notes":"SA-5 (7017) still stale/coarse - need SEAD+AEW to refine and strike. New hostiles 7021/7022/7024 appeared near 32.5-33N,13-14E, far from our ships - watch for closing. Caron DD-970 was at 1kn, ordered back to 20kn. Launching SEAD (A-6E) + AEW (E-2C) from Saratoga to prosecute SA-5 once located precisely. Keep weapons tight, avoid firing on unclassified/neutral tracks (7006/7007 confirmed neutral).","orders":[{"action":"speed","unit_id":259,"knots":20},{"action":"launch","unit_id":66,"aircraft":"usn_a-6e","loadout":"SEADLongRange","mission":"SEAD","count":2},{"action":"launch","unit_id":66,"aircraft":"usn_e-2c","loadout":"AEW","mission":"AEW","count":1}],"next_check_s":300}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 4816/12728
+     assessment: MiGs 408/413 attacking E-2C 7002 with pending missile shots—should fire within minutes as they close range. Track 7001 (HOSTILE, unid) southwest of engagement area; repositioning MiG-650 to intercept. Launching 2 F1Es for northern CAP reinforcement (30+ min transit). Track 7003 (UNKNOWN) near vessel
+     notes (memory for next window): E-2C engagement: MiGs heading to 34.041,17.516 / 33.900,17.400; missiles queued to fire at ~8nm range. Missiles in flight should yield results within 10–15 min. MiG-650 redirected to 33.100,17.500 to close on track 7001 (~250nm, 23 min transit). F1Es launching from airbase will provide reinforcement after ~30 min. Track 7003 remains UNKNOWN; vessel weapons posture free, will engage if confirmed hostile. AAA units remain SILENT (layered defense with S-200 emitting). Expect major air engagement conclusion in next window.
+     order: {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "Intercept", "count": 2}
+     order: {"action": "move", "unit_id": 650, "lat": 33.1, "lon": 17.5}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "MiGs 408/413 attacking E-2C 7002 with pending missile shots—should fire within minutes as they close range. Track 7001 (HOSTILE, unid) southwest of engagement area; repositioning MiG-650 to intercept. Launching 2 F1Es for northern CAP reinforcement (30+ min transit). Track 7003 (UNKNOWN) near vessel group; vessel AIs have weapons free. SAM network active for area defense.",
+     >   "notes": "E-2C engagement: MiGs heading to 34.041,17.516 / 33.900,17.400; missiles queued to fire at ~8nm range. Missiles in flight should yield results within 10–15 min. MiG-650 redirected to 33.100,17.500 to close on track 7001 (~250nm, 23 min transit). F1Es launching from airbase will provide reinforcement after ~30 min. Track 7003 remains UNKNOWN; vessel weapons posture free, will engage if confirmed hostile. AAA units remain SILENT (layered defense with S-200 emitting). Expect major air engagement conclusion in next window.",
+     >   "orders": [
+     >     {
+     >       "action": "launch",
+     >       "unit_id": 65,
+     >       "aircraft": "fr_f1e",
+     >       "loadout": "AirToAir",
+     >       "mission": "Intercept",
+     >       "count": 2
+     >     },
+     >     {
+     >       "action": "move",
+     >       "unit_id": 650,
+     >       "lat": 33.100,
+     >       "lon": 17.500
+     >     }
+     >   ],
+     >   "next_check_s": 600
+     > }
+     > ```
+
+--- window 6  t=5819s  Taskforce1: 18/18 alive (kills 0, losses 0)  Taskforce2: 23/23 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 3 order(s), 0 invalid, 1 refused, tokens in/out 9142/1337
+     assessment: SA-5 at Sirte (7017) still only coarse-located; SEAD A-6Es must close to use AGM-45 (22nm). MiG-25s (7014/7015) and new hostile 7024 remain distant near 33N,14-15E, no immediate threat to carrier group. Ticonderoga/Scott/Caron group transiting toward SA-5 area.
+     notes (memory for next window): A-6E-1/986 pushed toward SA-5 (31.643,16.958) for SEAD strike once within AGM-45 range (22nm); will fire next window if in range. Ticonderoga group still 70+nm from SA-5, continuing transit. MiGs 7014/7015 and hostile 7024 far west (~33N,14-15E) - watch for closing on carrier. Neutrals 7006/7007 confirmed, do not engage. Keep weapons tight.
+     order: {"action": "move", "unit_id": 980, "lat": 31.85, "lon": 17.05}
+     order: {"action": "move", "unit_id": 986, "lat": 31.85, "lon": 17.05}
+     order: {"action": "move", "unit_id": 1031, "lat": 32.3, "lon": 17.5}
+     REFUSED w6-s0-o3 {"action": "move", "unit_id": 1031, "lat": 32.3, "lon": 17.5}: unit not controllable
+     --- raw model reply ---
+     > {"assessment":"SA-5 at Sirte (7017) still only coarse-located; SEAD A-6Es must close to use AGM-45 (22nm). MiG-25s (7014/7015) and new hostile 7024 remain distant near 33N,14-15E, no immediate threat to carrier group. Ticonderoga/Scott/Caron group transiting toward SA-5 area.","notes":"A-6E-1/986 pushed toward SA-5 (31.643,16.958) for SEAD strike once within AGM-45 range (22nm); will fire next window if in range. Ticonderoga group still 70+nm from SA-5, continuing transit. MiGs 7014/7015 and hostile 7024 far west (~33N,14-15E) - watch for closing on carrier. Neutrals 7006/7007 confirmed, do not engage. Keep weapons tight.","orders":[{"action":"move","unit_id":980,"lat":31.85,"lon":17.05},{"action":"move","unit_id":986,"lat":31.85,"lon":17.05},{"action":"move","unit_id":1031,"lat":32.3,"lon":17.5}],"next_check_s":300}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 5078/10118
+     assessment: E-2C engagement ongoing; MiGs-408/413 have AA-6A missiles queued at track 7002 (LIVE, 33.781,17.854). MiG-650 pursuing track 7001. Critical: unknown track 7011 (LIVE, good position) at 32.082,19.428 is dangerously close to ship formation—investigating with F1E-558 to identify threat vs. neutral.
+     notes (memory for next window): Redirecting F1E-558 to intercept track 7011 (ETA ~60 min) for identification. MiG missiles should fire within 5 min; expect E-2C engagement resolved in 10–15 min. MiG-650 will close track 7001 within 17 min. Ships have own air defense; monitoring. After E-2C resolution, will reassess and potentially launch additional CAP. All SAM/AAA units ready. Track 7005 is stale/distant—lower priority.
+     order: {"action": "move", "unit_id": 558, "lat": 32.082, "lon": 19.428}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 328:wp_ss-n-9 x1, 337:wp_ss-n-9 x3
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "E-2C engagement ongoing; MiGs-408/413 have AA-6A missiles queued at track 7002 (LIVE, 33.781,17.854). MiG-650 pursuing track 7001. Critical: unknown track 7011 (LIVE, good position) at 32.082,19.428 is dangerously close to ship formation—investigating with F1E-558 to identify threat vs. neutral.",
+     >   "notes": "Redirecting F1E-558 to intercept track 7011 (ETA ~60 min) for identification. MiG missiles should fire within 5 min; expect E-2C engagement resolved in 10–15 min. MiG-650 will close track 7001 within 17 min. Ships have own air defense; monitoring. After E-2C resolution, will reassess and potentially launch additional CAP. All SAM/AAA units ready. Track 7005 is stale/distant—lower priority.",
+     >   "orders": [
+     >     {"action":"move","unit_id":558,"lat":32.082,"lon":19.428}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 7  t=6119s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 23/23 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 10 order(s), 0 invalid, 0 refused, tokens in/out 10144/1705
+     assessment: Swarm of ~10 live SS-N-9 missile/boat contacts clustered near 32.28N,18.65E, closing on Scott/Ticonderoga/Caron group only ~24nm away. This is the primary threat - likely inbound anti-ship missiles or FACs. Must intercept now. MiGs still far west, SA-5 strike still inbound via A-6Es.
+     notes (memory for next window): SS-N-9 cluster (7029-7043) near 32.28,18.65 is top threat to Scott/Tico/Caron group - engaging with SAMs. A-6E-1/986 and A-6E-2/980 en route to SA-5 at 31.555,16.936, should be in AGM-45 range soon. MiGs 7014/7015/7024 far west, watch for closing on carrier group. Neutrals 7006/7007 do not engage.
+     order: {"action": "weapons", "unit_id": 227, "status": "free"}
+     order: {"action": "weapons", "unit_id": 239, "status": "free"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7030, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7031, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7032, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7033, "salvo": 2, "weapon": "usn_rim-66c"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7036, "salvo": 2, "weapon": "usn_rim-66c"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7037, "salvo": 2, "weapon": "usn_rim-66c"}
+     order: {"action": "emitters", "unit_id": 259, "status": "active"}
+     order: {"action": "move", "unit_id": 259, "lat": 32.45, "lon": 18.3}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 227:usn_rim-66c x4, 239:usn_rim-66b x2
+     --- raw model reply ---
+     > {"assessment":"Swarm of ~10 live SS-N-9 missile/boat contacts clustered near 32.28N,18.65E, closing on Scott/Ticonderoga/Caron group only ~24nm away. This is the primary threat - likely inbound anti-ship missiles or FACs. Must intercept now. MiGs still far west, SA-5 strike still inbound via A-6Es.","notes":"SS-N-9 cluster (7029-7043) near 32.28,18.65 is top threat to Scott/Tico/Caron group - engaging with SAMs. A-6E-1/986 and A-6E-2/980 en route to SA-5 at 31.555,16.936, should be in AGM-45 range soon. MiGs 7014/7015/7024 far west, watch for closing on carrier group. Neutrals 7006/7007 do not engage.","orders":[{"action":"weapons","unit_id":227,"status":"free"},{"action":"weapons","unit_id":239,"status":"free"},{"action":"engage","unit_id":239,"track_id":7030,"salvo":2,"weapon":"usn_rim-66b"},{"action":"engage","unit_id":239,"track_id":7031,"salvo":2,"weapon":"usn_rim-66b"},{"action":"engage","unit_id":239,"track_id":7032,"salvo":2,"weapon":"usn_rim-66b"},{"action":"engage","unit_id":227,"track_id":7033,"salvo":2,"weapon":"usn_rim-66c"},{"action":"engage","unit_id":227,"track_id":7036,"salvo":2,"weapon":"usn_rim-66c"},{"action":"engage","unit_id":227,"track_id":7037,"salvo":2,"weapon":"usn_rim-66c"},{"action":"emitters","unit_id":259,"status":"active"},{"action":"move","unit_id":259,"lat":32.45,"lon":18.3}],"next_check_s":120}
+  side1: 7 order(s), 0 invalid, 0 refused, tokens in/out 4992/14665
+     assessment: Enemy E-2C radar at 33.688,17.975 controlling hostile fleet; unknown hostile 7001 at 33.022,17.630 likely surface combatant. Ships engaged stale Ticonderoga (7004). MiG-650 closing northeastward to intercept. Ground SAMs ready, airspace defended.
+     notes (memory for next window): MiG-650 redirected to 33.700,18.100 (ETA ~16 min) intercept course on E-2C; expect engagement window within 5 min of arrival when in 27nm AA-6 range. Low-alt F1E CAP (719,725,900,906) now emitting for search radar. Launching 2 F1E AirToAir + 2 MiG-25P reinforcements from airbase. Ships auto-fired 3 SS-N-9 at 7004; monitor results. F1E-558 continues investigation of 7011 (ETA 58 min). After MiG engagement resolves next window, assess follow-on CAP repositioning vs track 7019 (stale, 28km uncertainty).
+     order: {"action": "emitters", "unit_id": 719, "status": "active"}
+     order: {"action": "emitters", "unit_id": 725, "status": "active"}
+     order: {"action": "emitters", "unit_id": 900, "status": "active"}
+     order: {"action": "emitters", "unit_id": 906, "status": "active"}
+     order: {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "CAP", "count": 2}
+     order: {"action": "launch", "unit_id": 65, "aircraft": "wp_mig-25p", "loadout": "AirToAirIntercept", "mission": "CAP", "count": 2}
+     order: {"action": "move", "unit_id": 650, "lat": 33.7, "lon": 18.1}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 351:wp_ss-n-9 x3
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Enemy E-2C radar at 33.688,17.975 controlling hostile fleet; unknown hostile 7001 at 33.022,17.630 likely surface combatant. Ships engaged stale Ticonderoga (7004). MiG-650 closing northeastward to intercept. Ground SAMs ready, airspace defended.",
+     >   "notes": "MiG-650 redirected to 33.700,18.100 (ETA ~16 min) intercept course on E-2C; expect engagement window within 5 min of arrival when in 27nm AA-6 range. Low-alt F1E CAP (719,725,900,906) now emitting for search radar. Launching 2 F1E AirToAir + 2 MiG-25P reinforcements from airbase. Ships auto-fired 3 SS-N-9 at 7004; monitor results. F1E-558 continues investigation of 7011 (ETA 58 min). After MiG engagement resolves next window, assess follow-on CAP repositioning vs track 7019 (stale, 28km uncertainty).",
+     >   "orders": [
+     >     {"action":"emitters","unit_id":719,"status":"active"},
+     >     {"action":"emitters","unit_id":725,"status":"active"},
+     >     {"action":"emitters","unit_id":900,"status":"active"},
+     >     {"action":"emitters","unit_id":906,"status":"active"},
+     >     {"action":"launch","unit_id":65,"aircraft":"fr_f1e","loadout":"AirToAir","mission":"CAP","count":2},
+     >     {"action":"launch","unit_id":65,"aircraft":"wp_mig-25p","loadout":"AirToAirIntercept","mission":"CAP","count":2},
+     >     {"action":"move","unit_id":650,"lat":33.700,"lon":18.100}
+     >   ],
+     >   "next_check_s": 600
+     > }
+     > ```
+
+--- window 8  t=6239s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 27/27 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 9 order(s), 0 invalid, 9 refused, tokens in/out 9880/1046
+     assessment: SS-N-9 missile boat swarm (7045-7051) closing near 32.07,19.13, threat to southern SAG. A-6Es approaching SA-5 at Sirte for SEAD. MiGs still west, no immediate closure on carrier.
+     notes (memory for next window): SS-N-9 cluster at ~32.07,19.13 - keep hitting with harpoons from Scott/Tico/Caron. A-6E-1/986 near SA-5 target 31.417,16.901, order AGM-45 engage once in range. Watch MiGs 7014/7015/7024 near 33.1-33.5,15.5-16.3 for closure on Saratoga group. Neutrals 7006/7007 avoid.
+     order: {"action": "engage", "unit_id": 239, "track_id": 7045, "salvo": 2, "weapon": "usn_rgm-84a"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7046, "salvo": 2, "weapon": "usn_rgm-84a"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7047, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7048, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 259, "track_id": 7049, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 259, "track_id": 7050, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 259, "track_id": 7051, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 980, "track_id": 7017, "salvo": 2, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 986, "track_id": 7017, "salvo": 2, "weapon": "usn_agm-45"}
+     REFUSED w8-s0-o1 {"action": "engage", "unit_id": 239, "track_id": 7045, "salvo": 2, "weapon": "usn_rgm-84a"}: weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: usn_rim-66b, usn_cal_20mm_apds, usn_cal_127mm
+     REFUSED w8-s0-o2 {"action": "engage", "unit_id": 239, "track_id": 7046, "salvo": 2, "weapon": "usn_rgm-84a"}: weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: usn_rim-66b, usn_cal_20mm_apds, usn_cal_127mm
+     REFUSED w8-s0-o3 {"action": "engage", "unit_id": 227, "track_id": 7047, "salvo": 2, "weapon": "usn_rgm-84c"}: weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: usn_rim-66c, usn_cal_20mm_apds, usn_cal_127mm
+     REFUSED w8-s0-o4 {"action": "engage", "unit_id": 227, "track_id": 7048, "salvo": 2, "weapon": "usn_rgm-84c"}: weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: usn_rim-66c, usn_cal_20mm_apds, usn_cal_127mm
+     REFUSED w8-s0-o5 {"action": "engage", "unit_id": 259, "track_id": 7049, "salvo": 2, "weapon": "usn_rgm-84c"}: weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: usn_rim-7m, usn_cal_20mm_apds, usn_cal_127mm
+     REFUSED w8-s0-o6 {"action": "engage", "unit_id": 259, "track_id": 7050, "salvo": 2, "weapon": "usn_rgm-84c"}: weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: usn_rim-7m, usn_cal_20mm_apds, usn_cal_127mm
+     REFUSED w8-s0-o7 {"action": "engage", "unit_id": 259, "track_id": 7051, "salvo": 2, "weapon": "usn_rgm-84c"}: weapon not usable on that target (wrong target type or no ammo). Usable on it from this unit: usn_rim-7m, usn_cal_20mm_apds, usn_cal_127mm
+     REFUSED w8-s0-o8 {"action": "engage", "unit_id": 980, "track_id": 7017, "salvo": 2, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     REFUSED w8-s0-o9 {"action": "engage", "unit_id": 986, "track_id": 7017, "salvo": 2, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     rounds expended since last window: you ordered: 227:usn_rim-66c x18, 239:usn_rim-66b x8; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"SS-N-9 missile boat swarm (7045-7051) closing near 32.07,19.13, threat to southern SAG. A-6Es approaching SA-5 at Sirte for SEAD. MiGs still west, no immediate closure on carrier.","notes":"SS-N-9 cluster at ~32.07,19.13 - keep hitting with harpoons from Scott/Tico/Caron. A-6E-1/986 near SA-5 target 31.417,16.901, order AGM-45 engage once in range. Watch MiGs 7014/7015/7024 near 33.1-33.5,15.5-16.3 for closure on Saratoga group. Neutrals 7006/7007 avoid.","orders":[
+     > {"action":"engage","unit_id":239,"track_id":7045,"salvo":2,"weapon":"usn_rgm-84a"},
+     > {"action":"engage","unit_id":239,"track_id":7046,"salvo":2,"weapon":"usn_rgm-84a"},
+     > {"action":"engage","unit_id":227,"track_id":7047,"salvo":2,"weapon":"usn_rgm-84c"},
+     > {"action":"engage","unit_id":227,"track_id":7048,"salvo":2,"weapon":"usn_rgm-84c"},
+     > {"action":"engage","unit_id":259,"track_id":7049,"salvo":2,"weapon":"usn_rgm-84c"},
+     > {"action":"engage","unit_id":259,"track_id":7050,"salvo":2,"weapon":"usn_rgm-84c"},
+     > {"action":"engage","unit_id":259,"track_id":7051,"salvo":2,"weapon":"usn_rgm-84c"},
+     > {"action":"engage","unit_id":980,"track_id":7017,"salvo":2,"weapon":"usn_agm-45"},
+     > {"action":"engage","unit_id":986,"track_id":7017,"salvo":2,"weapon":"usn_agm-45"}
+     > ],"next_check_s":180}
+  side1: 2 order(s), 0 invalid, 0 refused, tokens in/out 5519/13972
+     assessment: E-2C intercept in progress (MiG-650 ETA 14 min to engagement range with AA-6a). Launching reinforcements to sustain air defense. Track 7001 unidentified near E-2C; tracks 7004, 7020 stale but monitored. No immediate surface threats.
+     notes (memory for next window): MiG-650 positioned well for E-2C kill at waypoint 33.700,18.100 (6nm from target). Reinforcements launching (2x MiG-25P AirToAirIntercept, 2x F1E AirToAir) to enable sustained CAP. F1E-571 lands in 7 min. Low-alt CAP F1E (719,725,900,906) covering airbase. Ships auto-fired 3 SS-N-9 at Ticonderoga; awaiting BDA. All SAM sites emitting and free to engage. Fuel reserves adequate across air wing.
+     order: {"action": "launch", "unit_id": 65, "aircraft": "wp_mig-25p", "loadout": "AirToAirIntercept", "mission": "Intercept", "count": 2}
+     order: {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "CAP", "count": 2}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "E-2C intercept in progress (MiG-650 ETA 14 min to engagement range with AA-6a). Launching reinforcements to sustain air defense. Track 7001 unidentified near E-2C; tracks 7004, 7020 stale but monitored. No immediate surface threats.",
+     >   "notes": "MiG-650 positioned well for E-2C kill at waypoint 33.700,18.100 (6nm from target). Reinforcements launching (2x MiG-25P AirToAirIntercept, 2x F1E AirToAir) to enable sustained CAP. F1E-571 lands in 7 min. Low-alt CAP F1E (719,725,900,906) covering airbase. Ships auto-fired 3 SS-N-9 at Ticonderoga; awaiting BDA. All SAM sites emitting and free to engage. Fuel reserves adequate across air wing.",
+     >   "orders": [
+     >     {"action":"launch","unit_id":65,"aircraft":"wp_mig-25p","loadout":"AirToAirIntercept","mission":"Intercept","count":2},
+     >     {"action":"launch","unit_id":65,"aircraft":"fr_f1e","loadout":"AirToAir","mission":"CAP","count":2}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 9  t=6419s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 31/31 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 7 order(s), 0 invalid, 0 refused, tokens in/out 10936/1272
+     assessment: SS-N-9 missile boat cluster (5+ contacts) massing near 32.3,18.6, within SAM range of Tico/Scott. MiGs still orbiting west, not closing. SA-5 target still out of strike range for A-6s.
+     notes (memory for next window): SS-N-9 cluster ~32.3,18.6 - keep engaging with rim-66b/66c (correct weapon, not harpoon). A-6E-1/2 still transiting to SA-5 at 31.253,16.857, engage AGM-45 once in 22nm range. MiGs 7014/15/24 near 33.1-33.5,15.5-16.3 watch for closure.
+     order: {"action": "engage", "unit_id": 227, "track_id": 7045, "salvo": 2, "weapon": "usn_rim-66c"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7046, "salvo": 2, "weapon": "usn_rim-66c"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7049, "salvo": 2, "weapon": "usn_rim-66c"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7050, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7051, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7055, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7056, "salvo": 2, "weapon": "usn_rim-66c"}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 227:usn_rim-66c x6, 239:usn_rim-66b x3
+     --- raw model reply ---
+     > {"assessment":"SS-N-9 missile boat cluster (5+ contacts) massing near 32.3,18.6, within SAM range of Tico/Scott. MiGs still orbiting west, not closing. SA-5 target still out of strike range for A-6s.","notes":"SS-N-9 cluster ~32.3,18.6 - keep engaging with rim-66b/66c (correct weapon, not harpoon). A-6E-1/2 still transiting to SA-5 at 31.253,16.857, engage AGM-45 once in 22nm range. MiGs 7014/15/24 near 33.1-33.5,15.5-16.3 watch for closure.","orders":[
+     > {"action":"engage","unit_id":227,"track_id":7045,"salvo":2,"weapon":"usn_rim-66c"},
+     > {"action":"engage","unit_id":227,"track_id":7046,"salvo":2,"weapon":"usn_rim-66c"},
+     > {"action":"engage","unit_id":227,"track_id":7049,"salvo":2,"weapon":"usn_rim-66c"},
+     > {"action":"engage","unit_id":239,"track_id":7050,"salvo":2,"weapon":"usn_rim-66b"},
+     > {"action":"engage","unit_id":239,"track_id":7051,"salvo":2,"weapon":"usn_rim-66b"},
+     > {"action":"engage","unit_id":239,"track_id":7055,"salvo":2,"weapon":"usn_rim-66b"},
+     > {"action":"engage","unit_id":227,"track_id":7056,"salvo":2,"weapon":"usn_rim-66c"}
+     > ],"next_check_s":180}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 6091/8087
+     assessment: E-2C AWACS track 7002 (33.595,18.095) is highest priority—it is Taskforce1's command/control nerve center. MiG-650 on intercept course, arriving at 6nm engagement range in ~11 min with AA-6A missile (27nm range). All bases well defended by CAP and SAM network. No immediate threats to installations. 
+     notes (memory for next window): MiG-650 reaches waypoint 33.700,18.100 in 11 min at 6nm from E-2C; engage with AA-6A at that time for high-probability kill. Track 7024 (34.436,18.038) is new/unidentified—monitor but do NOT engage until hostile confirmed. Reinforcements (2x MiG-25P AirToAirIntercept, 2x F1E AirToAir) should complete launch next window. Track 7004 (Ticonderoga) stale/coarse at 60nm, ships in defensive transit away. All SAM sites emitting/free. Fuel and ammunition adequate across air wing.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "E-2C AWACS track 7002 (33.595,18.095) is highest priority—it is Taskforce1's command/control nerve center. MiG-650 on intercept course, arriving at 6nm engagement range in ~11 min with AA-6A missile (27nm range). All bases well defended by CAP and SAM network. No immediate threats to installations. Civilian contacts (7003, 7011) clear.",
+     >   "notes": "MiG-650 reaches waypoint 33.700,18.100 in 11 min at 6nm from E-2C; engage with AA-6A at that time for high-probability kill. Track 7024 (34.436,18.038) is new/unidentified—monitor but do NOT engage until hostile confirmed. Reinforcements (2x MiG-25P AirToAirIntercept, 2x F1E AirToAir) should complete launch next window. Track 7004 (Ticonderoga) stale/coarse at 60nm, ships in defensive transit away. All SAM sites emitting/free. Fuel and ammunition adequate across air wing.",
+     >   "orders": [],
+     >   "next_check_s": 11
+     > }
+     > ```
+
+--- window 10  t=6449s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 31/31 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 9769/704
+     assessment: SS-N-9 missile boat cluster persists near 32.34,18.5; Ticonderoga/Scott continuing engagement. A-6Es almost at SA-5 SEAD range. MiGs holding west, no closure yet.
+     notes (memory for next window): Keep killing SS-N-9 boats 7049/7050/7045/7056 with Ticonderoga/Scott SAMs. A-6E-1/2 near waypoint 31.85,17.05 - next window engage SA-5 (7017) with AGM-45 once in 22nm. Watch MiGs 7014/15/24 for closure on A-6Es/A-7Es.
+     order: {"action": "engage", "unit_id": 227, "track_id": 7049, "salvo": 2, "weapon": "usn_rim-66c"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7050, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 239, "track_id": 7045, "salvo": 2, "weapon": "usn_rim-66b"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7056, "salvo": 1, "weapon": "usn_rim-66c"}
+     rounds expended since last window: you ordered: 227:usn_rim-66c x7, 239:usn_rim-66b x3; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"SS-N-9 missile boat cluster persists near 32.34,18.5; Ticonderoga/Scott continuing engagement. A-6Es almost at SA-5 SEAD range. MiGs holding west, no closure yet.","notes":"Keep killing SS-N-9 boats 7049/7050/7045/7056 with Ticonderoga/Scott SAMs. A-6E-1/2 near waypoint 31.85,17.05 - next window engage SA-5 (7017) with AGM-45 once in 22nm. Watch MiGs 7014/15/24 for closure on A-6Es/A-7Es.","orders":[{"action":"engage","unit_id":227,"track_id":7049,"salvo":2,"weapon":"usn_rim-66c"},{"action":"engage","unit_id":239,"track_id":7050,"salvo":2,"weapon":"usn_rim-66b"},{"action":"engage","unit_id":239,"track_id":7045,"salvo":2,"weapon":"usn_rim-66b"},{"action":"engage","unit_id":227,"track_id":7056,"salvo":1,"weapon":"usn_rim-66c"}],"next_check_s":120}
+  side1: 3 order(s), 0 invalid, 2 refused, tokens in/out 6077/9822
+     assessment: E-2C (7002) at 33.586,18.107 is primary HOSTILE—enemy's main air controller. MiG-650 positioned for close-range engagement with AA-6A (2×) within ~10 min at 6nm from waypoint. Track 7001 (HOSTILE unidentified) at 33.028,17.593 monitored. Track 7024 (UNKNOWN) at 34.436,18.000 observed but NOT engaged
+     notes (memory for next window): AA-6A salvo (2×) vs E-2C will degrade enemy air ops. Confirm kill next window, then relaunch landing F1E (719/725/900/906 ETAs 1–3 min) with AirToAir loadout to intercept 7001. All SAM sites active/emitting. Ships continue safe defensive transit away from threat. Stale tracks 7004/7019/7020 monitored but coarse-positioned. Ammunition and fuel reserves adequate.
+     order: {"action": "rtb", "unit_id": 408}
+     order: {"action": "rtb", "unit_id": 413}
+     order: {"action": "engage", "unit_id": 650, "track_id": 7002, "weapon": "wp_aa-6a", "salvo": 2}
+     REFUSED w10-s1-o1 {"action": "rtb", "unit_id": 408}: unit not controllable
+     REFUSED w10-s1-o2 {"action": "rtb", "unit_id": 413}: unit not controllable
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "E-2C (7002) at 33.586,18.107 is primary HOSTILE—enemy's main air controller. MiG-650 positioned for close-range engagement with AA-6A (2×) within ~10 min at 6nm from waypoint. Track 7001 (HOSTILE unidentified) at 33.028,17.593 monitored. Track 7024 (UNKNOWN) at 34.436,18.000 observed but NOT engaged per ROE. MiGs 408/413 bingo fuel, RTB now.",
+     >   "notes": "AA-6A salvo (2×) vs E-2C will degrade enemy air ops. Confirm kill next window, then relaunch landing F1E (719/725/900/906 ETAs 1–3 min) with AirToAir loadout to intercept 7001. All SAM sites active/emitting. Ships continue safe defensive transit away from threat. Stale tracks 7004/7019/7020 monitored but coarse-positioned. Ammunition and fuel reserves adequate.",
+     >   "orders": [
+     >     {"action":"rtb","unit_id":408},
+     >     {"action":"rtb","unit_id":413},
+     >     {"action":"engage","unit_id":650,"track_id":7002,"weapon":"wp_aa-6a","salvo":2}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 11  t=6569s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 31/31 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 9663/932
+     assessment: A-6Es closing on SA-5 at Sirte but still ~35nm out at AGM-45 range; MiGs 7014/15/24 west of A-6Es could threaten strike package. No current naval surface threats listed (boat tracks lost). F-14 CAP well positioned to intercept MiGs.
+     notes (memory for next window): A-6E-1/2 still transiting to 31.85,17.05; once within 22nm of SA-5 (7017 @31.278,16.872) fire AGM-45. Watch MiGs 7014/7015/7024 near 33.2-33.3,15.3-16.5 for closing on strike package - vector Tarbox F-14s to intercept. SAM sites 7016/7019/7020 also hostile, note for future SEAD. Civilian ms_metallurg_anosov tracks nearby - do not engage.
+     order: {"action": "move", "unit_id": 385, "lat": 33.2, "lon": 16.3}
+     order: {"action": "move", "unit_id": 396, "lat": 33.2, "lon": 16.3}
+     order: {"action": "weapons", "unit_id": 385, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 396, "status": "tight"}
+     rounds expended since last window: you ordered: 227:usn_rim-66c x2, 239:usn_rim-66b x1; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"A-6Es closing on SA-5 at Sirte but still ~35nm out at AGM-45 range; MiGs 7014/15/24 west of A-6Es could threaten strike package. No current naval surface threats listed (boat tracks lost). F-14 CAP well positioned to intercept MiGs.","notes":"A-6E-1/2 still transiting to 31.85,17.05; once within 22nm of SA-5 (7017 @31.278,16.872) fire AGM-45. Watch MiGs 7014/7015/7024 near 33.2-33.3,15.3-16.5 for closing on strike package - vector Tarbox F-14s to intercept. SAM sites 7016/7019/7020 also hostile, note for future SEAD. Civilian ms_metallurg_anosov tracks nearby - do not engage.","orders":[{"action":"move","unit_id":385,"lat":33.2,"lon":16.3},{"action":"move","unit_id":396,"lat":33.2,"lon":16.3},{"action":"weapons","unit_id":385,"status":"tight"},{"action":"weapons","unit_id":396,"status":"tight"}],"next_check_s":300}
+  side1: 3 order(s), 0 invalid, 0 refused, tokens in/out 6103/10801
+     assessment: HOSTILE 7002 (E-2C AEW) at 33.548,18.155: MiG-25P 650 approaching waypoint 33.700,18.100 with pending AA-6A shot (fires within ~27nm range, expected this window). HOSTILE 7001 (unidentified) at 33.023,17.629 requires urgent interception—launching 4×F1E AirToAir. Stale tracks 7004/7019/7020 coarse-po
+     notes (memory for next window): Pending shot 650→7002 will fire as aircraft closes to intercept range (AA-6A 27nm). New F1E will queue for launch; expect airborne in 5–10 min, then intercept 7001. After 7002 engagement resolves, continue pursuit if needed. Stale 7004 (Ticonderoga ~32.451,18.174) remains monitored; actual position unknown within coarse uncertainty (~13km). Ships safe on current vectors. All fighter fuel reserves healthy (650: 785nm, others >900nm).
+     order: {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "Intercept", "count": 4}
+     order: {"action": "move", "unit_id": 650, "lat": 33.023, "lon": 17.629}
+     order: {"action": "move", "unit_id": 1432, "lat": 33.023, "lon": 17.629}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "HOSTILE 7002 (E-2C AEW) at 33.548,18.155: MiG-25P 650 approaching waypoint 33.700,18.100 with pending AA-6A shot (fires within ~27nm range, expected this window). HOSTILE 7001 (unidentified) at 33.023,17.629 requires urgent interception—launching 4×F1E AirToAir. Stale tracks 7004/7019/7020 coarse-positioned; monitoring. Ships continuing defensive north-northeast transit away from known threat zones. SAM sites emitting/free-fire active. Reserves adequate.",
+     >   
+     >   "notes": "Pending shot 650→7002 will fire as aircraft closes to intercept range (AA-6A 27nm). New F1E will queue for launch; expect airborne in 5–10 min, then intercept 7001. After 7002 engagement resolves, continue pursuit if needed. Stale 7004 (Ticonderoga ~32.451,18.174) remains monitored; actual position unknown within coarse uncertainty (~13km). Ships safe on current vectors. All fighter fuel reserves healthy (650: 785nm, others >900nm).",
+     >   
+     >   "orders": [
+     >     {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "Intercept", "count": 4},
+     >     {"action": "move", "unit_id": 650, "lat": 33.023, "lon": 17.629},
+     >     {"action": "move", "unit_id": 1432, "lat": 33.023, "lon": 17.629}
+     >   ],
+     >   
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 12  t=6869s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 35/35 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 6 order(s), 0 invalid, 2 refused, tokens in/out 9504/820
+     assessment: A-6Es closing on SA-5 at Sirte (7017), not yet in range. MiG-25s (7014,7024) lurking NW, monitor for intercept. Civilian traffic nearby, avoid. No immediate naval threat to TF.
+     notes (memory for next window): A-6E-1/2 moved to 31.45,16.95 to get within 22nm AGM-45 range of SA-5 7017(31.261,16.866). Engage once range closes. Tarbox F-14s vectored toward MiG-25 7024 for intercept, keep outside SAM rings. Watch 7054/7053/7057/7061 unid hostiles west, likely MiGs. Keep civ ms_metallurg_anosov clear.
+     order: {"action": "move", "unit_id": 980, "lat": 31.45, "lon": 16.95}
+     order: {"action": "move", "unit_id": 986, "lat": 31.45, "lon": 16.95}
+     order: {"action": "engage", "unit_id": 980, "track_id": 7017, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 986, "track_id": 7017, "weapon": "usn_agm-45"}
+     order: {"action": "move", "unit_id": 385, "lat": 33.3, "lon": 16.1}
+     order: {"action": "move", "unit_id": 396, "lat": 33.3, "lon": 16.1}
+     REFUSED w12-s0-o3 {"action": "engage", "unit_id": 980, "track_id": 7017, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     REFUSED w12-s0-o4 {"action": "engage", "unit_id": 986, "track_id": 7017, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     --- raw model reply ---
+     > {"assessment":"A-6Es closing on SA-5 at Sirte (7017), not yet in range. MiG-25s (7014,7024) lurking NW, monitor for intercept. Civilian traffic nearby, avoid. No immediate naval threat to TF.","notes":"A-6E-1/2 moved to 31.45,16.95 to get within 22nm AGM-45 range of SA-5 7017(31.261,16.866). Engage once range closes. Tarbox F-14s vectored toward MiG-25 7024 for intercept, keep outside SAM rings. Watch 7054/7053/7057/7061 unid hostiles west, likely MiGs. Keep civ ms_metallurg_anosov clear.","orders":[{"action":"move","unit_id":980,"lat":31.45,"lon":16.95},{"action":"move","unit_id":986,"lat":31.45,"lon":16.95},{"action":"engage","unit_id":980,"track_id":7017,"weapon":"usn_agm-45"},{"action":"engage","unit_id":986,"track_id":7017,"weapon":"usn_agm-45"},{"action":"move","unit_id":385,"lat":33.3,"lon":16.1},{"action":"move","unit_id":396,"lat":33.3,"lon":16.1}],"next_check_s":180}
+  side1: 3 order(s), 0 invalid, 2 refused, tokens in/out 6541/7049
+     assessment: Fighters 408, 413 critically low fuel (-0 nm), require immediate RTB. MiG-25P 650 actively intercepting E-2C 7002. New UNKNOWN track 7028 appears in hostile fleet area. Activate S-200 SAM radar for improved air defense coverage of approaching hostile fleet.
+     notes (memory for next window): RTB 408, 413 emergency. 650 vs 7002 intercept active per standing orders—will fire AA-6A as target closes. New 7028 at 32.430,17.858 likely hostile ship. UNKNOWN 7005 at 32.301,19.294 and 7022 at 32.120,18.013 require identification/monitoring. All merchant ships safe on transit vectors. S-200 radar activation improves SAM targeting picture. Large cluster of F1E at airbase (eta 0–3 min) landing/refueling; expect redeployment soon. Next decision critical if 650 engagement resolves or new tracks become identified as hostile.
+     order: {"action": "rtb", "unit_id": 408}
+     order: {"action": "rtb", "unit_id": 413}
+     order: {"action": "emitters", "unit_id": 25, "status": "active"}
+     REFUSED w12-s1-o1 {"action": "rtb", "unit_id": 408}: unit not controllable
+     REFUSED w12-s1-o2 {"action": "rtb", "unit_id": 413}: unit not controllable
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Fighters 408, 413 critically low fuel (-0 nm), require immediate RTB. MiG-25P 650 actively intercepting E-2C 7002. New UNKNOWN track 7028 appears in hostile fleet area. Activate S-200 SAM radar for improved air defense coverage of approaching hostile fleet.",
+     >   "notes": "RTB 408, 413 emergency. 650 vs 7002 intercept active per standing orders—will fire AA-6A as target closes. New 7028 at 32.430,17.858 likely hostile ship. UNKNOWN 7005 at 32.301,19.294 and 7022 at 32.120,18.013 require identification/monitoring. All merchant ships safe on transit vectors. S-200 radar activation improves SAM targeting picture. Large cluster of F1E at airbase (eta 0–3 min) landing/refueling; expect redeployment soon. Next decision critical if 650 engagement resolves or new tracks become identified as hostile.",
+     >   "orders": [
+     >     {"action":"rtb","unit_id":408},
+     >     {"action":"rtb","unit_id":413},
+     >     {"action":"emitters","unit_id":25,"status":"active"}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 13  t=7049s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 33/33 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 9602/1065
+     assessment: A-6Es now in AGM-45 range of SA-5 7017 at Sirte; F-14s still closing on MiG-25 7024. SAM sites and unid hostiles west remain threats; civilian ship clear.
+     notes (memory for next window): A-6E-1/2 engaged SA-5 7017 with AGM-45. Tarbox F-14s moved closer to 7024 for AIM-7 shot next window. Watch 7054/7053/7057/7061/7029/7024 hostiles west - possible MiG/F1 strike group. Keep carrier Saratoga silent and clear.
+     order: {"action": "engage", "unit_id": 980, "track_id": 7017, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 986, "track_id": 7017, "weapon": "usn_agm-45"}
+     order: {"action": "move", "unit_id": 385, "lat": 33.35, "lon": 15.9}
+     order: {"action": "move", "unit_id": 396, "lat": 33.35, "lon": 15.9}
+     --- raw model reply ---
+     > {"assessment":"A-6Es now in AGM-45 range of SA-5 7017 at Sirte; F-14s still closing on MiG-25 7024. SAM sites and unid hostiles west remain threats; civilian ship clear.","notes":"A-6E-1/2 engaged SA-5 7017 with AGM-45. Tarbox F-14s moved closer to 7024 for AIM-7 shot next window. Watch 7054/7053/7057/7061/7029/7024 hostiles west - possible MiG/F1 strike group. Keep carrier Saratoga silent and clear.","orders":[{"action":"engage","unit_id":980,"track_id":7017,"weapon":"usn_agm-45"},{"action":"engage","unit_id":986,"track_id":7017,"weapon":"usn_agm-45"},{"action":"move","unit_id":385,"lat":33.35,"lon":15.9},{"action":"move","unit_id":396,"lat":33.35,"lon":15.9}],"next_check_s":180}
+  side1: 5 order(s), 0 invalid, 0 refused, tokens in/out 6603/10519
+     assessment: US AWACS (7002) and fighter pair (7029/7035) inbound northeast. Intercepting with 5 fighters: 650+1281 on AWACS, 558+571+1292 on fighter pair. 558's pending shot fires when in range (~2.5 min). Unknown 7030/7031 likely additional fighters—monitor.
+     notes (memory for next window): 7002 E-2C suppress priority—eliminates US air picture. Fighters 7029/7035 at 33.2,16.3 provide CAP cover. 558 engagement ~40 nm, closes in 2.5 min to weapon range. Ships transit safely on course. Airbase: 408/413 emergency auto-recovering (uncontrollable), 900/906/1691-1709 refueling for relaunch. SAM sites hold current posture (S-200 emitting, others silent) for area defense. Next window critical for intercept resolution.
+     order: {"action": "move", "unit_id": 650, "lat": 33.35, "lon": 18.0}
+     order: {"action": "move", "unit_id": 1281, "lat": 33.4, "lon": 17.5}
+     order: {"action": "move", "unit_id": 558, "lat": 33.25, "lon": 16.5}
+     order: {"action": "move", "unit_id": 571, "lat": 33.2, "lon": 16.2}
+     order: {"action": "move", "unit_id": 1292, "lat": 33.1, "lon": 16.2}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "US AWACS (7002) and fighter pair (7029/7035) inbound northeast. Intercepting with 5 fighters: 650+1281 on AWACS, 558+571+1292 on fighter pair. 558's pending shot fires when in range (~2.5 min). Unknown 7030/7031 likely additional fighters—monitor.",
+     >   "notes": "7002 E-2C suppress priority—eliminates US air picture. Fighters 7029/7035 at 33.2,16.3 provide CAP cover. 558 engagement ~40 nm, closes in 2.5 min to weapon range. Ships transit safely on course. Airbase: 408/413 emergency auto-recovering (uncontrollable), 900/906/1691-1709 refueling for relaunch. SAM sites hold current posture (S-200 emitting, others silent) for area defense. Next window critical for intercept resolution.",
+     >   "orders": [
+     >     {"action":"move","unit_id":650,"lat":33.35,"lon":18.0},
+     >     {"action":"move","unit_id":1281,"lat":33.4,"lon":17.5},
+     >     {"action":"move","unit_id":558,"lat":33.25,"lon":16.5},
+     >     {"action":"move","unit_id":571,"lat":33.2,"lon":16.2},
+     >     {"action":"move","unit_id":1292,"lat":33.1,"lon":16.2}
+     >   ],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 14  t=7169s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 33/33 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 9657/1390
+     assessment: SA-5 strike group (A-6Es) engaged, MiG-25/F1E hostiles west being engaged by Tarbox F-14s via AIM-7. Libyan patrol boat 7003 near our southern surface group - viable Harpoon target. Carrier remains clear and silent.
+     notes (memory for next window): A-6E-1/2 continuing SEAD run on SA-5 7017. Tarbox F-14s (385/396) engaging 7024 MiG-25 and 7029 F1E with AIM-7, one round each expended already - monitor ammo (3 AIM-7 each). Ordered Scott to engage hostile patrol combatant 7003 with Harpoon. Keep Saratoga silent/clear. Watch new hostiles 7065/7066/7068 west for a possible second strike wave.
+     order: {"action": "engage", "unit_id": 239, "track_id": 7003, "salvo": 1, "weapon": "usn_rgm-84a"}
+     order: {"action": "emitters", "unit_id": 1031, "status": "active"}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 385:usn_aim-7m x1, 396:usn_aim-7m x1
+     --- raw model reply ---
+     > {"assessment":"SA-5 strike group (A-6Es) engaged, MiG-25/F1E hostiles west being engaged by Tarbox F-14s via AIM-7. Libyan patrol boat 7003 near our southern surface group - viable Harpoon target. Carrier remains clear and silent.","notes":"A-6E-1/2 continuing SEAD run on SA-5 7017. Tarbox F-14s (385/396) engaging 7024 MiG-25 and 7029 F1E with AIM-7, one round each expended already - monitor ammo (3 AIM-7 each). Ordered Scott to engage hostile patrol combatant 7003 with Harpoon. Keep Saratoga silent/clear. Watch new hostiles 7065/7066/7068 west for a possible second strike wave.","orders":[{"action":"engage","unit_id":239,"track_id":7003,"salvo":1,"weapon":"usn_rgm-84a"},{"action":"emitters","unit_id":1031,"status":"active"}],"next_check_s":180}
+  side1: 3 order(s), 0 invalid, 2 refused, tokens in/out 6459/6934
+     assessment: Critical engagement underway: F1E 558 and MiG-25P 650 have pending shots at hostile CAP 7029/7037. Emergency: aircraft 408/413 at fuel range -0 nm must RTB immediately to prevent loss. Unknown contacts 7030/7036 in north require investigation. E-2C 7002 is strategic threat at ~80nm range. Fleet ship
+     notes (memory for next window): Intercept phase: shots pending on 7029/7037, expect missile flight ~2–3 min. Aircraft 408/413 RTB critical. Redirecting 1281 northeast to close on unknowns 7030/7036 (~60 nm away, ETA ~59 min), arrival distance ~17 nm for ID/engagement. Recovery aircraft 900/906/1691-1709 continue refueling at airbase. SAM posture unchanged (S-200/S-75 emitting for area defense). After current engagement, reassess for E-2C intercept via 1432 or sustained northbound sweep.
+     order: {"action": "rtb", "unit_id": 408}
+     order: {"action": "rtb", "unit_id": 413}
+     order: {"action": "move", "unit_id": 1281, "lat": 34.3, "lon": 18.0}
+     REFUSED w14-s1-o1 {"action": "rtb", "unit_id": 408}: unit not controllable
+     REFUSED w14-s1-o2 {"action": "rtb", "unit_id": 413}: unit not controllable
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 558:all_air_chaff_standard x1, 650:all_air_chaff_heavy x1
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Critical engagement underway: F1E 558 and MiG-25P 650 have pending shots at hostile CAP 7029/7037. Emergency: aircraft 408/413 at fuel range -0 nm must RTB immediately to prevent loss. Unknown contacts 7030/7036 in north require investigation. E-2C 7002 is strategic threat at ~80nm range. Fleet ships safe in transit.",
+     >   "notes": "Intercept phase: shots pending on 7029/7037, expect missile flight ~2–3 min. Aircraft 408/413 RTB critical. Redirecting 1281 northeast to close on unknowns 7030/7036 (~60 nm away, ETA ~59 min), arrival distance ~17 nm for ID/engagement. Recovery aircraft 900/906/1691-1709 continue refueling at airbase. SAM posture unchanged (S-200/S-75 emitting for area defense). After current engagement, reassess for E-2C intercept via 1432 or sustained northbound sweep.",
+     >   "orders": [
+     >     {"action":"rtb","unit_id":408},
+     >     {"action":"rtb","unit_id":413},
+     >     {"action":"move","unit_id":1281,"lat":34.300,"lon":18.000}
+     >   ],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 15  t=7289s  Taskforce1: 19/19 alive (kills 0, losses 0)  Taskforce2: 31/31 alive (kills 0, losses 0)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 2 refused, tokens in/out 9782/681
+     assessment: SEAD run on SA-5 continuing, air battle ongoing with MiG-25/F1E, Harpoon in flight at patrol boat 7003. Second hostile wave west (7053,7061,7064,7065,7070) still forming but no immediate threat to fleet.
+     notes (memory for next window): A-6E-1/2 nearing SA-5 7017 (~21nm out), order AGM-45 shot now. Tarbox F-14s down to 2 AIM-7 each vs 7024/7029 - monitor ammo. Watch western hostile cluster 7053/7061/7064/7065/7070 for strike wave buildup. Scott Harpoon inbound on 7003.
+     order: {"action": "engage", "unit_id": 980, "track_id": 7017, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 986, "track_id": 7017, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 385, "track_id": 7029, "weapon": "usn_aim-7m"}
+     order: {"action": "engage", "unit_id": 396, "track_id": 7024, "weapon": "usn_aim-7m"}
+     REFUSED w15-s0-o1 {"action": "engage", "unit_id": 980, "track_id": 7017, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     REFUSED w15-s0-o2 {"action": "engage", "unit_id": 986, "track_id": 7017, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     rounds expended since last window: you ordered: 239:usn_rgm-84a x1; fired automatically by the units' own AI: 385:usn_aim-7m x1, 396:usn_aim-7m x1
+     --- raw model reply ---
+     > {"assessment":"SEAD run on SA-5 continuing, air battle ongoing with MiG-25/F1E, Harpoon in flight at patrol boat 7003. Second hostile wave west (7053,7061,7064,7065,7070) still forming but no immediate threat to fleet.","notes":"A-6E-1/2 nearing SA-5 7017 (~21nm out), order AGM-45 shot now. Tarbox F-14s down to 2 AIM-7 each vs 7024/7029 - monitor ammo. Watch western hostile cluster 7053/7061/7064/7065/7070 for strike wave buildup. Scott Harpoon inbound on 7003.","orders":[{"action":"engage","unit_id":980,"track_id":7017,"weapon":"usn_agm-45"},{"action":"engage","unit_id":986,"track_id":7017,"weapon":"usn_agm-45"},{"action":"engage","unit_id":385,"track_id":7029,"weapon":"usn_aim-7m"},{"action":"engage","unit_id":396,"track_id":7024,"weapon":"usn_aim-7m"}],"next_check_s":180}
+  side1: 5 order(s), 0 invalid, 0 refused, tokens in/out 6237/6733
+     assessment: E-2C radars 7030/7002 are critical coordination nodes directing enemy strikes—priority intercept targets. Shots pending on 7029/7037. Redirecting 1281/1432/1287/1292 northward to close on E-2C for missile engagement within 12–15 min. Launching 2 fresh MiG-25P interceptors for sustained CAP.
+     notes (memory for next window): MiG-25P 408/413 critically low fuel, auto-landing. Recovery 1691-1709 safe at airbase. Intercept plan: 1281→34.500,17.900 (vs 7030), 1432→33.400,18.600 (vs 7002), 1287/1292 support. SAMs hold emitting posture (S-200/S-75) for area defense, SA-2 silent. Next engagement expected 10–15 min; check for impact of pending shots on 7029/7037 and E-2C missile launch window.
+     order: {"action": "move", "unit_id": 1281, "lat": 34.5, "lon": 17.9}
+     order: {"action": "move", "unit_id": 1432, "lat": 33.4, "lon": 18.6}
+     order: {"action": "move", "unit_id": 1287, "lat": 34.3, "lon": 17.7}
+     order: {"action": "move", "unit_id": 1292, "lat": 33.5, "lon": 18.3}
+     order: {"action": "launch", "unit_id": 65, "aircraft": "wp_mig-25p", "loadout": "AirToAirIntercept", "mission": "Intercept", "count": 2}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 558:all_air_chaff_standard x1, 650:all_air_chaff_heavy x1
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "E-2C radars 7030/7002 are critical coordination nodes directing enemy strikes—priority intercept targets. Shots pending on 7029/7037. Redirecting 1281/1432/1287/1292 northward to close on E-2C for missile engagement within 12–15 min. Launching 2 fresh MiG-25P interceptors for sustained CAP.",
+     >   "notes": "MiG-25P 408/413 critically low fuel, auto-landing. Recovery 1691-1709 safe at airbase. Intercept plan: 1281→34.500,17.900 (vs 7030), 1432→33.400,18.600 (vs 7002), 1287/1292 support. SAMs hold emitting posture (S-200/S-75) for area defense, SA-2 silent. Next engagement expected 10–15 min; check for impact of pending shots on 7029/7037 and E-2C missile launch window.",
+     >   "orders": [
+     >     {"action": "move", "unit_id": 1281, "lat": 34.500, "lon": 17.900},
+     >     {"action": "move", "unit_id": 1432, "lat": 33.400, "lon": 18.600},
+     >     {"action": "move", "unit_id": 1287, "lat": 34.300, "lon": 17.700},
+     >     {"action": "move", "unit_id": 1292, "lat": 33.500, "lon": 18.300},
+     >     {"action": "launch", "unit_id": 65, "aircraft": "wp_mig-25p", "loadout": "AirToAirIntercept", "mission": "Intercept", "count": 2}
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 16  t=7469s  Taskforce1: 19/19 alive (kills 1.5, losses 0)  Taskforce2: 31/32 alive (kills 0, losses 1.5)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 10234/1327
+     assessment: SA-5/SA-2/AAA cluster near Sirte (31.1-31.4N,16.8-16.9E) active and strong; Mirage F1 contacts engaging Tarbox CAP; A-6E Intruders expended their single AGM-45 each with no kill confirmed. Need fresh SEAD strike from carrier with better ammo stock.
+     notes (memory for next window): A-6E-1/2 (980,986) out of AGM-45, RTB them. Launch fresh SEAD A-6Es from Saratoga with SEADLongRange loadout against SA-5 cluster 7089/7090/7092/7093 and AAA 7088/7083 near 31.4,16.9. Mirage F1s (7029,7057,7061,7087) still threat to Tarbox CAP - watch AIM-7/9 ammo. Track 7002 hostile near 31.9,19.2 - monitor for surface attack on TF.
+     order: {"action": "rtb", "unit_id": 980}
+     order: {"action": "rtb", "unit_id": 986}
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_a-6e", "loadout": "SEADLongRange", "mission": "SEAD", "count": 2}
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_ea-6b", "loadout": "EW", "mission": "Jamming", "count": 1}
+     rounds expended since last window: you ordered: 396:usn_aim-7m x1; fired automatically by the units' own AI: 385:all_air_chaff_standard x1, 980:usn_agm-45 x1, 980:all_air_chaff_standard x1, 986:usn_agm-45 x1, 986:all_air_chaff_standard x1
+     --- raw model reply ---
+     > {"assessment":"SA-5/SA-2/AAA cluster near Sirte (31.1-31.4N,16.8-16.9E) active and strong; Mirage F1 contacts engaging Tarbox CAP; A-6E Intruders expended their single AGM-45 each with no kill confirmed. Need fresh SEAD strike from carrier with better ammo stock.",
+     > "notes":"A-6E-1/2 (980,986) out of AGM-45, RTB them. Launch fresh SEAD A-6Es from Saratoga with SEADLongRange loadout against SA-5 cluster 7089/7090/7092/7093 and AAA 7088/7083 near 31.4,16.9. Mirage F1s (7029,7057,7061,7087) still threat to Tarbox CAP - watch AIM-7/9 ammo. Track 7002 hostile near 31.9,19.2 - monitor for surface attack on TF.",
+     > "orders":[
+     >  {"action":"rtb","unit_id":980},
+     >  {"action":"rtb","unit_id":986},
+     >  {"action":"launch","unit_id":66,"aircraft":"usn_a-6e","loadout":"SEADLongRange","mission":"SEAD","count":2},
+     >  {"action":"launch","unit_id":66,"aircraft":"usn_ea-6b","loadout":"EW","mission":"Jamming","count":1}
+     > ],
+     > "next_check_s":300}
+  side1: 4 order(s), 0 invalid, 0 refused, tokens in/out 6495/15469
+     assessment: Two E-2C radars (7030, 7002) commanding air battle from high altitude; anti-radiation missiles (7046, 7047) actively striking SAM complex at 31.18,16.84. My fighter intercepts (1281, 1287, 1292, 1432) closing on radars; close-range defenders (558, 1432) engaging hostile aircraft (7045, 7042) nearby.
+     notes (memory for next window): CRITICAL: Silenced S-200 (25) and S-75 (49)—both at 31.18,16.84—to deny ARM guidance; S-75 (41) far north continues emitting for area defense. Interceptor courses unchanged: 1281→34.5,17.9 vs E-2C 7030 (ETA 44min), 1432→33.4,18.6 vs E-2C 7002 (ETA 19min), 1287/1292 support 7030. F1E 558 engaging F-14A 7045 at 2nm (super-530f missile); F1E 1432 engaging unid 7042 at ~18nm. Ships transiting safely (Ain Zaara, Tariq, Ain Zaquit). Silent MiG-25P CAP active near airbase. Expect E-2C to launch anti-ship strikes next 10–15 min. Watch for ARM impact sequence on suppressed SAM sites.
+     order: {"action": "emitters", "unit_id": 25, "status": "silent"}
+     order: {"action": "emitters", "unit_id": 49, "status": "silent"}
+     order: {"action": "engage", "unit_id": 558, "track_id": 7045, "salvo": 1, "weapon": "fr_super-530f"}
+     order: {"action": "engage", "unit_id": 1432, "track_id": 7042, "salvo": 1, "weapon": "fr_super-530f"}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 25:wp_sa-5 x4, 39:wp_cal_37mm x19, 40:nv_cal_100mm x6, 49:wp_sa-2 x2, 558:fr_super-530f x1, 558:all_air_chaff_standard x2
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment":"Two E-2C radars (7030, 7002) commanding air battle from high altitude; anti-radiation missiles (7046, 7047) actively striking SAM complex at 31.18,16.84. My fighter intercepts (1281, 1287, 1292, 1432) closing on radars; close-range defenders (558, 1432) engaging hostile aircraft (7045, 7042) nearby. Immediate threat from ARMs requires SAM emitter discipline.",
+     >   "notes":"CRITICAL: Silenced S-200 (25) and S-75 (49)—both at 31.18,16.84—to deny ARM guidance; S-75 (41) far north continues emitting for area defense. Interceptor courses unchanged: 1281→34.5,17.9 vs E-2C 7030 (ETA 44min), 1432→33.4,18.6 vs E-2C 7002 (ETA 19min), 1287/1292 support 7030. F1E 558 engaging F-14A 7045 at 2nm (super-530f missile); F1E 1432 engaging unid 7042 at ~18nm. Ships transiting safely (Ain Zaara, Tariq, Ain Zaquit). Silent MiG-25P CAP active near airbase. Expect E-2C to launch anti-ship strikes next 10–15 min. Watch for ARM impact sequence on suppressed SAM sites.",
+     >   "orders":[
+     >     {"action":"emitters","unit_id":25,"status":"silent"},
+     >     {"action":"emitters","unit_id":49,"status":"silent"},
+     >     {"action":"engage","unit_id":558,"track_id":7045,"salvo":1,"weapon":"fr_super-530f"},
+     >     {"action":"engage","unit_id":1432,"track_id":7042,"salvo":1,"weapon":"fr_super-530f"}
+     >   ],
+     >   "next_check_s":300
+     > }
+     > ```
+
+--- window 17  t=7769s  Taskforce1: 20/20 alive (kills 2.5, losses 0.5)  Taskforce2: 29/30 alive (kills 0.5, losses 2.5)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 6 order(s), 0 invalid, 0 refused, tokens in/out 9707/939
+     assessment: SA-5/AAA cluster at 31.18,16.84 still hot; two hostile surface contacts (7002,7004) near 31.9-32.0,19.1 approaching our southern SAG. MiG-25s and Mirages active further west/south.
+     notes (memory for next window): RTB'd A-6E-1/2 (980,986) empty of AGM-45. Launched fresh SEAD A-6Es from Saratoga vs SA-5 cluster 7017/7019/7083/7088. Ordered Ticonderoga/Caron to engage hostile surface 7002/7004 with Harpoon (~55nm range, in range). Watch for Mirage F1/MiG-25 threat to Tarbox CAP and SAG. Monitor civilian MS Metallurg Anosov tracks 7006/7007 - do not target.
+     order: {"action": "rtb", "unit_id": 980}
+     order: {"action": "rtb", "unit_id": 986}
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_a-6e", "loadout": "SEADLongRange", "mission": "SEAD", "count": 2}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7002, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7004, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 259, "track_id": 7002, "salvo": 1, "weapon": "usn_rgm-84c"}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 385:usn_aim-9m x2, 385:all_air_chaff_standard x1, 980:all_air_chaff_standard x1, 986:all_air_chaff_standard x1
+     --- raw model reply ---
+     > {"assessment":"SA-5/AAA cluster at 31.18,16.84 still hot; two hostile surface contacts (7002,7004) near 31.9-32.0,19.1 approaching our southern SAG. MiG-25s and Mirages active further west/south.","notes":"RTB'd A-6E-1/2 (980,986) empty of AGM-45. Launched fresh SEAD A-6Es from Saratoga vs SA-5 cluster 7017/7019/7083/7088. Ordered Ticonderoga/Caron to engage hostile surface 7002/7004 with Harpoon (~55nm range, in range). Watch for Mirage F1/MiG-25 threat to Tarbox CAP and SAG. Monitor civilian MS Metallurg Anosov tracks 7006/7007 - do not target.","orders":[{"action":"rtb","unit_id":980},{"action":"rtb","unit_id":986},{"action":"launch","unit_id":66,"aircraft":"usn_a-6e","loadout":"SEADLongRange","mission":"SEAD","count":2},{"action":"engage","unit_id":227,"track_id":7002,"salvo":2,"weapon":"usn_rgm-84c"},{"action":"engage","unit_id":227,"track_id":7004,"salvo":2,"weapon":"usn_rgm-84c"},{"action":"engage","unit_id":259,"track_id":7002,"salvo":1,"weapon":"usn_rgm-84c"}],"next_check_s":300}
+  side1: 7 order(s), 0 invalid, 0 refused, tokens in/out 5878/12419
+     assessment: Enemy E-2Cs 7030 (stale, north) and 7002 (LIVE, 33.2/18.6) directing strikes. Lost F1E 558/1432 to hostile fighters. Immediate priority: intercept and destroy E-2C 7002 with converging 3-on-1 attack (571, 1275, 1439 ETA 14–17 min). Maintain 1281 intercept on 7030 (ETA 39 min). Reinforce with 5 fresh
+     notes (memory for next window): E-2C 7002 convergence: 571/1275 direct intercept at 33.226,18.628; 1439 supporting position 33.0,18.5. All three F1Es will enter super-530f 22nm missile range ~14–17 min—ready engage orders next window. E-2C 7030: 1281 + MiG-25P support (1287, 1292) continue NW intercept, ETA 39 min. Unknowns 7005/7022 near ships—monitor. Silenced SAM units 25 (DAMAGED 6%) and 49 protect against ARM strikes; reactivate once threat clears. Fresh MiG-25P AirToAirIntercept and F1E AirToAir launch from base enhance coverage. Low-alt F1E CAP (1691–1709) silent defensive near airbase.
+     order: {"action": "move", "unit_id": 571, "lat": 33.226, "lon": 18.628}
+     order: {"action": "move", "unit_id": 1275, "lat": 33.226, "lon": 18.628}
+     order: {"action": "move", "unit_id": 1439, "lat": 33.0, "lon": 18.5}
+     order: {"action": "launch", "unit_id": 65, "aircraft": "wp_mig-25p", "loadout": "AirToAirIntercept", "mission": "Intercept", "count": 3}
+     order: {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "CAP", "count": 2}
+     order: {"action": "emitters", "unit_id": 2139, "status": "active"}
+     order: {"action": "emitters", "unit_id": 2144, "status": "active"}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Enemy E-2Cs 7030 (stale, north) and 7002 (LIVE, 33.2/18.6) directing strikes. Lost F1E 558/1432 to hostile fighters. Immediate priority: intercept and destroy E-2C 7002 with converging 3-on-1 attack (571, 1275, 1439 ETA 14–17 min). Maintain 1281 intercept on 7030 (ETA 39 min). Reinforce with 5 fresh launches. SAM sites 25/49 remain silenced vs ARM threat; unit 41 active. Ships transiting safely southwest.",
+     >   "notes": "E-2C 7002 convergence: 571/1275 direct intercept at 33.226,18.628; 1439 supporting position 33.0,18.5. All three F1Es will enter super-530f 22nm missile range ~14–17 min—ready engage orders next window. E-2C 7030: 1281 + MiG-25P support (1287, 1292) continue NW intercept, ETA 39 min. Unknowns 7005/7022 near ships—monitor. Silenced SAM units 25 (DAMAGED 6%) and 49 protect against ARM strikes; reactivate once threat clears. Fresh MiG-25P AirToAirIntercept and F1E AirToAir launch from base enhance coverage. Low-alt F1E CAP (1691–1709) silent defensive near airbase.",
+     >   "orders": [
+     >     {"action":"move","unit_id":571,"lat":33.226,"lon":18.628},
+     >     {"action":"move","unit_id":1275,"lat":33.226,"lon":18.628},
+     >     {"action":"move","unit_id":1439,"lat":33.0,"lon":18.5},
+     >     {"action":"launch","unit_id":65,"aircraft":"wp_mig-25p","loadout":"AirToAirIntercept","mission":"Intercept","count":3},
+     >     {"action":"launch","unit_id":65,"aircraft":"fr_f1e","loadout":"AirToAir","mission":"CAP","count":2},
+     >     {"action":"emitters","unit_id":2139,"status":"active"},
+     >     {"action":"emitters","unit_id":2144,"status":"active"}
+     >   ],
+     >   "next_check_s": 180
+     > }
+     > ```
+
+--- window 18  t=7949s  Taskforce1: 21/21 alive (kills 2.5, losses 0.5)  Taskforce2: 32/33 alive (kills 0.5, losses 2.5)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 9692/1359
+     assessment: SA-5 cluster at Sirte still hostile-live; SAG (Ticonderoga/Caron) in Harpoon range of surface hostiles 7002/7004. Libyan fighters (MiG-25/F1E) staying west, no immediate threat to CAP. Civilian MS Metallurg Anosov tracks nearby, avoid.
+     notes (memory for next window): Continuing SEAD push: moved fresh A-6Es 2501/2507 toward SA-5 cluster (7017/7019/7083/7088) for AGM-45 strike once in 22nm range. Ticonderoga/Caron re-engaging surface hostiles 7002/7004 with Harpoon. Do not target neutral 7006/7007. Watch MiG-25/F1E group west of SAG.
+     order: {"action": "move", "unit_id": 2501, "lat": 31.5, "lon": 17.5}
+     order: {"action": "move", "unit_id": 2507, "lat": 31.5, "lon": 17.5}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7002, "salvo": 2, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 259, "track_id": 7004, "salvo": 2, "weapon": "usn_rgm-84c"}
+     rounds expended since last window: you ordered: 227:usn_rgm-84c x4, 259:usn_rgm-84c x1; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"SA-5 cluster at Sirte still hostile-live; SAG (Ticonderoga/Caron) in Harpoon range of surface hostiles 7002/7004. Libyan fighters (MiG-25/F1E) staying west, no immediate threat to CAP. Civilian MS Metallurg Anosov tracks nearby, avoid.","notes":"Continuing SEAD push: moved fresh A-6Es 2501/2507 toward SA-5 cluster (7017/7019/7083/7088) for AGM-45 strike once in 22nm range. Ticonderoga/Caron re-engaging surface hostiles 7002/7004 with Harpoon. Do not target neutral 7006/7007. Watch MiG-25/F1E group west of SAG.","orders":[
+     > {"action":"move","unit_id":2501,"lat":31.5,"lon":17.5},
+     > {"action":"move","unit_id":2507,"lat":31.5,"lon":17.5},
+     > {"action":"engage","unit_id":227,"track_id":7002,"salvo":2,"weapon":"usn_rgm-84c"},
+     > {"action":"engage","unit_id":259,"track_id":7004,"salvo":2,"weapon":"usn_rgm-84c"}
+     > ],"next_check_s":300}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 6296/10758
+     assessment: Intercepts active: F1E 571 PENDING super-530f on hostile 7057 (~1 min to engage); F1E 1275/1439 closing E-2C 7002 (~20 min); F1E 1281+MiG-25P on E-2C 7030 (~35 min). Low-alt CAP defensive near airbase. Ships safe; unknown tracks monitored.
+     notes (memory for next window): All intercepts on track per prior window. F1E 571 should fire on 7057 within 1-2 minutes at ~22nm super-530f range, then continue north. Main convergence on E-2C 7002 at 33.226,18.628 in ~20 min. Secondary intercept of E-2C 7030 via 1281/1287/1292 in ~35 min. Low-alt CAP (1691-1709) holding silent/tight near base. Silenced SAM units 25,39,40 remain protected against ARM until threat clears. Grounded MiG-25P reserves at base available if additional coverage needed.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Intercepts active: F1E 571 PENDING super-530f on hostile 7057 (~1 min to engage); F1E 1275/1439 closing E-2C 7002 (~20 min); F1E 1281+MiG-25P on E-2C 7030 (~35 min). Low-alt CAP defensive near airbase. Ships safe; unknown tracks monitored.",
+     >   "notes": "All intercepts on track per prior window. F1E 571 should fire on 7057 within 1-2 minutes at ~22nm super-530f range, then continue north. Main convergence on E-2C 7002 at 33.226,18.628 in ~20 min. Secondary intercept of E-2C 7030 via 1281/1287/1292 in ~35 min. Low-alt CAP (1691-1709) holding silent/tight near base. Silenced SAM units 25,39,40 remain protected against ARM until threat clears. Grounded MiG-25P reserves at base available if additional coverage needed.",
+     >   "orders": [],
+     >   "next_check_s": 600
+     > }
+     > ```
+
+--- window 19  t=8249s  Taskforce1: 22/22 alive (kills 9, losses 1)  Taskforce2: 29/33 alive (kills 1, losses 9)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 5 order(s), 0 invalid, 1 refused, tokens in/out 10001/1035
+     assessment: SA-5 cluster at Sirte still hot; A-6E SEAD flight closing. Nanuchka surface group within Harpoon range of SAG (227/259). MiG-25/F1E fighters active west, no immediate threat to carrier group. Neutral contacts 7006/7007 confirmed, avoid.
+     notes (memory for next window): A-6E 2501/2507 ETA ~19min to SA-5 strike position; engage with AGM-45 once in range. Added 2729/2735 as second wave toward same target. SAG (227/259) engaging Nanuchkas 7001/7004 with Harpoon. A-6E 980 ammo spent, RTB. Watch F1E/MiG-25 west of SAG for intercept threat.
+     order: {"action": "engage", "unit_id": 227, "track_id": 7001, "salvo": 1, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 259, "track_id": 7004, "salvo": 1, "weapon": "usn_rgm-84c"}
+     order: {"action": "move", "unit_id": 2729, "lat": 31.5, "lon": 17.2}
+     order: {"action": "move", "unit_id": 2735, "lat": 31.5, "lon": 17.2}
+     order: {"action": "rtb", "unit_id": 980}
+     REFUSED w19-s0-o2 {"action": "engage", "unit_id": 259, "track_id": 7004, "salvo": 1, "weapon": "usn_rgm-84c"}: track lost or target destroyed
+     rounds expended since last window: you ordered: 227:usn_rgm-84c x2, 259:usn_rgm-84c x2; fired automatically by the units' own AI: 385:usn_aim-9m x1, 385:all_air_chaff_standard x1, 980:all_air_chaff_standard x7
+     --- raw model reply ---
+     > {"assessment":"SA-5 cluster at Sirte still hot; A-6E SEAD flight closing. Nanuchka surface group within Harpoon range of SAG (227/259). MiG-25/F1E fighters active west, no immediate threat to carrier group. Neutral contacts 7006/7007 confirmed, avoid.","notes":"A-6E 2501/2507 ETA ~19min to SA-5 strike position; engage with AGM-45 once in range. Added 2729/2735 as second wave toward same target. SAG (227/259) engaging Nanuchkas 7001/7004 with Harpoon. A-6E 980 ammo spent, RTB. Watch F1E/MiG-25 west of SAG for intercept threat.","orders":[
+     > {"action":"engage","unit_id":227,"track_id":7001,"salvo":1,"weapon":"usn_rgm-84c"},
+     > {"action":"engage","unit_id":259,"track_id":7004,"salvo":1,"weapon":"usn_rgm-84c"},
+     > {"action":"move","unit_id":2729,"lat":31.5,"lon":17.2},
+     > {"action":"move","unit_id":2735,"lat":31.5,"lon":17.2},
+     > {"action":"rtb","unit_id":980}
+     > ],"next_check_s":180}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 6034/13594
+     assessment: Missile 7078 inbound ~6nm from ship 328, closing at ~500+ kt. Forcing SA-N-4 engagement NOW to ensure intercept before impact. F1E and MiG-25P intercepts of E-2Cs (7002, 7030) progressing on track for 30-45min convergence.
+     notes (memory for next window): Ship 328 status shows PENDING SHOT but SAM not yet firing—engagement order forces immediate intercept. Missile trajectory suggests impact in 1-2min without SAM. F1E 571 lost (destroyed prior window); hostile lost 2 F-14As (7058, 7059). Main intercept F1Es (1275, 1281, 1439) converging on E-2C 7002 at 33.226,18.628 in ~20-45min. Secondary: MiG-25Ps (1287, 1292) attacking F-14A 7057 and heading toward E-2C 7030. Track 7073 (unknown hostile, stale, 31.558,16.885) near ground unit cluster—hold fire pending ID. Ground defenses (SA-2, S-75, AAA) emitting, weapons free. Low-alt CAP (1691-1709) silent
+     order: {"action": "engage", "unit_id": 328, "track_id": 7078, "weapon": "wp_sa-n-4"}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 25:wp_sa-5 x10, 328:wp_sa-n-4 x4, 328:wp_cal_57mm x98
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Missile 7078 inbound ~6nm from ship 328, closing at ~500+ kt. Forcing SA-N-4 engagement NOW to ensure intercept before impact. F1E and MiG-25P intercepts of E-2Cs (7002, 7030) progressing on track for 30-45min convergence.",
+     >   "notes": "Ship 328 status shows PENDING SHOT but SAM not yet firing—engagement order forces immediate intercept. Missile trajectory suggests impact in 1-2min without SAM. F1E 571 lost (destroyed prior window); hostile lost 2 F-14As (7058, 7059). Main intercept F1Es (1275, 1281, 1439) converging on E-2C 7002 at 33.226,18.628 in ~20-45min. Secondary: MiG-25Ps (1287, 1292) attacking F-14A 7057 and heading toward E-2C 7030. Track 7073 (unknown hostile, stale, 31.558,16.885) near ground unit cluster—hold fire pending ID. Ground defenses (SA-2, S-75, AAA) emitting, weapons free. Low-alt CAP (1691-1709) silent/tight at base, ready.",
+     >   "orders": [
+     >     {"action":"engage","unit_id":328,"track_id":7078,"weapon":"wp_sa-n-4"}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 20  t=8429s  Taskforce1: 21/21 alive (kills 9, losses 1.5)  Taskforce2: 25/28 alive (kills 1.5, losses 9)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 2 order(s), 0 invalid, 0 refused, tokens in/out 9869/788
+     assessment: SAG (227/259) within Harpoon range of Nanuchka 7001. A-6E SEAD flights still ~15min out from SA-5 at Sirte. MiG-25/F1E hostiles distant, not immediate threat to SAG.
+     notes (memory for next window): A-6E 2501/2507/2729/2735 inbound to SA-5 (7017/7019) near 31.18,16.9; engage AGM-45 once within 22nm. SAG engaging Nanuchka 7001 with Harpoon. Watch F1E/MiG-25 west for intercept threat on SAG.
+     order: {"action": "engage", "unit_id": 259, "track_id": 7001, "salvo": 1, "weapon": "usn_rgm-84c"}
+     order: {"action": "engage", "unit_id": 227, "track_id": 7001, "salvo": 1, "weapon": "usn_rim-66c"}
+     rounds expended since last window: you ordered: 227:usn_rgm-84c x1; fired automatically by the units' own AI: none
+     --- raw model reply ---
+     > {"assessment":"SAG (227/259) within Harpoon range of Nanuchka 7001. A-6E SEAD flights still ~15min out from SA-5 at Sirte. MiG-25/F1E hostiles distant, not immediate threat to SAG.","notes":"A-6E 2501/2507/2729/2735 inbound to SA-5 (7017/7019) near 31.18,16.9; engage AGM-45 once within 22nm. SAG engaging Nanuchka 7001 with Harpoon. Watch F1E/MiG-25 west for intercept threat on SAG.","orders":[{"action":"engage","unit_id":259,"track_id":7001,"salvo":1,"weapon":"usn_rgm-84c"},{"action":"engage","unit_id":227,"track_id":7001,"salvo":1,"weapon":"usn_rim-66c"}],"next_check_s":300}
+  side1: 1 order(s), 0 invalid, 0 refused, tokens in/out 5472/20138
+     assessment: Intercepts proceeding toward both E-2Cs; SAM sites out of range (all 130+ nm away). MiG 1287 has pending AA-6A shot on F-14A 7057. Airbase CAP deploying. Launching 2 additional F1Es to strengthen fighter force post-losses.
+     notes (memory for next window): F1E intercept (1275/1281/1439) converging on E-2C 7002 (33.475,18.830) via waypoint 33.226,18.628 (ETA 20-44min, engagement 22nm). MiG 1292 on intercept vector toward E-2C 7030 (34.446,17.724) via 34.500,17.900 (ETA 39min, engagement 25nm). MiG 1287 attacking F-14A 7057 (33.390,16.005)—in range at 20.5nm, pending AA-6A shot. MiG CAP arriving airbase defense: 2638/2643/2648 ETA 8-9min, 1422/1427 ETA 34min. Lost 4 aircraft (1691-1709) last window—reinforcing with fresh F1E pair. Unknown track 7079 (34.403,17.737) traveling with E-2C 7030; will not engage until ID'd hostile. Ship 328 on patrol so
+     order: {"action": "launch", "unit_id": 65, "aircraft": "fr_f1e", "loadout": "AirToAir", "mission": "Intercept", "count": 2}
+     rounds expended since last window: you ordered: 328:wp_sa-n-4 x4; fired automatically by the units' own AI: 25:wp_sa-5 x2
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Intercepts proceeding toward both E-2Cs; SAM sites out of range (all 130+ nm away). MiG 1287 has pending AA-6A shot on F-14A 7057. Airbase CAP deploying. Launching 2 additional F1Es to strengthen fighter force post-losses.",
+     >   "notes": "F1E intercept (1275/1281/1439) converging on E-2C 7002 (33.475,18.830) via waypoint 33.226,18.628 (ETA 20-44min, engagement 22nm). MiG 1292 on intercept vector toward E-2C 7030 (34.446,17.724) via 34.500,17.900 (ETA 39min, engagement 25nm). MiG 1287 attacking F-14A 7057 (33.390,16.005)—in range at 20.5nm, pending AA-6A shot. MiG CAP arriving airbase defense: 2638/2643/2648 ETA 8-9min, 1422/1427 ETA 34min. Lost 4 aircraft (1691-1709) last window—reinforcing with fresh F1E pair. Unknown track 7079 (34.403,17.737) traveling with E-2C 7030; will not engage until ID'd hostile. Ship 328 on patrol southwest ETA 76min. SA-2 sites 1/9/17/57, S-75 sites 41/49, S-200 site 25 all emitting, weapons free.",
+     >   "orders": [
+     >     {"action":"launch","unit_id":65,"aircraft":"fr_f1e","loadout":"AirToAir","mission":"Intercept","count":2}
+     >   ],
+     >   "next_check_s":300
+     > }
+     > ```
+
+--- window 21  t=8729s  Taskforce1: 21/21 alive (kills 9, losses 1.5)  Taskforce2: 27/30 alive (kills 1.5, losses 9)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 1 order(s), 0 invalid, 0 refused, tokens in/out 9776/834
+     assessment: SAG closing on Nanuchka (7001) and chaff; A-6E strike flights still ~100nm out from SA-5 complex at Sirte. F1E/MiG-25 fighters west remain a threat to SAG and strike aircraft.
+     notes (memory for next window): A-6E 2501/2507/2729/2735 still inbound to SA-5 7017/7019, not yet in AGM-45 range (~22nm); continue transit, engage when close. SAG (227/239/259) engaging Nanuchka 7001 with Harpoon. Watch F1E/MiG-25 contacts west (7053,7061,7070,7100,7114) for intercept risk on SAG and strike flights - consider launching F-14 CAP from Saratoga if they close.
+     order: {"action": "engage", "unit_id": 239, "track_id": 7001, "salvo": 1, "weapon": "usn_rgm-84a"}
+     rounds expended since last window: you ordered: 259:usn_rgm-84c x1; fired automatically by the units' own AI: 385:all_air_chaff_standard x1
+     --- raw model reply ---
+     > {"assessment":"SAG closing on Nanuchka (7001) and chaff; A-6E strike flights still ~100nm out from SA-5 complex at Sirte. F1E/MiG-25 fighters west remain a threat to SAG and strike aircraft.","notes":"A-6E 2501/2507/2729/2735 still inbound to SA-5 7017/7019, not yet in AGM-45 range (~22nm); continue transit, engage when close. SAG (227/239/259) engaging Nanuchka 7001 with Harpoon. Watch F1E/MiG-25 contacts west (7053,7061,7070,7100,7114) for intercept risk on SAG and strike flights - consider launching F-14 CAP from Saratoga if they close.","orders":[{"action":"engage","unit_id":239,"track_id":7001,"salvo":1,"weapon":"usn_rgm-84a"}],"next_check_s":300}
+  side1: 10 order(s), 0 invalid, 0 refused, tokens in/out 5759/12109
+     assessment: Harpoon 7089 incoming ~1.75 nm from ship 328, which has fired 4x SA-N-4. E-2C intercepts underway (F1E toward 7002, MiG toward 7030). CAP MiGs converging on airbase. Unknown tracks 7088, 7090 detected near E-2C area—enforcing tight weapons to prevent fratricide.
+     notes (memory for next window): Set 1287/1292/1275/1281/1439/2638/2643/2648 to weapons tight to prevent fire on unknown tracks 7088/7090 while maintaining engagement authority on confirmed hostile E-2Cs (7002, 7030). F1E intercepts 1275/1281/1439 heading to E-2C 7002 (33.588,18.922), ETA 20–44 min. MiG 1292 intercepting E-2C 7030 (34.455,17.793), ETA 39 min. CAP MiGs 2638/2643/2648 arriving airbase 13–14 min. Activated AA guns 39/40 for point defense vs incoming missile. Ship 328 continues SAM engagement.
+     order: {"action": "weapons", "unit_id": 1287, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 1292, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 1275, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 1281, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 1439, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 2638, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 2643, "status": "tight"}
+     order: {"action": "weapons", "unit_id": 2648, "status": "tight"}
+     order: {"action": "emitters", "unit_id": 39, "status": "active"}
+     order: {"action": "emitters", "unit_id": 40, "status": "active"}
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 328:wp_sa-n-4 x4, 328:wp_cal_57mm x2, 328:all_ship_chaff x4
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Harpoon 7089 incoming ~1.75 nm from ship 328, which has fired 4x SA-N-4. E-2C intercepts underway (F1E toward 7002, MiG toward 7030). CAP MiGs converging on airbase. Unknown tracks 7088, 7090 detected near E-2C area—enforcing tight weapons to prevent fratricide.",
+     >   "notes": "Set 1287/1292/1275/1281/1439/2638/2643/2648 to weapons tight to prevent fire on unknown tracks 7088/7090 while maintaining engagement authority on confirmed hostile E-2Cs (7002, 7030). F1E intercepts 1275/1281/1439 heading to E-2C 7002 (33.588,18.922), ETA 20–44 min. MiG 1292 intercepting E-2C 7030 (34.455,17.793), ETA 39 min. CAP MiGs 2638/2643/2648 arriving airbase 13–14 min. Activated AA guns 39/40 for point defense vs incoming missile. Ship 328 continues SAM engagement.",
+     >   "orders": [
+     >     {"action": "weapons", "unit_id": 1287, "status": "tight"},
+     >     {"action": "weapons", "unit_id": 1292, "status": "tight"},
+     >     {"action": "weapons", "unit_id": 1275, "status": "tight"},
+     >     {"action": "weapons", "unit_id": 1281, "status": "tight"},
+     >     {"action": "weapons", "unit_id": 1439, "status": "tight"},
+     >     {"action": "weapons", "unit_id": 2638, "status": "tight"},
+     >     {"action": "weapons", "unit_id": 2643, "status": "tight"},
+     >     {"action": "weapons", "unit_id": 2648, "status": "tight"},
+     >     {"action": "emitters", "unit_id": 39, "status": "active"},
+     >     {"action": "emitters", "unit_id": 40, "status": "active"}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 22  t=9029s  Taskforce1: 21/21 alive (kills 12.5, losses 1.5)  Taskforce2: 25/30 alive (kills 1.5, losses 12.5)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 5 order(s), 0 invalid, 0 refused, tokens in/out 9780/1262
+     assessment: A-6E SEAD flights still ~25-30nm short of SA-5/SA-2 complex at Sirte; need closer approach for AGM-45 range. Libyan fighters (MiG-25,F1E) scattered west pose intercept risk to strike group. SAG continues to prosecute Nanuchka contact.
+     notes (memory for next window): A-6E flights (2501/2507/2729/2735) redirected closer to Sirte SAMs (7017/7019) for AGM-45 range (~22nm). Launched F-14 CAP from Saratoga to screen strike package against MiG-25/F1E contacts. Continue monitoring SAG vs Nanuchka 7001/7002 and neutral dhows/merchants near strike corridor - avoid targeting them.
+     order: {"action": "move", "unit_id": 2501, "lat": 31.25, "lon": 17.0}
+     order: {"action": "move", "unit_id": 2507, "lat": 31.25, "lon": 17.0}
+     order: {"action": "move", "unit_id": 2729, "lat": 31.25, "lon": 17.0}
+     order: {"action": "move", "unit_id": 2735, "lat": 31.25, "lon": 17.0}
+     order: {"action": "launch", "unit_id": 66, "aircraft": "usn_f-14a", "loadout": "AirToAir", "mission": "CAP", "count": 2}
+     rounds expended since last window: you ordered: 239:usn_rgm-84a x1; fired automatically by the units' own AI: 385:all_air_chaff_standard x3
+     --- raw model reply ---
+     > {"assessment":"A-6E SEAD flights still ~25-30nm short of SA-5/SA-2 complex at Sirte; need closer approach for AGM-45 range. Libyan fighters (MiG-25,F1E) scattered west pose intercept risk to strike group. SAG continues to prosecute Nanuchka contact.","notes":"A-6E flights (2501/2507/2729/2735) redirected closer to Sirte SAMs (7017/7019) for AGM-45 range (~22nm). Launched F-14 CAP from Saratoga to screen strike package against MiG-25/F1E contacts. Continue monitoring SAG vs Nanuchka 7001/7002 and neutral dhows/merchants near strike corridor - avoid targeting them.","orders":[
+     > {"action":"move","unit_id":2501,"lat":31.25,"lon":17.0},
+     > {"action":"move","unit_id":2507,"lat":31.25,"lon":17.0},
+     > {"action":"move","unit_id":2729,"lat":31.25,"lon":17.0},
+     > {"action":"move","unit_id":2735,"lat":31.25,"lon":17.0},
+     > {"action":"launch","unit_id":66,"aircraft":"usn_f-14a","loadout":"AirToAir","mission":"CAP","count":2}
+     > ],"next_check_s":300}
+  side1: 7 order(s), 0 invalid, 0 refused, tokens in/out 5245/11108
+     assessment: Track 7096 (LIVE, HOSTILE, unknown class) at 33.441,16.050 is isolated and immediately attackable by 6 redirected interceptors (ETA 10–20 min engagement range). Launching 2x fresh MiG-25P CAP from airbase to maintain defensive coverage. Main fleet (7004,7020) stale at ~32°N,18°E, 100+ nm from instal
+     notes (memory for next window): Intercept convergence: MiG-1287 closes in ~10min to 25nm engagement; F1E 1275/1439/1281 arrive ~11min; F1E 2653/2659 secondary support 19–20min. F1E 1275/1281/1439 were intercepting destroyed E-2C 7002—now redirected to live contact 7096. New CAP: 2x MiG-25P launching AirToAirIntercept for perimeter defense. Recovery rotation: MiGs 2638/2643/2648 + F1E 3248/3256 landing 2–18min. Damaged SA-5 site 25 at 6% but armed; other SAM units 1,9,17,41,49,57 ready silent defensive posture. Fleet bearing: 32°N,18°E, stale 1s. Previous losses: Ain Zaara (328), MiG-1292.
+     order: {"action": "move", "unit_id": 1287, "lat": 33.441, "lon": 16.05}
+     order: {"action": "move", "unit_id": 1275, "lat": 33.441, "lon": 16.05}
+     order: {"action": "move", "unit_id": 1281, "lat": 33.441, "lon": 16.05}
+     order: {"action": "move", "unit_id": 1439, "lat": 33.441, "lon": 16.05}
+     order: {"action": "move", "unit_id": 2659, "lat": 33.441, "lon": 16.05}
+     order: {"action": "move", "unit_id": 2653, "lat": 33.441, "lon": 16.05}
+     order: {"action": "launch", "unit_id": 65, "aircraft": "wp_mig-25p", "loadout": "AirToAirIntercept", "mission": "CAP", "count": 2}
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Track 7096 (LIVE, HOSTILE, unknown class) at 33.441,16.050 is isolated and immediately attackable by 6 redirected interceptors (ETA 10–20 min engagement range). Launching 2x fresh MiG-25P CAP from airbase to maintain defensive coverage. Main fleet (7004,7020) stale at ~32°N,18°E, 100+ nm from installation; SAM sites ready defensive.",
+     >   "notes": "Intercept convergence: MiG-1287 closes in ~10min to 25nm engagement; F1E 1275/1439/1281 arrive ~11min; F1E 2653/2659 secondary support 19–20min. F1E 1275/1281/1439 were intercepting destroyed E-2C 7002—now redirected to live contact 7096. New CAP: 2x MiG-25P launching AirToAirIntercept for perimeter defense. Recovery rotation: MiGs 2638/2643/2648 + F1E 3248/3256 landing 2–18min. Damaged SA-5 site 25 at 6% but armed; other SAM units 1,9,17,41,49,57 ready silent defensive posture. Fleet bearing: 32°N,18°E, stale 1s. Previous losses: Ain Zaara (328), MiG-1292.",
+     >   "orders": [
+     >     {"action":"move","unit_id":1287,"lat":33.441,"lon":16.050},
+     >     {"action":"move","unit_id":1275,"lat":33.441,"lon":16.050},
+     >     {"action":"move","unit_id":1281,"lat":33.441,"lon":16.050},
+     >     {"action":"move","unit_id":1439,"lat":33.441,"lon":16.050},
+     >     {"action":"move","unit_id":2659,"lat":33.441,"lon":16.050},
+     >     {"action":"move","unit_id":2653,"lat":33.441,"lon":16.050},
+     >     {"action":"launch","unit_id":65,"aircraft":"wp_mig-25p","loadout":"AirToAirIntercept","mission":"CAP","count":2}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 23  t=9329s  Taskforce1: 23/23 alive (kills 12.5, losses 1.5)  Taskforce2: 27/31 alive (kills 1.5, losses 12.5)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 0 refused, tokens in/out 10098/1606
+     assessment: SEAD A-6 flights closing on Sirte SA-2/SA-5 site, ETA ~4-9min to AGM-45 range. Libyan F1E/MiG-25 fighters loitering ~33.0-33.7N,15-16E threaten strike corridor; current F-14 CAP vectors diverge away from threat. Redirecting CAP to intercept.
+     notes (memory for next window): A-6Es (2501/2507/2729/2735) approaching waypoint near Sirte SAMs 7017/7019 - engage with AGM-45 once in 22nm range (should be next window). F1E group (7100/7070/7061) and MiG-25 (7053) at 33.0-33.7,15-16 still a threat to strike package; redirected F-14 CAP (3649/3660) to intercept box 33.3,16.0 and set weapons free. Keep monitoring neutral dhows/merchants (7006,7007,7008,7011) - do not target.
+     order: {"action": "move", "unit_id": 3649, "lat": 33.3, "lon": 16.0}
+     order: {"action": "move", "unit_id": 3660, "lat": 33.3, "lon": 16.0}
+     order: {"action": "weapons", "unit_id": 3649, "status": "free"}
+     order: {"action": "weapons", "unit_id": 3660, "status": "free"}
+     --- raw model reply ---
+     > {"assessment":"SEAD A-6 flights closing on Sirte SA-2/SA-5 site, ETA ~4-9min to AGM-45 range. Libyan F1E/MiG-25 fighters loitering ~33.0-33.7N,15-16E threaten strike corridor; current F-14 CAP vectors diverge away from threat. Redirecting CAP to intercept.","notes":"A-6Es (2501/2507/2729/2735) approaching waypoint near Sirte SAMs 7017/7019 - engage with AGM-45 once in 22nm range (should be next window). F1E group (7100/7070/7061) and MiG-25 (7053) at 33.0-33.7,15-16 still a threat to strike package; redirected F-14 CAP (3649/3660) to intercept box 33.3,16.0 and set weapons free. Keep monitoring neutral dhows/merchants (7006,7007,7008,7011) - do not target.","orders":[{"action":"move","unit_id":3649,"lat":33.3,"lon":16.0},{"action":"move","unit_id":3660,"lat":33.3,"lon":16.0},{"action":"weapons","unit_id":3649,"status":"free"},{"action":"weapons","unit_id":3660,"status":"free"}],"next_check_s":300}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 5302/5095
+     assessment: Single live unknown track 7097 at 33.438°N,16.053°E being actively intercepted by four fighters (3x F1E + 1x MiG-25P, all converging within 2-5 min) with F1E 1281 holding pending super-530f shot queued. Recovery aircraft landing safely. All SAM/gun defenses standing by in SILENT/FREE posture.
+     notes (memory for next window): Track 7097 continuation of destroyed/lost 7096; F1E 1281 super-530f pending shot (22nm range) should execute within ~2min when target closes. All interceptors on good convergence bearing toward 33.441°N,16.050°N waypoint. Recovery ops on schedule: F1E 3248/3256 landing ~2min, MiG 2638/2643/2648 ~22min ETA. SA-5 site 25 at 6% damage but armed and ready. Ground posture optimal for incoming threat. No new orders needed—let intercept resolve.
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Single live unknown track 7097 at 33.438°N,16.053°E being actively intercepted by four fighters (3x F1E + 1x MiG-25P, all converging within 2-5 min) with F1E 1281 holding pending super-530f shot queued. Recovery aircraft landing safely. All SAM/gun defenses standing by in SILENT/FREE posture.",
+     >   "notes": "Track 7097 continuation of destroyed/lost 7096; F1E 1281 super-530f pending shot (22nm range) should execute within ~2min when target closes. All interceptors on good convergence bearing toward 33.441°N,16.050°N waypoint. Recovery ops on schedule: F1E 3248/3256 landing ~2min, MiG 2638/2643/2648 ~22min ETA. SA-5 site 25 at 6% damage but armed and ready. Ground posture optimal for incoming threat. No new orders needed—let intercept resolve.",
+     >   "orders": [],
+     >   "next_check_s": 120
+     > }
+     > ```
+
+--- window 24  t=9449s  Taskforce1: 23/23 alive (kills 12.5, losses 1.5)  Taskforce2: 27/31 alive (kills 1.5, losses 12.5)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 6 order(s), 0 invalid, 4 refused, tokens in/out 10209/783
+     assessment: A-6E strike package now within AGM-45 range of Sirte SA-5/SA-2 complex. F1E/MiG-25 fighters still orbiting north, F-14s engaging. Neutral dhows/merchants nearby, avoid.
+     notes (memory for next window): A-6Es in range of Sirte SAMs (7017 SA-5, 7019 SA-2, 7083 AAA, 7088 AAA) - engaging with AGM-45. F-14s 3649/3660 continue intercept vs F1E/MiG-25 group near 33.2-33.5,15.5-16.2. Watch neutrals 7006/7007/7008/7011. Keep A-6Es clear of fighter threat after strike - RTB once ordnance spent.
+     order: {"action": "engage", "unit_id": 2501, "track_id": 7017, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 2507, "track_id": 7019, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 2729, "track_id": 7083, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 2735, "track_id": 7088, "weapon": "usn_agm-45"}
+     order: {"action": "engage", "unit_id": 3649, "track_id": 7061, "weapon": "usn_aim-7m"}
+     order: {"action": "engage", "unit_id": 3660, "track_id": 7100, "weapon": "usn_aim-7m"}
+     REFUSED w24-s0-o1 {"action": "engage", "unit_id": 2501, "track_id": 7017, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     REFUSED w24-s0-o2 {"action": "engage", "unit_id": 2507, "track_id": 7019, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     REFUSED w24-s0-o3 {"action": "engage", "unit_id": 2729, "track_id": 7083, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     REFUSED w24-s0-o4 {"action": "engage", "unit_id": 2735, "track_id": 7088, "weapon": "usn_agm-45"}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 385:all_air_chaff_standard x1
+     --- raw model reply ---
+     > {"assessment":"A-6E strike package now within AGM-45 range of Sirte SA-5/SA-2 complex. F1E/MiG-25 fighters still orbiting north, F-14s engaging. Neutral dhows/merchants nearby, avoid.","notes":"A-6Es in range of Sirte SAMs (7017 SA-5, 7019 SA-2, 7083 AAA, 7088 AAA) - engaging with AGM-45. F-14s 3649/3660 continue intercept vs F1E/MiG-25 group near 33.2-33.5,15.5-16.2. Watch neutrals 7006/7007/7008/7011. Keep A-6Es clear of fighter threat after strike - RTB once ordnance spent.","orders":[
+     > {"action":"engage","unit_id":2501,"track_id":7017,"weapon":"usn_agm-45"},
+     > {"action":"engage","unit_id":2507,"track_id":7019,"weapon":"usn_agm-45"},
+     > {"action":"engage","unit_id":2729,"track_id":7083,"weapon":"usn_agm-45"},
+     > {"action":"engage","unit_id":2735,"track_id":7088,"weapon":"usn_agm-45"},
+     > {"action":"engage","unit_id":3649,"track_id":7061,"weapon":"usn_aim-7m"},
+     > {"action":"engage","unit_id":3660,"track_id":7100,"weapon":"usn_aim-7m"}
+     > ],"next_check_s":180}
+  side1: 0 order(s), 0 invalid, 0 refused, tokens in/out 5174/3082
+     assessment: Previous hostile track 7097 destroyed or lost beyond range; no current contacts. Aircraft recovery proceeding normally. All SAM sites armed and silent, ready for any new threat. High-altitude CAP maintained at convergence point.
+     notes (memory for next window): Track 7097 neutralized by F1E 1281 super-530f shot. Continued ops: F1E 3248/3256 landing ~2min, MiG-25P forces RTB in sequence. High-altitude fighters (1275, 1287, 1439, 2653, 2659) at patrol waypoint 33.441,16.050 with good fuel reserves. Ground defenses remain optimal silent/free posture.
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 1281:fr_super-530f x1
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "Previous hostile track 7097 destroyed or lost beyond range; no current contacts. Aircraft recovery proceeding normally. All SAM sites armed and silent, ready for any new threat. High-altitude CAP maintained at convergence point.",
+     >   "notes": "Track 7097 neutralized by F1E 1281 super-530f shot. Continued ops: F1E 3248/3256 landing ~2min, MiG-25P forces RTB in sequence. High-altitude fighters (1275, 1287, 1439, 2653, 2659) at patrol waypoint 33.441,16.050 with good fuel reserves. Ground defenses remain optimal silent/free posture.",
+     >   "orders": [],
+     >   "next_check_s": 360
+     > }
+     > ```
+
+--- window 25  t=9629s  Taskforce1: 23/23 alive (kills 12.5, losses 1.5)  Taskforce2: 27/31 alive (kills 1.5, losses 12.5)  Neutral: 9/9 alive (kills 0, losses 0)
+  side0: 4 order(s), 0 invalid, 2 refused, tokens in/out 10576/1323
+     assessment: Strike package near Sirte SAMs (SA-5/SA-2/AAA cluster at 31.17-31.18N,16.83-16.90E). A-6E AGM-45 shots rejected last window, likely target type/range mismatch - retrying without specifying weapon. F-14s engaging Libyan F1E/MiG-25 fighters near 33.3-33.5N,16.0E with AIM-7 pending. Neutrals present, a
+     notes (memory for next window): A-6E AGM-45 engage orders against Sirte SAM cluster (7017 SA-5, 7019 SA-2, 7083 AAA-KS19, 7088 AAA-61K) keep getting rejected - try omitting weapon field to let AI pick. If still rejected next window, consider SEAD loadout A-7E/A-6E launch instead of relying on airborne stock. F-14s 3649/3660 engaging F1E group - monitor fuel, RTB if low. Watch neutrals 7006/7007/7008/7011 and new unids 7150/7151/7005/7009/7010/7012/7013 near Sirte.
+     order: {"action": "engage", "unit_id": 2501, "track_id": 7017, "salvo": 1}
+     order: {"action": "engage", "unit_id": 2507, "track_id": 7019, "salvo": 1}
+     order: {"action": "engage", "unit_id": 2729, "track_id": 7083, "salvo": 1}
+     order: {"action": "engage", "unit_id": 2735, "track_id": 7088, "salvo": 1}
+     REFUSED w25-s0-o3 {"action": "engage", "unit_id": 2729, "track_id": 7083, "salvo": 1}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     REFUSED w25-s0-o4 {"action": "engage", "unit_id": 2735, "track_id": 7088, "salvo": 1}: this unit has no weapon that can engage that target (no ammo or wrong target type)
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 385:all_air_chaff_standard x2, 2501:all_air_chaff_standard x3
+     --- raw model reply ---
+     > {"assessment":"Strike package near Sirte SAMs (SA-5/SA-2/AAA cluster at 31.17-31.18N,16.83-16.90E). A-6E AGM-45 shots rejected last window, likely target type/range mismatch - retrying without specifying weapon. F-14s engaging Libyan F1E/MiG-25 fighters near 33.3-33.5N,16.0E with AIM-7 pending. Neutrals present, avoid.","notes":"A-6E AGM-45 engage orders against Sirte SAM cluster (7017 SA-5, 7019 SA-2, 7083 AAA-KS19, 7088 AAA-61K) keep getting rejected - try omitting weapon field to let AI pick. If still rejected next window, consider SEAD loadout A-7E/A-6E launch instead of relying on airborne stock. F-14s 3649/3660 engaging F1E group - monitor fuel, RTB if low. Watch neutrals 7006/7007/7008/7011 and new unids 7150/7151/7005/7009/7010/7012/7013 near Sirte.","orders":[{"action":"engage","unit_id":2501,"track_id":7017,"salvo":1},{"action":"engage","unit_id":2507,"track_id":7019,"salvo":1},{"action":"engage","unit_id":2729,"track_id":7083,"salvo":1},{"action":"engage","unit_id":2735,"track_id":7088,"salvo":1}],"next_check_s":180}
+  side1: 6 order(s), 5 invalid, 0 refused, tokens in/out 5425/13869
+     assessment: F-14A (7101) under engagement by F1E 1275 (pending shot). Critical threat: A-6E pair (7103/7109) inbound to SA-2 installation at 31.178,16.835 ETA <2min. Ground defenses (S-200, SA-2, AAA) positioned and free to engage. Repositioning five fighters to defensive CAP position (31.5,17.0 / 32.0,17.0) to
+     notes (memory for next window): A-6E strike imminent on SA-2 installation. Ground SAM/AAA will auto-engage. Five fighters en route ~17-20min ETA to defensive perimeter. F1E 1275 post-combat RTB to 32.5,15.0. MiG-25P RTB flight (1422, 1427, 2139, 2144, 2638, 2643, 2648) proceeding to airbase, secure. F1E 3248/3256 landing ~2min, safe. Expect second window to show A-6E attack results and fighter intercept opportunities. Monitor ammo depletion on ground SAMs (already fired 6 missiles).
+     order: {"action": "move", "unit_id": 1281, "lat": 31.5, "lon": 17.0}
+     order: {"action": "move", "unit_id": 1439, "lat": 31.5, "lon": 17.0}
+     order: {"action": "move", "unit_id": 1287, "lat": 31.5, "lon": 17.0}
+     order: {"action": "move", "unit_id": 2653, "lat": 32.0, "lon": 17.0}
+     order: {"action": "move", "unit_id": 2659, "lat": 32.0, "lon": 17.0}
+     order: {"action": "move", "unit_id": 1275, "lat": 32.5, "lon": 15.0}
+     INVALID {"action": "speed", "unit_id": 1281, "knots": 500}: knots out of range
+     INVALID {"action": "speed", "unit_id": 1439, "knots": 450}: knots out of range
+     INVALID {"action": "speed", "unit_id": 1287, "knots": 500}: knots out of range
+     INVALID {"action": "speed", "unit_id": 2653, "knots": 450}: knots out of range
+     INVALID {"action": "speed", "unit_id": 2659, "knots": 450}: knots out of range
+     rounds expended since last window: you ordered: none; fired automatically by the units' own AI: 25:wp_sa-5 x2, 49:wp_sa-2 x4
+     --- raw model reply ---
+     > ```json
+     > {
+     >   "assessment": "F-14A (7101) under engagement by F1E 1275 (pending shot). Critical threat: A-6E pair (7103/7109) inbound to SA-2 installation at 31.178,16.835 ETA <2min. Ground defenses (S-200, SA-2, AAA) positioned and free to engage. Repositioning five fighters to defensive CAP position (31.5,17.0 / 32.0,17.0) to intercept A-6Es on escape or follow-up attacks. Landing aircraft secure. Unknown tracks 7105-7111 northeast (34°N, 17-18°E)—monitoring.",
+     >   "notes": "A-6E strike imminent on SA-2 installation. Ground SAM/AAA will auto-engage. Five fighters en route ~17-20min ETA to defensive perimeter. F1E 1275 post-combat RTB to 32.5,15.0. MiG-25P RTB flight (1422, 1427, 2139, 2144, 2638, 2643, 2648) proceeding to airbase, secure. F1E 3248/3256 landing ~2min, safe. Expect second window to show A-6E attack results and fighter intercept opportunities. Monitor ammo depletion on ground SAMs (already fired 6 missiles).",
+     >   "orders": [
+     >     {"action": "move", "unit_id": 1281, "lat": 31.5, "lon": 17.0},
+     >     {"action": "move", "unit_id": 1439, "lat": 31.5, "lon": 17.0},
+     >     {"action": "move", "unit_id": 1287, "lat": 31.5, "lon": 17.0},
+     >     {"action": "move", "unit_id": 2653, "lat": 32.0, "lon": 17.0},
+     >     {"action": "move", "unit_id": 2659, "lat": 32.0, "lon": 17.0},
+     >     {"action": "speed", "unit_id": 1281, "knots": 500},
+     >     {"action": "speed", "unit_id": 1439, "knots": 450},
+     >     {"action": "speed", "unit_id": 1287, "knots": 500},
+     >     {"action": "speed", "unit_id": 2653, "knots": 450},
+     >     {"action": "speed", "unit_id": 2659, "knots": 450},
+     >     {"action": "move", "unit_id": 1275, "lat": 32.5, "lon": 15.0}
+     >   ],
+     >   "next_check_s": 300
+     > }
+     > ```
+
+--- window 26  t=9810s  Taskforce1: 23/23 alive (kills 12.5, losses 1.5)  Taskforce2: 27/31 alive (kills 1.5, losses 12.5)  Neutral: 9/9 alive (kills 0, losses 0)
+
+RESULT: winner side 0 (game declared Victory for the player side); windows played 25; budgets {'0': {'calls': 25, 'in_tokens': 238587, 'out_tokens': 25457, 'usd': 0.9813}, '1': {'calls': 25, 'in_tokens': 137624, 'out_tokens': 258461, 'usd': 1.5557}}

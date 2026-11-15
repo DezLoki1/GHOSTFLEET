@@ -82,7 +82,7 @@ class Feedback(unittest.TestCase):
         c = LLMCommander("s", prov, "obj", "roe", 60, Budget())
         d1, d2, d3 = c.decide(st, 0, 3), c.decide(st, 1, 3), c.decide(st, 2, 3)
         self.assertIn("| HOSTILE |", prov.prompts[0])
-        self.assertEqual((d1.next_check_s, d2.next_check_s, d3.next_check_s), (900.0, 30.0, 0.0))   # clamped; garbage ignored (0 = default step)
+        self.assertEqual((d1.next_check_s, d2.next_check_s, d3.next_check_s), (600.0, 30.0, 0.0))   # clamped; garbage ignored (0 = default step)
 
     def test_status_events_and_commanded_split(self):
         s1 = _state(100, 10)
@@ -162,11 +162,11 @@ class FullMatch(unittest.TestCase):
         cls.srv.shutdown()
         for d in cls.created: shutil.rmtree(d, ignore_errors=True)   # keep real runs/ clean
 
-    def run_match(self, side0, windows=3, step=60):
+    def run_match(self, side0, windows=3, step=60, extra=()):
         self.world.__init__()
         match.make_commander = lambda spec, side, sc, step, a: side0 if side == 0 else C.ScriptedCommander("s1", "intercept")
         before = set(glob.glob(os.path.join(match.HERE, "runs", "match_*")))
-        sys.argv = ["match.py", "--base", self.base, "--windows", str(windows), "--step", str(step), "--side0", "scripted:x", "--side1", "scripted:intercept"]
+        sys.argv = ["match.py", "--base", self.base, "--windows", str(windows), "--step", str(step), "--side0", "scripted:x", "--side1", "scripted:intercept", *extra]
         match.main()
         new = sorted(set(glob.glob(os.path.join(match.HERE, "runs", "match_*"))) - before)[0]
         self.created.append(new)
@@ -190,10 +190,16 @@ class FullMatch(unittest.TestCase):
 
     def test_budget_exhaustion_holds(self):
         prov = FakeProvider([GOOD])
-        _, ev = self.run_match(LLMCommander("side0:fake", prov, "obj", "roe", 60, Budget(max_calls=1)), windows=3)
+        _, ev = self.run_match(LLMCommander("side0:fake", prov, "obj", "roe", 60, Budget(max_calls=1)), windows=3, extra=["--continue-when-exhausted"])
         decs = [e for e in ev if e["kind"] == "decision" and e["side"] == 0]
         self.assertEqual(len(prov.prompts), 1)
         self.assertIn("budget exhausted", decs[1]["error"]); self.assertEqual(decs[2]["orders"], [])
+
+    def test_exhausted_budget_ends_match_by_default(self):
+        prov = FakeProvider([GOOD])
+        _, ev = self.run_match(LLMCommander("side0:fake", prov, "obj", "roe", 60, Budget(max_calls=1)), windows=5)
+        end = [e for e in ev if e["kind"] == "match_end"][0]
+        self.assertIn("commander budget exhausted (side 0)", end["reason"]); self.assertLessEqual(end["windows_played"], 1)
 
     def test_victory_detected(self):
         prov = FakeProvider(['{"assessment":"dash","notes":"","orders":[{"action":"speed","unit_id":8,"knots":60},{"action":"move","unit_id":8,"lat":12.476,"lon":43.635}]}'])
@@ -224,6 +230,16 @@ class FullMatch(unittest.TestCase):
         new = sorted(set(glob.glob(os.path.join(match.HERE, "runs", "match_*"))) - before)[0]; self.created.append(new)
         with open(os.path.join(new, "summary.json"), encoding="utf-8") as f: s = json.load(f)
         self.assertEqual(s["reason"], "game-time limit reached"); self.assertLess(s["windows_played"], 6)   # 150 s of game time = 3 windows of 60 s, not 50
+
+    def test_restart_flag_resets_world_first(self):
+        self.world.__init__(); self.world.restarts = 0; self.world.t = 999.0   # a used-up world
+        match.make_commander = lambda spec, side, sc, step, a: C.ScriptedCommander(f"s{side}", "patrol")
+        before = set(glob.glob(os.path.join(match.HERE, "runs", "match_*")))
+        sys.argv = ["match.py", "--base", self.base, "--windows", "1", "--step", "60", "--restart", "--side0", "scripted:p", "--side1", "scripted:p"]
+        match.main()
+        self.created += sorted(set(glob.glob(os.path.join(match.HERE, "runs", "match_*"))) - before)
+        self.assertEqual(self.world.restarts, 1); self.assertGreaterEqual(getattr(self.world, "plays", 0), 1)   # restart, then Play pressed past the briefing
+        self.assertLess(self.world.t, 999.0)     # the game was asked to restart and the clock restarted from the fresh world
 
     def test_spend_refused_without_confirm(self):
         sys.argv = ["match.py", "--base", self.base, "--side0", "anthropic:some-model"]

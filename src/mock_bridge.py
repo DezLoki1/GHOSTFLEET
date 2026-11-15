@@ -95,6 +95,12 @@ def serve(world, port):
                 try: orders = json.loads(body)["orders"]
                 except Exception: return self._send(400, {"error": "body must be exactly {\"orders\":[...]}"})
                 self._send(200, world.apply(int(q["side"][0]), orders))
+            elif u.path == "/mission" and q["cmd"][0] == "play":
+                world.plays = getattr(world, "plays", 0) + 1
+                self._send(200, {"ok": True, "playing": True})
+            elif u.path == "/mission":
+                world.__init__(); world.restarts = getattr(world, "restarts", 0) + 1
+                self._send(200, {"ok": True, "restarting": True})
             elif u.path == "/time":
                 cmd = q["cmd"][0]
                 if cmd == "pause": world.paused = True

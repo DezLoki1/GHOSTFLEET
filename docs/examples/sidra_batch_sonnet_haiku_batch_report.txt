@@ -1,0 +1,9 @@
+BATCH sonnet_haiku3: 2 match(es), total reported cost $5.34
+scenario: action_in_the_gulf_of_sidra_1986.json   A=claudecli:sonnet@low   B=claudecli:haiku@low   swap=True
+
+match 1: side0=claudecli:sonnet@low side1=claudecli:haiku@low -> winner side 0 (claudecli:sonnet@low) | game declared Victory for the player side | 25 windows | $2.537
+    report: C:\Games\SeaPowerNCMA\GHOSTFLEET\runs\match_20261114_144122_sonnet_haiku3_1\report.txt
+match 2: side0=claudecli:haiku@low side1=claudecli:sonnet@low -> winner side 0 (claudecli:haiku@low) | game declared Victory for the player side | 27 windows | $2.801
+    report: C:\Games\SeaPowerNCMA\GHOSTFLEET\runs\match_20261114_153936_sonnet_haiku3_2\report.txt
+
+WINS BY MODEL: claudecli:sonnet@low: 1, claudecli:haiku@low: 1

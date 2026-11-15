@@ -98,6 +98,11 @@ namespace GhostFleet
                     string cmd = q["cmd"]; double sec = double.Parse(q["seconds"] ?? "0", CultureInfo.InvariantCulture), val = double.Parse(q["value"] ?? "1", CultureInfo.InvariantCulture);
                     fn = () => TimeCmd(cmd, sec, val);
                 }
+                else if (path == "/mission" && method == "POST")
+                {
+                    string cmd = q["cmd"];
+                    fn = () => MissionCmd(cmd);
+                }
                 else { Reply(c, 404, Err("unknown route")); return; }
 
                 var job = new Job { Fn = fn };
@@ -112,7 +117,15 @@ namespace GhostFleet
         // Runs on the Unity main thread.
         void PumpBridge()
         {
-            if (_stepUntil > 0 && GameTime.missionElapsedTime >= _stepUntil) { GameTime.Pause(); _stepUntil = 0; }
+            if (_stepUntil > 0)
+            {
+                if (GameTime.missionElapsedTime >= _stepUntil) { GameTime.Pause(); _stepUntil = 0; }
+                else if (GameTime.IsPaused())
+                {   // a mission popup (e.g. "Start mission") paused the game and blocks unpausing; a step in progress must carry on through it
+                    if (Singleton<InputHandler>.InstanceExists()) Singleton<InputHandler>.Instance.IsInMessagePauseMode = false;
+                    GameTime.UnPause(); ApplyScale();
+                }
+            }
             for (int n = 0; n < 20 && _jobs.TryDequeue(out var j); n++)
             {
                 try { j.Result = j.Fn(); }
@@ -128,6 +141,27 @@ namespace GhostFleet
             var tf = Singleton<TaskforceManager>.Instance._taskForces.FirstOrDefault(t => t != null && t.Index == side);
             if (tf == null) throw new ArgumentException("no taskforce with Index " + side);
             return tf;
+        }
+
+        // POST /mission?cmd=restart: what the pause menu's and debrief screen's "Restart Mission" do. The reload is asynchronous (the scene is unloaded and
+        // rebuilt over several frames), so the caller polls /state until the new mission answers, then pauses it.
+        string MissionCmd(string cmd)
+        {
+            if (cmd != "restart" && cmd != "play") throw new ArgumentException("cmd must be restart|play");
+            if (!Singleton<MissionManager>.InstanceExists()) throw new ArgumentException("no mission loaded");
+            _stepUntil = 0;
+            if (cmd == "play")
+            {   // what the briefing screen's Play button does (MissionBriefViewModel.PlayCommand): the world is built but frozen behind the briefing until this runs
+                if (Singleton<InputHandler>.InstanceExists()) { Singleton<InputHandler>.Instance.IsInMessagePauseMode = false; Singleton<InputHandler>.Instance.IsInPauseMode.Value = false; }
+                if (Singleton<SceneCreator>.InstanceExists()) Singleton<SceneCreator>.Instance._pauseForBriefing = false;
+                CancelAction.UnPause();   // unpauses, closes the menu window, shows the HUD
+                GameTime.Pause();         // hand the clock back to the runner paused
+                return "{\"ok\":true,\"playing\":true}";
+            }
+            Singleton<BackgroundSceneController>.Instance.loadActions = new List<LoadAction>();
+            Singleton<MissionManager>.Instance.UnloadMissionAndReload();
+            Logger.LogInfo("Mission restart requested via bridge");
+            return "{\"ok\":true,\"restarting\":true}";
         }
 
         double _scale = 1;

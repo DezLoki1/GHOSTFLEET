@@ -50,7 +50,7 @@ At most {max_orders} orders per window. Only order what you want to change; unit
 Track "relation" is the game's own assessment for your side: HOSTILE tracks are enemies, FRIENDLY are yours, NEUTRAL are civilians/third parties, UNKNOWN is not yet classified.
 
 Reply with ONE JSON object and nothing else:
-{{"assessment":"<=300 chars: your read of the situation","notes":"<=600 chars: memory for yourself next window","orders":[ ... ],"next_check_s":<optional, 30-900>}}
+{{"assessment":"<=300 chars: your read of the situation","notes":"<=600 chars: memory for yourself next window","orders":[ ... ],"next_check_s":<optional, 30-600>}}
 next_check_s = how many game seconds to run before you decide again (default {step}). Ask for longer during a quiet transit and shorter when contact is close; the shorter of both sides' requests is used.
 """
 
@@ -398,7 +398,7 @@ class LLMCommander:
             self.notes = d.notes
             nc = obj.get("next_check_s")
             if isinstance(nc, (int, float)) and not isinstance(nc, bool):
-                d.next_check_s = min(900.0, max(30.0, float(nc)))
+                d.next_check_s = min(600.0, max(30.0, float(nc)))   # the bridge refuses single steps over 600 s
         except Exception as e:   # bad reply, timeout, provider error: hold this window, keep the match going
             d.error = f"{type(e).__name__}: {e}"
         self.last_orders = d.orders

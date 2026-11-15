@@ -106,13 +106,15 @@ def main():
     ap.add_argument("--label", default="")
     ap.add_argument("--base", default=None, help="bridge base URL override (tests)")
     ap.add_argument("--max-calls", type=int, default=60)
-    ap.add_argument("--max-in-tokens", type=int, default=400000)
-    ap.add_argument("--max-out-tokens", type=int, default=60000)
+    ap.add_argument("--max-in-tokens", type=int, default=1500000)
+    ap.add_argument("--max-out-tokens", type=int, default=400000)   # Haiku at low effort writes ~8k tokens per call; --max-usd is the real spend cap
+    ap.add_argument("--continue-when-exhausted", action="store_true", help="old behaviour: a commander whose budget ran out silently holds while the match goes on (invalidates comparisons)")
     ap.add_argument("--max-reply-tokens", type=int, default=1500)
     ap.add_argument("--max-usd", type=float, default=0.0)
     ap.add_argument("--price-in", type=float, default=0.0, help="USD per million input tokens (you supply)")
     ap.add_argument("--price-out", type=float, default=0.0, help="USD per million output tokens (you supply)")
     ap.add_argument("--confirm-spend", action="store_true", help="required for anthropic:/cmd: commanders")
+    ap.add_argument("--restart", action="store_true", help="restart the loaded mission through the game before the match (no clicking needed)")
     ap.add_argument("--dry-prompt", action="store_true", help="print each side's first prompt and exit (no model calls, nothing ordered)")
     a = ap.parse_args()
 
@@ -149,6 +151,9 @@ def main():
     def emit(kind, **kw):
         log.write(json.dumps({"kind": kind, "wall": round(time.time(), 2), **kw}) + "\n"); log.flush()
 
+    if a.restart:
+        import bridge_client
+        bridge_client.restart_mission()
     assert call("POST", "/time?cmd=pause")[0] == 200
     assert call("POST", f"/time?cmd=scale&value={a.scale}")[0] == 200
     call("POST", "/time?cmd=pause")
@@ -192,6 +197,10 @@ def main():
                      results=results, receipts=[{"order_id": f"w{w + 1}-s{s}-o{i + 1}", "order": o, "ok": r["ok"], "message": r["message"]} for i, (o, r) in enumerate(zip(d.orders, results))],
                      spent_since_last_window=getattr(d, "spent", ""), usage=d.usage, error=d.error, budget=cmdrs[s].budget.snapshot(), prompt=d.raw, reply=d.reply)
                 print(f"w{w + 1}/{windows} side{s}: {len(d.orders)} order(s), {len(d.rejected)} invalid, {sum(1 for r in results if not r['ok'])} refused" + (f"  ERROR {d.error}" if d.error else ""))
+            out = [s for s in (0, 1) if getattr(cmdrs[s], "provider", None) is not None and cmdrs[s].budget.exhausted()]
+            if out and not a.continue_when_exhausted:   # an idle commander makes the result meaningless: say so instead of playing on
+                winner, reason, done_w = None, f"commander budget exhausted (side {out[0]}); stopped because the match would no longer be a fair contest", w + 1
+                break
             # each side may ask for a shorter or longer run before its next decision; the shortest wish wins (default = the nominal step)
             run_s = min([decs[s].next_check_s or step for s in (0, 1)])
             emit("step", w=w, seconds=run_s, requested={s: decs[s].next_check_s for s in (0, 1)})
